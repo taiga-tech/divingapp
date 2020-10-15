@@ -37,11 +37,13 @@ commands:
 
 jobs:
   test:
+    machine: true
     steps:
       - checkout
       - laravel_setup
       - php
-      - test_notification
+      # - test_notification
+
       # - run: sudo apt update
       # - run: sudo docker-php-ext-install zip
       # - restore_cache:
