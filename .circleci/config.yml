@@ -60,16 +60,16 @@ workflows:
   test:
     jobs:
       - test
-#           filters:
-#             branches:
-#                 ignore: master
+          filters:
+            branches:
+                ignore: master
 
-#   test_and_deploy:
-#     jobs:
-#       - test:
-#           filters:
-#             branches:
-#                 only: master
+  test_and_deploy:
+    jobs:
+      - test:
+          filters:
+            branches:
+                only: master
 #       - deploy_master:
 #           requires:
 #             - test
