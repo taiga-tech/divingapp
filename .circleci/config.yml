@@ -41,6 +41,7 @@ commands:
           name: env
           command: |
             ls -a src
+            cp .env.circleci src/.env
             cat src/.env
 
   test_notification:
