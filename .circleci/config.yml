@@ -40,7 +40,7 @@ commands:
       - run:
           name: env
           command: |
-            ls -a
+            ls -a src
             cat src/.env
 
   test_notification:
