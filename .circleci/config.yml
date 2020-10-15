@@ -19,7 +19,7 @@ commands:
           command: |
             touch .env
             docker-compose run php composer install
-            docker-compose run php php artisan key:generate
+#            docker-compose run php php artisan key:generate
 #            docker-compose run app php artisan migrate:refresh --seed
 
   php:
