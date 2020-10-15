@@ -10,14 +10,14 @@ commands:
           command: |
             cp .env.circleci .env
             docker-compose up -d --build
-            docker-compose run php artisan key:generate
+            docker-compose run php php artisan key:generate
 #            docker-compose run app php artisan migrate:refresh --seed
 
   php:
     steps:
       - run:
-          name: php -v
-          command: php -v
+          name: laravel -v
+          command: docker-compose run php php artisan -v
 
   test_notification:
     steps:
