@@ -3,6 +3,8 @@ version: 2.1
 orbs:
   slack: circleci/slack@3.4.2
 
+# -------------------------------------
+
 commands:
   docker_setup:
     steps:
@@ -24,7 +26,16 @@ commands:
     steps:
       - run:
           name: laravel -v
-          command: docker-compose run php php artisan -v
+          command: |
+            docker-compose run php php artisan -v
+
+  env:
+    steps:
+      - run:
+          name: env
+          command: |
+            ls -a
+            cat .env
 
   test_notification:
     steps:
@@ -40,7 +51,7 @@ commands:
           failure_message: ':circleci-failed: $CIRCLE_BRANCH のデプロイが失敗しました\n\n:github-wh: User：$CIRCLE_USERNAME'
           webhook: '${SLACK_WEBHOOK}'
 
-
+# -------------------------------------
 
 jobs:
   test:
@@ -52,6 +63,7 @@ jobs:
       - php
       - test_notification
 
+# -------------------------------------
 
 workflows:
   test:
