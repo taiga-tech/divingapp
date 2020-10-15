@@ -4,12 +4,20 @@ orbs:
   slack: circleci/slack@3.4.2
 
 commands:
-  laravel_setup:
+  docker_setup:
     steps:
       - run:
+          name: docker setup
           command: |
             cp .env.circleci .env
             docker-compose up -d --build
+
+  laravel_setup:
+    steps:
+      - run:
+          name: laravel setup
+          command: |
+            touch .env
             docker-compose run php composer install
             docker-compose run php php artisan key:generate
 #            docker-compose run app php artisan migrate:refresh --seed
@@ -41,6 +49,7 @@ jobs:
     machine: true
     steps:
       - checkout
+      - docker_setup
       - laravel_setup
       - php
       # - test_notification
