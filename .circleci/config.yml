@@ -19,8 +19,14 @@ commands:
       - run:
           name: laravel setup
           command: |
-            touch .env
             docker-compose run php composer install
+
+  test_run:
+    steps:
+      - run:
+          name: Run Test
+          command: |
+            docker-compose run app vendor/bin/phpunit
 
   php:
     steps:
@@ -35,7 +41,7 @@ commands:
           name: env
           command: |
             ls -a
-            cat .env
+            cat src/.env
 
   test_notification:
     steps:
