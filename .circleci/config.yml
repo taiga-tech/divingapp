@@ -19,6 +19,7 @@ commands:
       - run:
           name: laravel setup
           command: |
+            cp .env.circleci src/.env
             docker-compose run php composer install
 
   test_run:
@@ -27,22 +28,6 @@ commands:
           name: Run Test
           command: |
             docker-compose run app vendor/bin/phpunit
-
-  php:
-    steps:
-      - run:
-          name: laravel -v
-          command: |
-            docker-compose run php php artisan -v
-
-  env:
-    steps:
-      - run:
-          name: env
-          command: |
-            ls -a src
-            cp .env.circleci src/.env
-            cat src/.env
 
   test_notification:
     steps:
@@ -67,8 +52,6 @@ jobs:
       - checkout
       - docker_setup
       - laravel_setup
-      - php
-      - env
       - test_notification
 
 # -------------------------------------
