@@ -40,17 +40,6 @@ commands:
           failure_message: ':circleci-failed: $CIRCLE_BRANCH のデプロイが失敗しました\n\n:github-wh: User：$CIRCLE_USERNAME'
           webhook: '${SLACK_WEBHOOK}'
 
-  slack_notification:
-    steps:
-      - run: echo "deploy my app"
-      - slack/notify:
-          event: fail
-          mentions: '@EngineeringTeam'
-          template: basic_fail_1
-      - slack/notify:
-          event: pass
-          template: success_tagged_deploy_1
-
 
 
 jobs:
@@ -61,8 +50,7 @@ jobs:
       - docker_setup
       - laravel_setup
       - php
-      - slack_notification
-      # - test_notification
+      - test_notification
 
 
 workflows:
