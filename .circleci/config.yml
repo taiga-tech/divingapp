@@ -61,6 +61,7 @@ jobs:
       - docker_setup
       - laravel_setup
       - php
+      - env
       - test_notification
 
 # -------------------------------------
