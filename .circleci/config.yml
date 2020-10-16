@@ -27,7 +27,7 @@ commands:
       - run:
           name: Run Test
           command: |
-            docker-compose run app vendor/bin/phpunit
+            docker-compose run php vendor/bin/phpunit
 
   test_notification:
     steps:
@@ -52,6 +52,7 @@ jobs:
       - checkout
       - docker_setup
       - laravel_setup
+      - test_run
       - test_notification
 
 # -------------------------------------
