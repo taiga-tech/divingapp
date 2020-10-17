@@ -12,10 +12,18 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $posts;
+
+    public function __construct(Post $posts)
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+        $this->posts = $posts;
+    }
+
     public function index()
     {
-        $posts = Post::all();
-        return view('posts.index', ['posts' => $posts]);
+        $posts = $this->posts->all();
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -25,7 +33,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $post = new Post;
+        return view('posts.create');
     }
 
     /**
@@ -36,7 +45,8 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->posts->create($request->input());
+        return redirect('/');
     }
 
     /**
@@ -47,7 +57,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::find($id);
+        $post = $this->posts->find($id);
         return view('posts.show', ['post' => $post]);
     }
 
@@ -59,7 +69,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = $this->posts->find($id);
+        return view('posts.edit', ['post' => $post]);
     }
 
     /**
@@ -71,7 +82,9 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = $this->posts->find($id);
+        $post->update($request->all());
+        return redirect('/');
     }
 
     /**
@@ -82,6 +95,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = $this->posts->find($id)->delete();
+        return redirect('/');
     }
 }
