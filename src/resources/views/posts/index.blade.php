@@ -1,6 +1,6 @@
 @extends('layouts.app')
-{{--
 @section('content')
+
 <div class="container">
   @foreach ( $posts as $post )
     <h2>{{ $post -> user -> name }}</h2>
@@ -14,5 +14,5 @@
     <hr>
   @endforeach
 </div>
+
 @endsection
---}}
