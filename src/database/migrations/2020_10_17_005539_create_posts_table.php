@@ -16,9 +16,9 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->text('text');
-            $table->string('place');
-            $table->string('image');
-            $table->foreignId('user_id')->nullable()->constrained();
+            $table->string('place')->nullable();
+            $table->string('image')->nullable();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

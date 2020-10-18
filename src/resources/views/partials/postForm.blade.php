@@ -8,6 +8,9 @@
     </label>
     <div class="col-md-6">
       <textarea name="text" class="form-control"></textarea>
+      @error('text')
+        <div class="alert alert-danger">{{ $message }}</div>
+      @enderror
     </div>
   </div>
   <div class="form-group row">
@@ -26,7 +29,12 @@
       </div>
     </div>
   </div>--}}
-  <div><input type="text" name="image"></div>
-  <input type="submit">
+  <div class="form-group row">
+    <label for="image" class="col-md-4 col-form-label text-md-right">image</label>
+    <div class="col-md-6">
+      <input type="text" name="image" class="form-control">
+    </div>
+  </div>
+  <div class="form-group row"><input type="submit" class="form-control"></div>
 
 {{-- </form> --}}

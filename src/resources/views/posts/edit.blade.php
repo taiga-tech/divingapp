@@ -18,7 +18,9 @@
                 <label for="text" class="col-md-4 col-form-label text-md-right">{{ __('Text')}}</label>
                 <div class="col-md-6">
                   <textarea name="text" class="form-control">{{old('text', $post->text)}}</textarea>
-                  {{-- <input type="text" name="text" class="form-control" value="{{$post->text}}"> --}}
+                  @error('text')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                  @enderror
                 </div>
               </div>
               <div class="form-group row">

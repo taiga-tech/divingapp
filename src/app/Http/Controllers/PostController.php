@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
+use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
 {
@@ -33,7 +35,6 @@ class PostController extends Controller
      */
     public function create()
     {
-        $post = new Post;
         return view('posts.create');
     }
 
@@ -43,8 +44,9 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
+        // 画像保存機能
         $this->posts->create($request->input());
         return redirect('/');
     }
@@ -70,7 +72,11 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = $this->posts->find($id);
-        return view('posts.edit', ['post' => $post]);
+        if (Auth::id() === $post->user->id) {
+            return view('posts.edit', ['post' => $post]);
+        } else {
+            return redirect('/');
+        }
     }
 
     /**
@@ -80,10 +86,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, $id)
     {
-        $post = $this->posts->find($id);
-        $post->update($request->all());
+        $post = $this->posts->find($id)->update($request->all());
         return redirect('/');
     }
 
@@ -95,7 +100,10 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $post = $this->posts->find($id)->delete();
+        $post = $this->posts->find($id);
+        if (Auth::id() === $post->user->id) {
+            $post->delete();
+        }
         return redirect('/');
     }
 }
