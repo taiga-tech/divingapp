@@ -5,7 +5,7 @@
 <div class="container">
 <button class="btn"><a href="{{route('posts.create')}}">新規作成</a></button>
   @foreach ( $posts as $post )
-    <h2>{{ $post -> user -> name }}</h2>
+    <h4>{{ $post -> user -> name }}</h4>
     <p>{{ $post -> text }}</p>
     <p>{{ $post -> spot }}</p>
 
