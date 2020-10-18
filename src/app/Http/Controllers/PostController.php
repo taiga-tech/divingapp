@@ -47,7 +47,9 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         // 画像保存機能
-        $this->posts->create($request->input());
+        $post = $request->all();
+        $post['user_id'] = Auth::id();
+        $this->posts->create($post);
         return redirect('/');
     }
 
@@ -60,7 +62,8 @@ class PostController extends Controller
     public function show($id)
     {
         $post = $this->posts->find($id);
-        return view('posts.show', ['post' => $post]);
+        // return view('posts.show', ['post' => $post]);
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -73,7 +76,7 @@ class PostController extends Controller
     {
         $post = $this->posts->find($id);
         if (Auth::id() === $post->user->id) {
-            return view('posts.edit', ['post' => $post]);
+            return view('posts.edit', compact("post"));
         } else {
             return redirect('/');
         }
@@ -89,7 +92,7 @@ class PostController extends Controller
     public function update(PostRequest $request, $id)
     {
         $post = $this->posts->find($id)->update($request->all());
-        return redirect('/');
+        return redirect(route('posts.show', $id));
     }
 
     /**
