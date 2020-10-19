@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   slack: circleci/slack@3.4.2
 
-# -------------------------------------
+# ---------------- Commands ----------------
 
 commands:
   env_setup:
@@ -28,13 +28,13 @@ commands:
           command: |
             docker-compose run php composer install
 
-  db_setup:
+  test_db_setup:
     steps:
       - run:
           name: DB Setup
           command: |
             touch src/database/database.sqlite
-            docker-compose run php php artisan migrate:fresh --env=testing
+            docker-compose run php php artisan migrate:fresh --seed --env=testing
 
   test_run:
     steps:
@@ -57,7 +57,7 @@ commands:
           failure_message: ':circleci-failed: $CIRCLE_BRANCH のデプロイが失敗しました\n\n:github-wh: User：$CIRCLE_USERNAME'
           webhook: '${SLACK_WEBHOOK}'
 
-# -------------------------------------
+# ---------------- Jobs ----------------
 
 jobs:
   test:
@@ -67,11 +67,11 @@ jobs:
       - env_setup
       - docker_setup
       - laravel_setup
-      - db_setup
+      - test_db_setup
       - test_run
       - test_notification
 
-# -------------------------------------
+# ---------------- Workflows ----------------
 
 workflows:
   test:
