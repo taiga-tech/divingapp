@@ -27,7 +27,6 @@ commands:
           name: Laravel Setup
           command: |
             docker-compose run php composer install
-#            docker-compose run php php artisan key:generate
             docker-compose run php php artisan migrate:fresh --env=testing
 
   test_run:
@@ -58,6 +57,7 @@ jobs:
     machine: true
     steps:
       - checkout
+      - env_setup
       - docker_setup
       - laravel_setup
       - test_run
