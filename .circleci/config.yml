@@ -19,10 +19,11 @@ commands:
       - run:
           name: laravel setup
           command: |
-            cp .env.circleci src/.env
+            cp $ENV_FILE | base64 --decode > src/.env
+            cp $TEST_ENV_FILE | base64 --decode >  src/.env.testing
             docker-compose run php composer install
             docker-compose run php php artisan key:generate
-            docker-compose run php php artisan migrate:fresh
+            docker-compose run php php artisan migrate:fresh --env=testing
 
   test_run:
     steps:
