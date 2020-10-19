@@ -12,7 +12,7 @@ commands:
           name: Docker Setup
           command: |
             ls -a
-            echo $ENV_FILE | base64 --decode > .env
+            echo -n $ENV_FILE | base64 -d > .env
             docker-compose up -d --build
 
   laravel_setup:
@@ -21,7 +21,7 @@ commands:
           name: Laravel Setup
           command: |
             ls -a src
-            echo $TEST_ENV_FILE | base64 --decode > src/.env.testing
+            echo -n $TEST_ENV_FILE | base64 -d > src/.env.testing
             docker-compose run php composer install
             docker-compose run php php artisan key:generate
             docker-compose run php php artisan migrate:fresh --env=testing
