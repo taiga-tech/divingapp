@@ -8,7 +8,7 @@ orbs:
 commands:
   docker_setup:
     steps:
-      -run:
+      - run:
           name: ENV Setup
           command: |
             echo $ENV_FILE | base64 -di > .env
