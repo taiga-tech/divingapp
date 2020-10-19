@@ -28,6 +28,7 @@ commands:
           command: |
             docker-compose run php composer install
 
+  db_setup:
     steps:
       - run:
           name: DB Setup
@@ -67,6 +68,7 @@ jobs:
       - env_setup
       - docker_setup
       - laravel_setup
+      - db_setup
       - test_run
       - test_notification
 
