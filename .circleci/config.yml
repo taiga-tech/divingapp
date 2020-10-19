@@ -34,7 +34,6 @@ commands:
           name: DB Setup
           command: |
             touch src/database/database.sqlite
-            docker-compose run php php artisan migrate:fresh
             docker-compose run php php artisan migrate:fresh --env=testing
 
   test_run:
