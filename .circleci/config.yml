@@ -6,7 +6,7 @@ orbs:
 # -------------------------------------
 
 commands:
-  docker_setup:
+  env_setup:
     steps:
       - run:
           name: ENV Setup
@@ -14,6 +14,8 @@ commands:
             echo $ENV_FILE | base64 -di > .env
             echo $TEST_ENV_FILE | base64 -di > src/.env.testing
 
+  docker_setup:
+    steps:
       - run:
           name: Docker Setup
           command: |
