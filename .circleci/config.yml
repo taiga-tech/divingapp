@@ -41,7 +41,8 @@ commands:
       - run:
           name: Run Test
           command: |
-            docker-compose run php vendor/bin/phpunit
+            docker-compose run php php artisan test
+#            docker-compose run php vendor/bin/phpunit
 
   test_notification:
     steps:
