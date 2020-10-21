@@ -20,7 +20,7 @@
 <div class="form-group row">
   <label for="image" class="col-md-4 col-form-label text-md-right">画像ファイル（複数可）</label>
   <div class="col-md-6">
-    <input type="file" class="form-control" name="files[][image]" multiple>
+    <input type="file" class="form-control-file" name="files[][image]" multiple>
   </div>
 </div>
 
