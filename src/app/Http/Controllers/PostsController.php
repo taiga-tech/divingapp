@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Http\Requests\PostRequest;
 
-class PostController extends Controller
+class PostsController extends Controller
 {
     /**
      * Display a listing of the resource.
