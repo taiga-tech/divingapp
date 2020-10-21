@@ -5,7 +5,7 @@
 
 <div class="container">
   {{ $post -> text }}
-  {{ $post -> user -> name }}
+  {{ $post -> user -> userid }}
   @foreach ($post->images as $image)
     <div>
       <img src="{{ asset('/storage/images/'.$image->path) }}" alt="">

@@ -11,13 +11,12 @@
   @foreach ( $posts as $post )
   <a href="{{ route('posts.show', [$post->id]) }}" style="color:black;">
     <div>
-      <h4>{{ $post -> user -> name }}</h4>
+      <h4>{{ $post -> user -> userid }}</h4>
       <p>{{ $post -> text }}</p>
       <p>{{ $post -> spot }}</p>
-
+      <p>{{ $post -> created_at }}</p>
       @foreach ( $post -> tags as $tag )
         <span class="alert alert-warning alert-dismissible fade show">{{ $tag -> name }}</span>
-        <span>{{ $tag -> created_at }}</span>
       @endforeach
       @include('partials.editDelete')
 
