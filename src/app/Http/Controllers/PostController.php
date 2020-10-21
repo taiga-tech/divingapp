@@ -24,7 +24,7 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = $this->posts->all();
+        $posts = $this->posts->all()->sortByDesc('created_at');
         return view('posts.index', compact('posts'));
     }
 
@@ -49,11 +49,12 @@ class PostController extends Controller
         $post = $request->all();
         $post['user_id'] = Auth::id();
         $post = $this->posts->create($post);
+        $timeStamp = date('Ymd-His');
         if ($request->file('files')) {
             foreach ($request->file('files') as $index=> $e) {
                 $ext = $e['image']->guessExtension();
-                $filename = "postId{$post['id']}_{$index}.{$ext}";
-                $path = $e['image']->storeAs('post', $filename);
+                $filename = "{$timeStamp}_{$index}.{$ext}";
+                $path = $e['image']->storeAs('post/'.$post->id , $filename);
                 $post->images()->create(['path'=> $path]);
             }
         }
@@ -99,12 +100,14 @@ class PostController extends Controller
     {
         $post = $this->posts->find($id);
         $post->update($request->all());
+        $timeStamp = date('Ymd-His');
+
         // 個別で画像編集できるようにする
         if ($request->file('files')) {
             foreach ($request->file('files') as $index=> $e) {
                 $ext = $e['image']->guessExtension();
-                $filename = "postId{$post['id']}_{$index}.{$ext}";
-                $path = $e['image']->storeAs('post', $filename);
+                $filename = "{$timeStamp}_{$index}.{$ext}";
+                $path = $e['image']->storeAs('post/'.$post->id , $filename);
                 $post->images()->create(['path'=> $path]);
             }
         }
