@@ -9,7 +9,7 @@
       <div class="card">
         <div class="card-header">投稿編集</div>
         <div class="card-body">
-          <form action="{{ route('posts.update', [$post->id]) }}" method="POST">
+          <form action="{{ route('posts.update', [$post->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             @include('partials.postForm')

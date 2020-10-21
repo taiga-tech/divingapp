@@ -18,15 +18,11 @@
 </div>
 
 <div class="form-group row">
-  <label for="image" class="col-md-4 col-form-label text-md-right">image</label>
+  <label for="image" class="col-md-4 col-form-label text-md-right">画像ファイル（複数可）</label>
   <div class="col-md-6">
-    <input type="text" name="image" class="form-control" value="{{ $errors->has('*') ? old('image'):($post['image'] ?? '') }}">
+    <input type="file" class="form-control" name="files[][image]" multiple>
   </div>
 </div>
-{{--
-<div class="form-group row">
-  <input type="submit" class="form-control btn btn-outline-primary">
-</div> --}}
 
 <div class="form-group row mb-0">
   <div class="col-md-6 offset-md-4">

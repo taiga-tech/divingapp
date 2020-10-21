@@ -46,10 +46,17 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        // 画像保存機能
         $post = $request->all();
         $post['user_id'] = Auth::id();
-        $this->posts->create($post);
+        $post = $this->posts->create($post);
+        if ($request->file('files')) {
+            foreach ($request->file('files') as $index=> $e) {
+                $ext = $e['image']->guessExtension();
+                $filename = "postId{$post['id']}_{$index}.{$ext}";
+                $path = $e['image']->storeAs('post', $filename);
+                $post->images()->create(['path'=> $path]);
+            }
+        }
         return redirect('/');
     }
 
@@ -62,7 +69,6 @@ class PostController extends Controller
     public function show($id)
     {
         $post = $this->posts->find($id);
-        // return view('posts.show', ['post' => $post]);
         return view('posts.show', compact('post'));
     }
 
@@ -91,7 +97,17 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, $id)
     {
-        $post = $this->posts->find($id)->update($request->all());
+        $post = $this->posts->find($id);
+        $post->update($request->all());
+        // 個別で画像編集できるようにする
+        if ($request->file('files')) {
+            foreach ($request->file('files') as $index=> $e) {
+                $ext = $e['image']->guessExtension();
+                $filename = "postId{$post['id']}_{$index}.{$ext}";
+                $path = $e['image']->storeAs('post', $filename);
+                $post->images()->create(['path'=> $path]);
+            }
+        }
         return redirect(route('posts.show', $id));
     }
 
@@ -109,4 +125,5 @@ class PostController extends Controller
         }
         return redirect('/');
     }
+
 }

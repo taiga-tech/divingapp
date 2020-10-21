@@ -25,7 +25,6 @@ class PostFactory extends Factory
         return [
             'text' => $this->faker->text,
             'place' => '',
-            'image' => '',
             'user_id' => rand(1,User::count())
         ];
     }

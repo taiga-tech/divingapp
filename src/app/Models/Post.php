@@ -12,12 +12,15 @@ class Post extends Model
     protected $fillable = [
         'text',
         'place',
-        'image',
         'user_id'
     ];
 
     public function user() {
         return $this->belongsTo('App\Models\User');
+    }
+
+    public function images() {
+        return $this->hasMany('App\Models\PostImage');
     }
 
     public function tags() {

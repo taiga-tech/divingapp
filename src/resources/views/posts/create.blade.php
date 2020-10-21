@@ -9,7 +9,7 @@
       <div class="card">
         <div class="card-header">新規投稿</div>
         <div class="card-body">
-          <form action="/posts" method="POST">
+          <form action="/posts" method="POST" enctype="multipart/form-data">
             @include('partials.postForm')
           </form>
         </div>
