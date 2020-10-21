@@ -41,17 +41,25 @@ class PostStatusTest extends TestCase
             ->assertStatus(200);
     }
 
-    public function testGetEditStatus()
+    public function testGetShowStatus()
     {
         $post = Post::factory()->create();
         $response = $this->get(route('posts.show', $post))
             ->assertStatus(200);
     }
 
+    public function testGetEditStatus()
+    {
+        $post = Post::factory()->create();
+        $user = User::find($post->user_id);
+        $response = $this->actingAs($user)
+            ->get(route('posts.edit', $post))
+            ->assertStatus(200);
+    }
+
     public function testPutUpdateStatus()
     {
         $post = Post::factory()->create();
-
         $response = $this->followingRedirects()
             ->put(route('posts.update', $post), [
                 'text' => $this->faker->text,
