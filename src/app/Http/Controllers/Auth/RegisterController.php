@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class RegisterController extends Controller
 {
@@ -29,7 +32,13 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    // protected $redirectTo = '/';
+    protected function redirectTo() {
+        if(! Auth::user()) {
+            return '/';
+        }
+        return route('profiles.show', [Auth::user()->profile->id]);
+    }
 
     /**
      * Create a new controller instance.
@@ -64,10 +73,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'userid' => $data['userid'],
+        $user = User::create([
+            'userid' => '@'.$data['userid'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        $path = Storage::putFile('profile/'.$user->id, 'default.png', file('default.png'));
+        $profile = Profile::create([
+            'image' => $path,
+            'name' => $data['userid'],
+            'comment' => '',
+            'user_id' => $user->id
+        ]);
+        return $user;
     }
 }
