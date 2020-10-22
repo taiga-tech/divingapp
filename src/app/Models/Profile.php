@@ -13,6 +13,7 @@ class Profile extends Model
         'name',
         'image',
         'comment',
+        'user_id'
     ];
 
     public function user() {

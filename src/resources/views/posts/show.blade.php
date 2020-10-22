@@ -8,7 +8,7 @@
   {{ $post -> user -> userid }}
   @foreach ($post->images as $image)
     <div>
-      <img src="{{ asset('/storage/images/'.$image->path) }}" alt="">
+      <img src="{{ asset('/storage/images/'.$image->path) }}">
     </div>
   @endforeach
   @include('partials.editDelete')
