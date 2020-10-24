@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title', '投稿編集')
+@section('title', "{$profile->name} ({$profile->user->userid})の編集 / ".config('app.name'))
 
 @section('content')
 
-<div class="container">
-  <div class="row justify-content-center">
+<div class="">
+  <div class="row">
     <div class="col-md-8">
       <div class="card">
         <div class="card-header">profileedit</div>

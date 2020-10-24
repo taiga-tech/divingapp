@@ -23,6 +23,7 @@
 - [ ] vue
   - all
 
+- [ ] deploy
 
 <!--
 

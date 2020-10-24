@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', '投稿編集')
+@section('title', "{$profile->name} ({$profile->user->userid}) / ".config('app.name'))
 
 @section('content')
 
-<div class="container">
+<div class="">
   {{ $profile->name }}
   <strong>{{ $profile->image }}</strong>
   {{ $profile->created_at}}

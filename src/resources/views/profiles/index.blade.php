@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', '投稿編集')
+@section('title', 'ユーザ 一覧 / '.config('app.name'))
 
 @section('content')
 
-<div class="container">
+<div class="">
   <hr>
   @foreach ($profiles as $profile)
     <a href="{{ route('profiles.show', $profile->id)}}">
