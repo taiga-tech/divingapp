@@ -3,11 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{-- <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0"> --}}
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
+    <title>@yield('title')</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -21,7 +23,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -51,10 +53,13 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    {{ Auth::user()->userid }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                                    <a href="{{ route('profiles.show', Auth::user()->profile->id)}}" class="dropdown-item">プロフィール</a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
@@ -70,11 +75,31 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav> --}}
 
-        <main class="py-4">
-            @yield('content')
+        <main class="d-flex justify-content-center vh-100 dark:bg-gray-900">
+            <div class="py-3 col-1 col-md-2 d-md-block d-none dark:text-gray-400 border-right">
+                @include('layouts.sideBar')
+            </div>
+            <div class="col-md-5 col-xl-4 dark:text-gray-400 dark:bg-gray-900 p-0">
+                @include('layouts.topBar')
+                @yield('content')
+                @include('layouts.bottomBar')
+            </div>
+            <div class="py-3 col-md-2 col-lg-2 d-md-block d-none dark:text-gray-400 border-left">
+                <div class="" style="">
+                    @include('layouts.tagBar')
+                </div>
+            </div>
         </main>
     </div>
+
 </body>
 </html>
+<style>
+    *,
+    *::before,
+    *::after {
+    box-sizing: border-box;
+    }
+</style>

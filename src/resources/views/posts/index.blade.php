@@ -1,17 +1,16 @@
 @extends('layouts.app')
+@section('title', config('app.name'))
 
 @section('content')
-<div class="container">
-  @foreach ( $posts as $post )
-    <h2>{{ $post -> user -> name }}</h2>
-    <p>{{ $post -> text }}</p>
-    <p>{{ $post -> spot }}</p>
 
-    @foreach ( $post -> tags as $tag )
-      <span class="alert alert-warning alert-dismissible fade show">{{ $tag -> name }}</span>
-      <span>{{$tag -> created_at}}</span>
-    @endforeach
-    <hr>
+<div class="overflow-auto" style="height: calc(100vh - 103px);">
+  @foreach ( $posts as $post )
+    <a class="item d-block p-2 border-bottom" href="{{ route('posts.show', [$post->id]) }}">
+      <h4>{{ $post->user->userid }}</h4>
+      <p>{{ $post->text }}</p>
+      <p>{{ $post->spot }}</p>
+      <p>{{ $post->created_at }}</p>
+    </a>
   @endforeach
 </div>
 @endsection
