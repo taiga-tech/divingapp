@@ -32,12 +32,9 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    // protected $redirectTo = '/';
+    // protected $redirectTo = "/";
     protected function redirectTo() {
-        if(! Auth::user()) {
-            return '/';
-        }
-        return route('profiles.show', [Auth::user()->profile->id]);
+        return route('profiles.create');
     }
 
     /**
@@ -79,13 +76,6 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        $path = Storage::putFile('profile/'.$user->id, 'default.png', file('default.png'));
-        $profile = Profile::create([
-            'image' => $path,
-            'name' => $data['userid'],
-            'comment' => '',
-            'user_id' => $user->id
-        ]);
         return $user;
     }
 }

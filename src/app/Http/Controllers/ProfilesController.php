@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Profile;
 use App\Models\User;
 
@@ -25,6 +26,32 @@ class ProfilesController extends Controller
     {
         $profiles = $this->profiles->all();
         return view('profiles.index', compact('profiles'));
+    }
+
+    public function create()
+    {
+        $name = str_replace('@', '', Auth::user()->userid);
+        return view('profiles.create', compact('name'));
+    }
+
+    public function store(Request $request)
+    {
+        $profile = new Profile;
+        $input = $request->all();
+        $image = $request->file('image');
+        $input['user_id'] = Auth::id();
+        $timeStamp = date('Ymd-His');
+        if ( $image ) {
+            $ext = $image->guessExtension();
+            $filename = "{$timeStamp}_{$request->name}.{$ext}";
+            $path = $image->storeAs('profile/'.Auth::id(), $filename);
+            $input['image'] = $path;
+        } else {
+            $path = Storage::putFile('profile/'.Auth::id(), 'default.png', file('default.png'));
+            $input['image'] = $path;
+        }
+        $profile->create($input);
+        return redirect(route('profiles.show', Auth::user()->profile->id));
     }
 
     /**
@@ -77,5 +104,4 @@ class ProfilesController extends Controller
         $profile->update($input);
         return view('profiles.show', compact('profile'));
     }
-
 }
