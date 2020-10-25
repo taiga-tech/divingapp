@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Post;
@@ -19,48 +20,52 @@ class PostStatusTest extends TestCase
 
     public function testGetIndexStatus()
     {
-        $response = $this->get('/')
+        $response = $this
+            ->get('/')
             ->assertStatus(200);
     }
 
     public function testGetCreateStatus()
     {
-        $user = User::factory()->create();
+        $user = User::all()->random();
         $response = $this
             ->actingAs($user)
-            ->get(route('posts.create'))
+            ->get('posts/create')
             ->assertStatus(200);
     }
 
     public function testPostStoreStatus()
     {
         $post = Post::factory()->make();
-
-        $response = $this->followingRedirects()
+        $response = $this
+            ->followingRedirects()
             ->post(route('posts.store', [$post]))
             ->assertStatus(200);
     }
 
     public function testGetShowStatus()
     {
-        $post = Post::factory()->create();
-        $response = $this->get(route('posts.show', $post))
+        $post = Post::all()->random();
+        $response = $this
+            ->get(route('posts.show', $post->id))
             ->assertStatus(200);
     }
 
     public function testGetEditStatus()
     {
-        $post = Post::factory()->create();
+        $post = Post::all()->random();
         $user = User::find($post->user_id);
-        $response = $this->actingAs($user)
-            ->get(route('posts.edit', $post))
+        $response = $this
+            ->actingAs($user)
+            ->get(route('posts.edit', $post->id))
             ->assertStatus(200);
     }
 
     public function testPutUpdateStatus()
     {
         $post = Post::factory()->create();
-        $response = $this->followingRedirects()
+        $response = $this
+            ->followingRedirects()
             ->put(route('posts.update', $post), [
                 'text' => $this->faker->text,
                 "user_id" => $post->user->id
@@ -71,8 +76,8 @@ class PostStatusTest extends TestCase
     public function testDeleteDestroyStatus()
     {
         $post = Post::factory()->create();
-
-        $response = $this->followingRedirects()
+        $response = $this
+            ->followingRedirects()
             ->delete(route('posts.destroy', $post))
             ->assertStatus(200);
     }
