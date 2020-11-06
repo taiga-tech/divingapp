@@ -17397,8 +17397,8 @@ video {
 @media (prefers-color-scheme: dark) {
   .dark\:bg-gray-800 {
     --bg-opacity: 1;
-    background-color: #2d3748;
-    background-color: rgba(45, 55, 72, var(--bg-opacity));
+    background-color: #3f4d68;
+    background-color: rgba(63, 77, 104, var(--bg-opacity));
   }
 
   .dark\:bg-gray-900 {
@@ -17426,6 +17426,14 @@ video {
   }
 }
 
+@media (prefers-color-scheme: light) {
+  .light\:bg {
+    --bg-opacity: 1;
+    background-color: #f8fafc;
+    background-color: rgba(248, 250, 252, var(--bg-opacity));
+  }
+}
+
 h1,
 h2,
 h3,
@@ -17439,5 +17447,87 @@ li,
 ul {
   list-style: none;
   padding: 0;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.topBar {
+  line-height: 50px;
+}
+
+.topBar .title {
+  font-size: 23px;
+  margin-left: 5px;
+}
+
+.topBar .Active {
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+}
+
+.topBar .Active:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+#sideMenu img {
+  margin-left: 10px;
+  width: 30px;
+  height: 30px;
+}
+
+#sideMenu .link {
+  display: block;
+  line-height: 50px;
+  font-size: 16px;
+  border-radius: 25px;
+}
+
+#sideMenu .link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+#sideMenu .icon {
+  padding: 0 10px;
+  margin: 0 5px;
+}
+
+.Form input[type=text],
+.Form input[type=email],
+.Form input[type=password],
+.Form textarea {
+  outline: none;
+  background-color: rgba(0, 0, 0, 0);
+  font-size: 20px;
+}
+
+.Form input[type=text]:focus + .borderBottom,
+.Form input[type=email]:focus + .borderBottom,
+.Form input[type=password]:focus + .borderBottom,
+.Form textarea:focus + .borderBottom {
+  background: #0084ff;
+  outline-color: transparent;
+  outline-style: none;
+}
+
+.Form .formBlock {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.Form .borderBottom {
+  height: 3px;
+  width: 100%;
+  background: white;
+  border: none;
+  transform-origin: 50%;
+  transition: all 0.5s;
 }
 

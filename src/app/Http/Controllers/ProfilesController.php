@@ -14,7 +14,7 @@ class ProfilesController extends Controller
 
     public function __construct(Profile $profiles)
     {
-        $this->middleware('auth')->except(['index', 'show']);
+        // $this->middleware('auth')->except(['index', 'show']);
         $this->profiles = $profiles;
     }
     /**
@@ -24,15 +24,16 @@ class ProfilesController extends Controller
      */
     public function index()
     {
-        $profiles = $this->profiles->all();
-        return view('profiles.index', compact('profiles'));
+        // $profiles = $this->profiles->all();
+        $profiles = Profile::with('user')->get();
+        return $profiles; //view('profiles.index', compact('profiles'));
     }
 
-    public function create()
-    {
-        $name = str_replace('@', '', Auth::user()->userid);
-        return view('profiles.create', compact('name'));
-    }
+    // public function create()
+    // {
+    //     $name = str_replace('@', '', Auth::user()->userid);
+    //     return view('profiles.create', compact('name'));
+    // }
 
     public function store(Request $request)
     {
@@ -50,8 +51,7 @@ class ProfilesController extends Controller
             $path = Storage::putFile('profile/'.Auth::id(), 'default.png', file('default.png'));
             $input['image'] = $path;
         }
-        $profile->create($input);
-        return redirect(route('profiles.show', Auth::user()->profile->id));
+        return $profile->create($input); //redirect(route('profiles.show', Auth::user()->profile->id));
     }
 
     /**
@@ -62,8 +62,9 @@ class ProfilesController extends Controller
      */
     public function show($id)
     {
-        $profile = $this->profiles->find($id);
-        return view('profiles.show', compact('profile'));
+        // $profile = $this->profiles->find($id);
+        $profile = Profile::with('user', 'posts')->find($id);
+        return $profile; //view('profiles.show', compact('profile'));
     }
 
     /**
@@ -72,15 +73,15 @@ class ProfilesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $profile = $this->profiles->find($id);
-        if (Auth::id() === $profile->user_id) {
-            return view('profiles.edit', compact('profile'));
-        } else {
-            return view('profiles.show', compact('profile'));
-        }
-    }
+    // public function edit($id)
+    // {
+    //     $profile = $this->profiles->find($id);
+    //     if (Auth::id() === $profile->user_id) {
+    //         return view('profiles.edit', compact('profile'));
+    //     } else {
+    //         return view('profiles.show', compact('profile'));
+    //     }
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -102,6 +103,6 @@ class ProfilesController extends Controller
             $input['image'] = $path;
         }
         $profile->update($input);
-        return view('profiles.show', compact('profile'));
+        return $profile; // view('profiles.show', compact('profile'));
     }
 }

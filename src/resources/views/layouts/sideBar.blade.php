@@ -1,4 +1,4 @@
-<div class="d-flex flex-column h-100 justify-content-between">
+{{-- <div class="d-flex flex-column h-100 justify-content-between">
   <div>
     <div class="">
       <a href="/">
@@ -93,4 +93,20 @@
       </div>
     @endif
   </div>
-</div>
+</div> --}}
+
+{{-- @if (Auth::check() && Auth::user()->profile) --}}
+@guest
+  <side-bar
+  ></side-bar>
+@elseif (Auth::user()->profile)
+  <side-bar
+    :user="{{ Auth::user() }}"
+    asset="{{ asset("storage/images/") }}"
+  ></side-bar>
+@else
+  <side-bar
+    :user="{{ Auth::user() }}"
+    asset="{{ asset("storage/images/") }}"
+  ></side-bar>
+@endif

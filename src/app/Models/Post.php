@@ -12,11 +12,16 @@ class Post extends Model
     protected $fillable = [
         'text',
         'place',
-        'user_id'
+        'user_id',
+        'profile_id'
     ];
 
     public function user() {
         return $this->belongsTo('App\Models\User');
+    }
+
+    public function profile() {
+        return $this->belongsTo('App\Models\Profile');
     }
 
     public function images() {

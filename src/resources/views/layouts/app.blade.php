@@ -8,8 +8,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
-    <title>@yield('title')</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
+    {{-- <title>@yield('title')</title> --}}
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -82,24 +82,19 @@
                 @include('layouts.sideBar')
             </div>
             <div class="col-md-5 col-xl-4 dark:text-gray-400 dark:bg-gray-900 p-0">
-                @include('layouts.topBar')
-                @yield('content')
-                @include('layouts.bottomBar')
+                @include('layouts.TopBar')
+                {{-- @yield('content') --}}
+                <router-view />
+                {{-- @include('layouts.bottomBar') --}}
+                <bottom-bar></bottom-bar>
             </div>
             <div class="py-3 col-md-2 col-lg-2 d-md-block d-none dark:text-gray-400 border-left">
                 <div class="" style="">
-                    @include('layouts.tagBar')
+                    {{-- @include('layouts.tagBar') --}}
+                    <tag-bar></tag-bar>
                 </div>
             </div>
         </main>
     </div>
-
 </body>
 </html>
-<style>
-    *,
-    *::before,
-    *::after {
-    box-sizing: border-box;
-    }
-</style>

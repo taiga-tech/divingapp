@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
+use App\Models\User;
+use App\Models\PostImage;
 use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
@@ -18,14 +20,14 @@ class PostsController extends Controller
 
     public function __construct(Post $posts)
     {
-        $this->middleware('auth')->except(['index', 'show']);
+        // $this->middleware('auth:api')->except(['index', 'show']);
         $this->posts = $posts;
     }
 
     public function index()
     {
-        $posts = $this->posts->all()->sortByDesc('created_at');
-        return view('posts.index', compact('posts'));
+        $posts = Post::with('user', 'profile', 'images')->get();
+        return $posts; //view('posts.index', compact('posts'));
     }
 
     /**
@@ -33,10 +35,10 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('posts.create');
-    }
+    // public function create()
+    // {
+    //     return view('posts.create');
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -46,9 +48,11 @@ class PostsController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $post = $request->all();
-        $post['user_id'] = Auth::id();
-        $post = $this->posts->create($post);
+        $post = new Post;
+        $input = $request->all();
+        $input['user_id'] = Auth::id();
+        $input['profile_id'] = Auth::user()->profile->id;
+        $post = $this->posts->create($input);
         $timeStamp = date('Ymd-His');
         if ($request->file('files')) {
             foreach ($request->file('files') as $index=> $e) {
@@ -58,7 +62,7 @@ class PostsController extends Controller
                 $post->images()->create(['path'=> $path]);
             }
         }
-        return redirect('/');
+        return $post; //redirect('/');
     }
 
     /**
@@ -69,8 +73,8 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        $post = $this->posts->find($id);
-        return view('posts.show', compact('post'));
+        $post = Post::with('user', 'profile', 'images')->find($id);
+        return $post; //view('posts.show', compact('post'));
     }
 
     /**
@@ -79,15 +83,15 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $post = $this->posts->find($id);
-        if (Auth::id() === $post->user->id) {
-            return view('posts.edit', compact("post"));
-        } else {
-            return redirect('/');
-        }
-    }
+    // public function edit($id)
+    // {
+    //     $post = $this->posts->find($id);
+    //     if (Auth::id() === $post->user->id) {
+    //         return view('posts.edit', compact("post"));
+    //     } else {
+    //         return redirect('/');
+    //     }
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -101,7 +105,6 @@ class PostsController extends Controller
         $post = $this->posts->find($id);
         $post->update($request->all());
         $timeStamp = date('Ymd-His');
-
         // 個別で画像編集できるようにする
         if ($request->file('files')) {
             foreach ($request->file('files') as $index=> $e) {
@@ -111,7 +114,7 @@ class PostsController extends Controller
                 $post->images()->create(['path'=> $path]);
             }
         }
-        return redirect(route('posts.show', $id));
+        return $post; //->update($request->all());//redirect(route('posts.show', $id));
     }
 
     /**
@@ -129,4 +132,9 @@ class PostsController extends Controller
         return redirect('/');
     }
 
+    public function imageDestroy($id) {
+        $image = PostImage::find($id);
+        $image->delete();
+        return $image;
+    }
 }

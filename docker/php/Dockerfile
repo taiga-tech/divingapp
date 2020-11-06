@@ -32,4 +32,5 @@ WORKDIR /var/www
 
 RUN composer global require "laravel/installer"
 
-RUN echo 'alias ar="php artisan"' >> ~/.bashrc
+RUN echo 'alias ar="php artisan"' >> ~/.bashrc \
+  && echo 'alias watch="npm run watch-poll"' >> ~/.bashrc
