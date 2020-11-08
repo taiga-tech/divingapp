@@ -33,6 +33,18 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => env('APP_URL').'/login/google/callback',
+        'redirect' => env('APP_URL').env('MIX_GOOGLE_CALLBACK_URL'),
+    ],
+
+    'twitter' => [
+        'client_id'     => env('TWITTER_CLIENT_ID'),
+        'client_secret' => env('TWITTER_CLIENT_SECRET'),
+        'redirect'      => env('APP_URL').env('MIX_TWITTER_CALLBACK_URL'),
+    ],
+
+    'facebook' => [
+        'client_id'     => env('FACEBOOK_CLIENT_ID'),
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
+        'redirect'      => env('APP_URL').env('MIX_FACEBOOK_CALLBACK_URL'),
     ],
 ];

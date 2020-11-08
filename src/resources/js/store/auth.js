@@ -22,6 +22,10 @@ const actions = {
     const response = await axios.post('/api/login', data);
     context.commit('setUser', response.data);
   },
+  async oauthLogin (context, { provider, data }) {
+    const response = await axios.post('/api/sociallogin/' + provider, data)
+    context.commit('setUser', response.data)
+  },
   async logout (context) {
     const response = await axios.post('/api/logout');
     context.commit('setUser', null);

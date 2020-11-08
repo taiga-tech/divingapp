@@ -78,8 +78,8 @@
       <div class="">
         <button type="submit" class="btn btn-primary w-100">登録</button>
       </div>
-
     </form>
+    <o-auth />
   </div>
 </div>
 
@@ -87,6 +87,7 @@
 </template>
 
 <script>
+import OAuth from './OAuth';
 export default {
   data: function () {
     return {
@@ -97,8 +98,10 @@ export default {
     async submit () {
       await this.$store.dispatch('auth/register', this.user);
       this.$router.push('/profiles/create');
-      // location.reload();
     }
-  }
+  },
+  components: {
+    OAuth,
+  },
 }
 </script>

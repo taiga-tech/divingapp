@@ -31,12 +31,8 @@
       </div>
 
       <!-- <div class="">
-        <div class=" offset-md-4">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="remember" id="remember">
-            <label class="form-check-label" for="remember">Remember Me</label>
-          </div>
-        </div>
+        <input class="form-check-input" type="checkbox" name="remember" id="remember">
+        <label class="form-check-label" for="remember">Remember Me</label>
       </div> -->
 
       <div class="">
@@ -46,15 +42,38 @@
         </a> -->
       </div>
     </form>
+
+    <o-auth />
+
   </div>
 </div>
-
 </template>
 
+<style>
+.v-leave-active,
+.v-enter-active {
+    transition: opacity 1s;
+}
+.v-enter {
+    opacity: 0;
+}
+.v-enter-to {
+    opacity: 1;
+}
+.v-leave {
+    opacity: 1;
+}
+.v-leave-to {
+    opacity: 0;
+}
+</style>
+
 <script>
+import OAuth from './OAuth';
 export default {
   data: function () {
     return {
+      show: false,
       user: {}
     }
   },
@@ -62,8 +81,11 @@ export default {
     async submit () {
       await this.$store.dispatch('auth/login', this.user)
       this.$router.push('/')
-      location.reload();
+      location.reload()
     },
-  }
+  },
+  components: {
+    OAuth,
+  },
 }
 </script>

@@ -43,11 +43,17 @@ export default new VueRouter({
             }
         },
         {
+            path: '/auth/:provider/callback',
+            component: {
+                template: '<div class="auth-component"></div>'
+            }
+        },
+        {
             path: '/profiles/create',
             name: 'profiles.create',
             component: ProfilesCreate,
             beforeEnter (to, from, next) {
-                if (store.getters['auth/check']) {
+                if (! store.getters['profile/profile'] && store.getters['auth/check']) {
                     next()
                 } else {
                     next('/login')
