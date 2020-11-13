@@ -68,7 +68,7 @@ jobs:
       - docker_setup
       - laravel_setup
       - test_db_setup
-      - test_run
+      # - test_run
       - test_notification
 
 # ---------------- Workflows ----------------
