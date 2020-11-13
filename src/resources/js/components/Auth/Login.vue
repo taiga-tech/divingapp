@@ -36,10 +36,13 @@
       </div> -->
 
       <div class="">
-        <button type="submit" class="btn btn-primary w-100">ログイン</button>
-        <!-- <a class="btn btn-link" href="{{ route('password.request') }}">
-          {{ __('Forgot Your Password?') }}
-        </a> -->
+        <button
+          type="submit"
+          :disabled="
+            !user.email ||
+            !user.password"
+          class="btn btn-primary w-100"
+        >ログイン</button>
       </div>
     </form>
 

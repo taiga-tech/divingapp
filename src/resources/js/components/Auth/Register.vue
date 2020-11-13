@@ -1,5 +1,4 @@
 <template>
-
 <div class="Form">
   <h4 class="text-center pt-3">新規登録</h4>
 
@@ -76,14 +75,20 @@
       </div>
 
       <div class="">
-        <button type="submit" class="btn btn-primary w-100">登録</button>
+        <button
+          type="submit"
+          :disabled="
+            !user.userid ||
+            !user.email ||
+            !user.password ||
+            !user.password_confirmation"
+          class="btn btn-primary w-100"
+        >登録</button>
       </div>
     </form>
     <o-auth />
   </div>
 </div>
-
-
 </template>
 
 <script>
