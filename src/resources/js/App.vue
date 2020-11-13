@@ -37,7 +37,7 @@
 <script>
 export default {
   methods: {
-    sideMenu: function event() {
+    sideMenu() {
       this.$refs.topBar.Active()
     }
   }
