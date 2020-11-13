@@ -18,7 +18,7 @@ export default {
     return {
       profile: {
         name: this.$store.getters['auth/user'].userid.replace('@',""),
-        comment: ' ',
+        comment: '',
       },
       preview: null,
     }

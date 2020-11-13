@@ -1,5 +1,5 @@
 <template>
-<div class="formBlock mb-3 w-100 text">
+<div class="formBlock mb-3 w-100 textbox">
   <div class="pb-3" style="min-height: 300px">
     <contenteditable
       tag="div"
@@ -9,15 +9,19 @@
     />
 
     <div v-if="$parent.previews" class="mb-4 w-100">
-      <img v-for="preview in $parent.previews" :key="preview.index" :src="preview" class="w-25">
-      <!-- edit-only -->
+      <img
+        v-for="preview in $parent.previews"
+        :key="preview.index"
+        :src="preview"
+        class="w-25"
+      >
+
       <div v-if="$route.name == 'posts.edit'">
         <div
           v-for="image in $parent.postImages"
           :key="image.id"
           v-on:click="removeImg(image.id)"
-        >×[{{ image.id }}]
-        </div>
+        >×[{{ image.id }}]</div>
       </div>
     </div>
 
@@ -25,7 +29,7 @@
       <i class="fas fa-camera"></i>
       <input v-on:change="fileChange" type="file" id="file" hidden multiple>
     </div>
-
+  
     <!-- <span class="invalid-feedback" role="alert">
       <strong>{{ message }}</strong>
     </span> -->
