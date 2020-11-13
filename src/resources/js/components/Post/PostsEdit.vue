@@ -1,42 +1,21 @@
 <template>
 <div class="Form">
-  <h4 class="text-center pt-3">新規投稿</h4>
+  <h4 class="text-center pt-3">投稿編集</h4>
 
   <div class="card-body">
     <form v-on:submit.prevent="submit">
 
-      <div class="formBlock mb-3 w-100">
-        <div class="label px-1">
-          <span class="">place</span>
-        </div>
-        <div class="">
-          <input type="text" id="place" class="w-100 px-2 dark:text-gray-400" v-model="post.place">
-        </div>
-      </div>
-
-      <div class="formBlock mb-3 w-100">
-        <div class="label px-1">
-          <span class="">text</span>
-        </div>
-        <div class="text">
-          <textarea id="text" class="w-100 px-2 dark:text-gray-400" rows="5" required v-model="post.text"></textarea>
-          <div class="postImage" v-on:click="fileOpen">
-            <i class="fas fa-camera"></i>
-            <input v-on:change="fileChange" type="file" id="file" hidden multiple>
-          </div>
-          <span class="invalid-feedback" role="alert">
-            <!-- <strong>{{ message }}</strong> -->
-          </span>
-        </div>
-      </div>
-
-      <div class="mb-3 w-100" v-if="previews">
-        <img v-for="preview in previews" :key="preview.index" :src="preview" class="w-50">
-        <!-- <div v-for="image in postImages" :key="image.id" v-on:click="removeImg(image.id)">×[{{ image.id }}]</div> -->
-      </div>
+      <text-image />
+      <place v-if="post.text || images" />
 
       <div class="">
-        <button type="submit" class="btn btn-primary w-100">投稿</button>
+        <button
+          type="submit"
+          :disabled="
+            !post.text &&
+            !images"
+          class="btn btn-primary w-100"
+        >編集</button>
       </div>
 
     </form>
@@ -58,61 +37,30 @@
 </style>
 
 <script>
+import TextImage from './TextImage';
+import Place from './Place';
 export default {
   props: {
     postId: NaN
   },
   data: function () {
     return {
-      post: {
-        place: '',
-      },
+      post: { place: null },
       images: null,
       postImages: null,
       previews: [],
     }
   },
   methods: {
-    fileOpen () {
-      let file = document.getElementById('file');
-      file.click();
-    },
     getPost() {
       axios.get('/api/posts/' + this.postId)
       .then((res) => {
         this.post = res.data;
         this.postImages = res.data.images;
-        for (var i = 0; i < res.data.images.length; i++) {
-          this.previews.push(`/storage/images/${res.data.images[i].path}`);
+        for (var i = 0; i < this.postImages.length; i++) {
+          this.previews.push(`/storage/images/${this.postImages[i].path}`);
         }
       });
-    },
-    fileChange (event) {
-      const fileList = event.target.files
-      if (fileList.length == 0) {
-        this.reset();
-        return false;
-      }
-      for (var i = 0; i < fileList.length; i++) {
-        if (! fileList[i].type.match('image.*')) {
-          this.reset();
-          return false;
-        }
-        const reader = new FileReader()
-        reader.onload = e => {
-          this.previews.push(e.target.result);
-        }
-        reader.readAsDataURL(fileList[i])
-      }
-      this.images = fileList;
-    },
-    reset() {
-      this.previews = [];
-      this.images = null;
-      this.$el.querySelector('input[type="file"]').value = null;
-    },
-    async removeImg(e) {
-      await axios.delete(`/api/imagedestroy/${e}`)
     },
     async submit() {
       const formData = new FormData();
@@ -121,8 +69,10 @@ export default {
           formData.append(`files[${i}][image]`, this.images[i])
         }
       }
-      formData.append('text', this.post.text);
-      formData.append('place', this.post.place);
+      formData.append('text', this.post.text)
+      formData.append('place', this.post.place)
+      formData.append('lat', this.post.latlng.lat)
+      formData.append('lng', this.post.latlng.lng)
       await axios.post(`/api/posts/${this.post.id}`, formData,  {
         headers: { 'X-HTTP-Method-Override': 'PUT' }
       });
@@ -131,7 +81,10 @@ export default {
   },
   mounted() {
     this.getPost();
-    this.images;
+  },
+  components: {
+    TextImage,
+    Place,
   }
 }
 </script>

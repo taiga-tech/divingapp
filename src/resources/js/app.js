@@ -6,6 +6,8 @@ import VueTouch from 'vue-touch';
 import VueAxios from 'vue-axios';
 import VueSocialauth from 'vue-social-auth';
 import vSelect from "vue-select";
+import contenteditable from 'vue-contenteditable'
+import * as VueGoogleMaps from 'vue2-google-maps'
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -17,6 +19,7 @@ require('./bootstrap')
 window.Vue = require('vue')
 Vue.use(VueTouch)
 Vue.component("v-select", vSelect);
+Vue.use(contenteditable)
 Vue.use(VueAxios, axios)
 Vue.use(VueSocialauth, {
     providers: {
@@ -34,6 +37,13 @@ Vue.use(VueSocialauth, {
         },
     }
 })
+Vue.use(VueGoogleMaps, {
+    load: {
+        key: process.env.MIX_GOOGLE_MAP_API,
+        libraries: 'places'
+    }
+})
+Vue.component('infoWindow', VueGoogleMaps.InfoWindow);
 
 /**
  * The following block of code may be used to automatically register your
