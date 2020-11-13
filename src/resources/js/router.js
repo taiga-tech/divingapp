@@ -9,7 +9,7 @@ import PostsIndex from './components/Post/PostsIndex';
 import PostsCreate from './components/Post/PostsCreate';
 import PostsShow from './components/Post/PostsShow';
 import PostsEdit from './components/Post/PostsEdit';
-import Search from './components/Search';
+import SearchIndex from './components/Search/SearchIndex';
 import store from './store';
 
 
@@ -52,13 +52,13 @@ export default new VueRouter({
             path: '/profiles/create',
             name: 'profiles.create',
             component: ProfilesCreate,
-            beforeEnter (to, from, next) {
-                if (! store.getters['profile/profile'] && store.getters['auth/check']) {
-                    next()
-                } else {
-                    next('/login')
-                }
-            }
+            // beforeEnter (to, from, next) {
+                // if (! store.getters['profile/profile'] && store.getters['auth/check']) {
+                //     next()
+                // } else {
+                //     next('/login')
+                // }
+            // }
         },
         {
             path: '/profiles/:profileId',
@@ -118,7 +118,13 @@ export default new VueRouter({
         {
             path: '/search',
             name: 'search',
-            component: Search,
+            component: SearchIndex,
+            props: true,
+        },
+        {
+            path: '/search/:params',
+            name: 'search.index',
+            component: SearchIndex,
             props: true,
         }
     ]

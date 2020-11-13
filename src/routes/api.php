@@ -28,4 +28,5 @@ Route::get('/user', fn() => Auth::user())->name('user');
 
 Route::apiResource('posts', PostsController::class);
 Route::apiResource('profiles', ProfilesController::class)->except('destroy');
+Route::get('search/{search}', [SearchController::class, 'search'])->name('search');
 Route::delete('imagedestroy/{id}', [PostsController::class, 'imageDestroy']);
