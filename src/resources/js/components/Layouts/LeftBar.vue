@@ -1,8 +1,7 @@
 <template>
 <div class="d-flex flex-column h-100 justify-content-between">
   <div class="top">
-
-    <router-link class="link" to="/">
+    <router-link class="link" to="/" exact>
       <div class="d-flex">
         <div class="icon"><i class="fas fa-home"></i></div>
         <div class="d-md-none d-xl-block col-xl-8">ホーム</div>
@@ -24,7 +23,7 @@
     </router-link>
 
     <div v-if="isLogin">
-      <router-link v-if="profile.id" class="link" v-bind:to="'/profiles/' + profile.id">
+      <router-link v-if="profile[0]" class="link" v-bind:to="'/profiles/' + profile[0].id">
         <div class="d-flex">
           <div class="icon"><i class="far fa-user"></i></div>
           <div class="d-md-none d-xl-block col-xl-8">プロフィール</div>
@@ -56,17 +55,17 @@
 
   <div class="bottom">
     <div v-if="isLogin">
-      <router-link v-if="profile" class="link" v-bind:to="'/profiles/' + profile.id">
+      <router-link v-if="profile[0]" class="link" v-bind:to="'/profiles/' + profile[0].id">
         <div class="d-flex">
           <div class="iocn">
             <img
-              v-if="profile.image"
+              v-if="profile[0].image"
               class="rounded-circle"
-              v-bind:src="'/storage/images/' + profile.image"
+              v-bind:src="'/storage/images/' + profile[0].image"
               >
           </div>
           <div class="d-md-none d-xl-block mx-4">
-            {{ profile.name }} {{ user.userid }}
+            {{ profile[0].name }} {{ user.userid }}
           </div>
         </div>
       </router-link>
@@ -88,6 +87,11 @@
   </div>
 </div>
 </template>
+
+<style lang="scss" scoped>
+.router-link-active { color: #3490dc; }
+a { text-decoration: none; }
+</style>
 
 <script>
 export default {

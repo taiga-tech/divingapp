@@ -10,18 +10,21 @@ const mutations = {
   setProfile (state, profile) {
     state.profile = profile;
   },
+  changeProfile (state, profile) {
+    Vue.set(state.profile, 0, profile)
+  }
 }
 
 const actions = {
   async create (context, data) {
     const response = await axios.post('/api/profiles', data);
-    context.commit('setProfile', response.data);
+    context.commit('changeProfile', response.data);
   },
   async update (context, { profileId, data }) {
     const response = await axios.post(`/api/profiles/${profileId}`, data, {
       headers: { 'X-HTTP-Method-Override': 'PUT' }
     });
-    context.commit('setProfile', response.data);
+    context.commit('changeProfile', response.data);
   },
   async currentProfile (context, id) {
     const response = await axios.get(`/api/profiles/${id}`);

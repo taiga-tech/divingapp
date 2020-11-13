@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Profile;
 use App\Models\User;
+use App\Models\Post;
 
 class ProfilesController extends Controller
 {
@@ -63,8 +64,11 @@ class ProfilesController extends Controller
     public function show($id)
     {
         // $profile = $this->profiles->find($id);
-        $profile = Profile::with('user', 'posts')->find($id);
-        return $profile; //view('profiles.show', compact('profile'));
+        $profile = Profile::with('user')->find($id);
+        $posts = Post::where('profile_id', $id)
+            ->with('user', 'profile', 'images')
+            ->get();
+        return [$profile, $posts]; //view('profiles.show', compact('profile'));
     }
 
     /**
