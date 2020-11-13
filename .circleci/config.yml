@@ -1,0 +1,95 @@
+version: 2.1
+
+orbs:
+  slack: circleci/slack@3.4.2
+
+# ---------------- Commands ----------------
+
+commands:
+  env_setup:
+    steps:
+      - run:
+          name: ENV Setup
+          command: |
+            echo $ENV_FILE | base64 -di > .env
+            echo $TEST_ENV_FILE | base64 -di > src/.env.testing
+
+  docker_setup:
+    steps:
+      - run:
+          name: Docker Setup
+          command: |
+            docker-compose up -d --build
+
+  laravel_setup:
+    steps:
+      - run:
+          name: Laravel Setup
+          command: |
+            docker-compose run php composer install
+
+  test_db_setup:
+    steps:
+      - run:
+          name: Test DB Setup
+          command: |
+            touch src/database/database.sqlite
+            docker-compose run php php artisan migrate:fresh --seed --env=testing
+
+  test_run:
+    steps:
+      - run:
+          name: Run Test
+          command: |
+            docker-compose run php php artisan test
+
+  test_notification:
+    steps:
+      - slack/status:
+          success_message: ':circleci-success: $CIRCLE_BRANCH のテストが完了しました\n\n:github-wh: User：$CIRCLE_USERNAME'
+          failure_message: ':circleci-failed: $CIRCLE_BRANCH のテストが失敗しました\n\n:github-wh: User：$CIRCLE_USERNAME'
+          webhook: '${SLACK_WEBHOOK}'
+
+  deploy_notification:
+    steps:
+      - slack/status:
+          success_message: ':circleci-success: $CIRCLE_BRANCH のデプロイが完了しました\n\n:github-wh: User：$CIRCLE_USERNAME'
+          failure_message: ':circleci-failed: $CIRCLE_BRANCH のデプロイが失敗しました\n\n:github-wh: User：$CIRCLE_USERNAME'
+          webhook: '${SLACK_WEBHOOK}'
+
+# ---------------- Jobs ----------------
+
+jobs:
+  test:
+    machine: true
+    steps:
+      - checkout
+      - env_setup
+      - docker_setup
+      - laravel_setup
+      - test_db_setup
+      # - test_run
+      - test_notification
+
+# ---------------- Workflows ----------------
+
+workflows:
+  test:
+    jobs:
+      - test:
+          filters:
+            branches:
+                ignore: master
+
+  test_and_deploy:
+    jobs:
+      - test:
+          filters:
+            branches:
+                only: master
+#       - deploy_master:
+#           requires:
+#             - test
+#           filters:
+#             branches:
+#                 only: master
