@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -76,6 +77,11 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
+        return $user;
+    }
+
+    protected function registered(Request $request, $user)
+    {
         return $user;
     }
 }

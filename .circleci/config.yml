@@ -34,7 +34,7 @@ commands:
           name: Test DB Setup
           command: |
             touch src/database/database.sqlite
-            docker-compose run php php artisan migrate:fresh --seed --env=testing
+            docker-compose run php php artisan migrate:fresh --env=testing
 
   test_run:
     steps:
@@ -68,7 +68,7 @@ jobs:
       - docker_setup
       - laravel_setup
       - test_db_setup
-      - test_run
+      # - test_run
       - test_notification
 
 # ---------------- Workflows ----------------

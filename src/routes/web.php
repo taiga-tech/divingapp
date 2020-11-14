@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Auth::routes();
-Route::get('/', [PostsController::class, 'index'])->name('root');
-Route::resource('posts', PostsController::class);
-Route::resource('profiles', ProfilesController::class)->except('destroy');
+// Auth::routes();
+// Route::get('/', [PostsController::class, 'index'])->name('root');
+// Route::resource('posts', PostsController::class);
+// Route::resource('profiles', ProfilesController::class)->except('destroy');
+Route::get('/{any}', function() {
+  return view('app');
+})->where('any', '.*');
