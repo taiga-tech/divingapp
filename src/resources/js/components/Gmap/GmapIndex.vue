@@ -1,10 +1,9 @@
 <template>
-  <div id="map" v-if="geocode">
+  <div id="map">
     <GmapMap
-      v-if="geocode"
+      v-if="geocode.length != 0"
       :center="center"
       :zoom="zoom"
-      @center_changed="onCenterChanged"
       style="width: 100%; height: 100%;"
     >
       <GmapMarker

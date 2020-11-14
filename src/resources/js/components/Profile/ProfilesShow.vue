@@ -47,7 +47,9 @@ export default {
         this.profile = res.data[0];
         this.posts = res.data[1].reverse();
         for(var i = 0; i < this.posts.length; i++) {
-          this.geocode.push({ lat: this.posts[i].lat, lng: this.posts[i].lng })
+          if (this.posts[i].lat && this.posts[i].lng) {
+            this.geocode.push({ lat: this.posts[i].lat, lng: this.posts[i].lng })
+          }
         }
       });
     },

@@ -46,7 +46,12 @@ export default {
         formData.append('lng', this.post.latlng.lng)
       }
       if (this.post.place) {
-        formData.append('place', this.post.place)
+        formData.append(
+          'place', this.post.place
+          .replace(/〒\d{3}-?\d{4}/,'')
+          .replace(/Unnamed Road,/, '')
+          .replace(/\d{3}-?\d{4}/,'')
+        )
       }
       if (this.post.text) {
         formData.append('text', this.post.text)

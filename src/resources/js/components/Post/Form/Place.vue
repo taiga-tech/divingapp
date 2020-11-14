@@ -1,5 +1,5 @@
 <template>
-<div class=" mb-3 w-100">
+<div class=" my-4 w-100">
   <div class="d-flex justify-content-between px-1">
     <div class="">どこの海？</div>
     <div v-on:click="open">マップを開く</div>
@@ -31,7 +31,7 @@
   </div>
 
   <div class="search mt-2">
-    <form class="" v-on:submit.prevent="geoCoding(fullPlace)">
+    <form class="" v-on:submit.prevent="geoCoding($parent.post.place)">
       <input
         v-model="$parent.post.place"
         type="search"
@@ -39,7 +39,7 @@
         placeholder="住所で検索する"
       >
       <span class="searchIcon rounded-circle">
-        <i v-on:click.prevent="geoCoding(fullPlace)" class="fas fa-search"></i>
+        <i v-on:click.prevent="geoCoding($parent.post.place)" class="fas fa-search"></i>
       </span>
     </form>
   </div>
@@ -117,6 +117,7 @@ export default {
       )
       this.geocode = response.data.results[0].geometry.location
       this.fullPlace = response.data.results[0].formatted_address
+      console.log(response.data.results[0].address_components)
       this.mapOpen()
     },
     async mapOpen() {
