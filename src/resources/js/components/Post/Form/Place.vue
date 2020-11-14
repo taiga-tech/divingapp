@@ -69,7 +69,8 @@
 </style>
 
 <script>
-import Gmap from '../Gmap/Gmap';
+import Gmap from '../../Gmap/Gmap';
+
 export default {
   data: function () {
     return {

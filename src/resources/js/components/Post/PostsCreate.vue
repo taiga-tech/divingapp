@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import PostForm from './PostForm';
+import PostForm from './Form/PostForm';
 export default {
   data: function () {
     return {
