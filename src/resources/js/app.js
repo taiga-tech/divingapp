@@ -58,7 +58,7 @@ Vue.component('infoWindow', VueGoogleMaps.InfoWindow);
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default)
 Vue.component('top-bar', require('./components/Layouts/TopBar.vue').default)
-Vue.component('left-bar', require('./components/Layouts/LeftBar.vue').default)
+Vue.component('left-bar', require('./components/Layouts//LeftBar/LeftBar.vue').default)
 Vue.component('right-bar', require('./components/Layouts/RightBar.vue').default)
 Vue.component('bottom-bar', require('./components/Layouts/BottomBar.vue').default)
 
