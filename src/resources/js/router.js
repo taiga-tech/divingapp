@@ -2,7 +2,6 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
-import ProfilesCreate from './components/Profile/ProfilesCreate';
 import ProfilesShow from './components/Profile/ProfilesShow';
 import ProfilesEdit from './components/Profile/ProfilesEdit';
 import PostsIndex from './components/Post/PostsIndex';
@@ -47,18 +46,6 @@ export default new VueRouter({
             component: {
                 template: '<div class="auth-component"></div>'
             }
-        },
-        {
-            path: '/profiles/create',
-            name: 'profiles.create',
-            component: ProfilesCreate,
-            // beforeEnter (to, from, next) {
-                // if (! store.getters['profile/profile'] && store.getters['auth/check']) {
-                //     next()
-                // } else {
-                //     next('/login')
-                // }
-            // }
         },
         {
             path: '/profiles/:profileId',

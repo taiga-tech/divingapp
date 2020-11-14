@@ -17,6 +17,7 @@
             required
             autocomplete="userid"
             autofocus
+            v-on:input="insertName"
             v-model="user.userid">
           <span class="invalid-feedback" role="alert">
             <!-- <strong>{{ message }}</strong> -->
@@ -97,12 +98,17 @@ export default {
   data: function () {
     return {
       user: {},
+      profile: {},
     }
   },
   methods: {
+    insertName() {
+      this.profile.name = this.user.userid
+    },
     async submit () {
       await this.$store.dispatch('auth/register', this.user);
-      this.$router.push('/profiles/create');
+      await this.$store.dispatch('profile/create', this.profile);
+      this.$router.push('/');
     }
   },
   components: {
