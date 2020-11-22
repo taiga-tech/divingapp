@@ -3,7 +3,7 @@
   <div class="d-flex justify-content-between p-1">
     <router-link :to="{ name: 'profiles.show', params: { profileId: this.profile.id }}">
       <div class="d-flex">
-        <img class="rounded-circle" :src="'/storage/images/' + profile.image">
+        <img class="rounded-circle" :src="profile.image">
         <p>{{ profile.name }}</p>
         <p>{{ profile.user.userid }}</p>
         <p>{{ profile.posts.length }}</p>

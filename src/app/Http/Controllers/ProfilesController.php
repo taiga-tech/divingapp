@@ -40,19 +40,23 @@ class ProfilesController extends Controller
     {
         $profile = new Profile;
         $input = $request->all();
-        $image = $request->file('image');
         $input['user_id'] = Auth::id();
-        $timeStamp = date('Ymd-His');
-        if ( $image ) {
-            $ext = $image->guessExtension();
-            $filename = "{$timeStamp}_{$request->name}.{$ext}";
-            $path = $image->storeAs('profile/'.Auth::id(), $filename);
-            $input['image'] = $path;
-        } else {
-            $path = Storage::putFile('profile/'.Auth::id(), 'default.png', file('default.png'));
-            $input['image'] = $path;
-        }
-        return $profile->create($input); //redirect(route('profiles.show', Auth::user()->profile->id));
+        // $image = $request->file('image');
+        // $timeStamp = date('Ymd-His');
+        // if ( $image ) {
+        //     $ext = $image->guessExtension();
+        //     $filename = "{$timeStamp}_{$request->name}.{$ext}";
+        //     $uploadImage = Storage::disk('s3')->putFileAs('profile/'.Auth::id(), $image, $filename, 'public');
+        //     $path = Storage::disk('s3')->url($uploadImage);
+        //     // $path = $image->storeAs('profile/'.Auth::id(), $filename);
+        //     $input['image'] = $path;
+        // } else {
+        // $uploadImage = Storage::disk('s3')->putFile('profile/'.Auth::id(), 'default.png', file('default.png'));
+        // $path = Storage::disk('s3')->url($uploadImage);
+        // $path = Storage::putFile('profile/'.Auth::id(), 'default.png', file('default.png'));
+        // $input['image'] = $path;
+        // }
+        return $profile->create($input); // redirect(route('profiles.show', Auth::user()->profile->id));
     }
 
     /**
@@ -103,7 +107,9 @@ class ProfilesController extends Controller
         if ( $image ) {
             $ext = $image->guessExtension();
             $filename = "{$timeStamp}_{$request->name}.{$ext}";
-            $path = $image->storeAs('profile/'.$id, $filename);
+            $uploadImage = Storage::disk('s3')->putFileAs('profile/'.Auth::id(), $image, $filename, 'public');
+            $path = Storage::disk('s3')->url($uploadImage);
+            // $path = $image->storeAs('profile/'.$id, $filename);
             $input['image'] = $path;
         }
         $profile->update($input);

@@ -31,7 +31,7 @@ export default {
       axios.get('/api/profiles/' + this.profileId)
       .then((res) => {
         this.profile = res.data[0];
-        this.preview = `/storage/images/${this.profile.image}`
+        this.preview = this.profile.image
       });
     },
     async submit () {

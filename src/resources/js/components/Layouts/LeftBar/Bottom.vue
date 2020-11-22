@@ -7,8 +7,8 @@
           <img
             v-if="profile.image"
             class="rounded-circle"
-            v-bind:src="'/storage/images/' + profile.image"
-            >
+            :src="profile.image"
+          >
         </div>
         <div class="d-md-none d-xl-block mx-4">
           {{ profile.name }} {{ user.userid }}

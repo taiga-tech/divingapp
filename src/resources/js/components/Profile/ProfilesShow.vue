@@ -1,7 +1,7 @@
 <template>
 <div v-if="profile" class="">
   <div class="border-bottom">
-    <div><img class="profileImage rounded-circle" :src="'/storage/images/' + profile.image" :alt="profile.name + 'のプロフィール画像'"></div>
+    <div><img class="profileImage rounded-circle" :src="profile.image" :alt="profile.name + 'のプロフィール画像'"></div>
     <p>{{ profile.name }}</p>
     <p>{{ profile.comment }}</p>
     <p>{{ profile.user.userid }}</p>

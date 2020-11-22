@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\PostImage;
 use App\Http\Requests\PostRequest;
+use Storage;
 
 class PostsController extends Controller
 {
@@ -58,8 +59,9 @@ class PostsController extends Controller
             foreach ($request->file('files') as $index=> $e) {
                 $ext = $e['image']->guessExtension();
                 $filename = "{$timeStamp}_{$index}.{$ext}";
-                $path = $e['image']->storeAs('post/'.$post->id , $filename);
-                $post->images()->create(['path'=> $path]);
+                $image = Storage::disk('s3')->putFileAs('post/'.$post->id, $e['image'], $filename, 'public');
+                $path = Storage::disk('s3')->url($image);
+                $post->images()->create([ 'path' => $path ]);
             }
         }
         return $post; //redirect('/');
@@ -110,7 +112,8 @@ class PostsController extends Controller
             foreach ($request->file('files') as $index=> $e) {
                 $ext = $e['image']->guessExtension();
                 $filename = "{$timeStamp}_{$index}.{$ext}";
-                $path = $e['image']->storeAs('post/'.$post->id , $filename);
+                $image = Storage::disk('s3')->putFileAs('post/'.$post->id, $e['image'], $filename, 'public');
+                $path = Storage::disk('s3')->url($image);
                 $post->images()->create(['path'=> $path]);
             }
         }
