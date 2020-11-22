@@ -3,7 +3,6 @@
 ### フロントエンド
   - vue (spa)
 # 開発環境
-
 |language|Version|
 |---|---|
 |Docker DeskTop|2.5.0.1 (stable)|
@@ -37,21 +36,20 @@
 - https://aws.amazon.com/jp/about-aws/whats-new/2020/07/docker-and-aws-collaborate-to-help-deploy-applications-to-amazon-ecs-on-aws-fargate/
 
 ### デプロイ手順
-
 - ecrに最新イメージpush
 - contextを作成したecsに変更する
 - `docker compose ls`でステータスがランニングになっていないことを確認する
-  > escにコンテナが立ち上がっていたらなぜかエラーが出る。
+  > ecsにコンテナが立ち上がっていたらなぜかエラーが出る。
 - `docker compose up`でデプロイ完了
 
 ### デプロイで苦戦したこと
-- ホストからのvolumeが対応していない
-- `.env`を読み取らない
+- ホストからのvolumeに対応していない
+- `$ENV` を読み取らない
+  > `env_file`でまとめて定義することで解決
 - デプロイ後にコンテナにアクセス出来ない(sshは推薦されていない)
 - ipが変動する
 
 
-<!--
 # インストール方法
 ```bash
   % git clone https://github.com/taiga-tech/divingapp.git
@@ -60,6 +58,9 @@
   % cp ./src/.env.example ./src/.env
   % docker-compose -f docker-compose.local.yml up -d --build
 ```
+
+<!--
+# CricleCIの動き
 ![](https://user-images.githubusercontent.com/67569270/96187946-d2ad5880-0f78-11eb-8eae-fb99a7af7cc7.png)
 -->
 
