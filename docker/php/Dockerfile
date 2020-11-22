@@ -1,22 +1,22 @@
 FROM php:7.4-fpm-buster
-COPY php.ini /usr/local/etc/php/
+
+COPY ./docker/php/php.ini /usr/local/etc/php/
 
 RUN apt-get update \
-  && apt-get install -y zlib1g-dev mariadb-client vim libzip-dev \
-  && docker-php-ext-install zip pdo_mysql \
-  && apt-get -y install unzip
+    && apt-get install -y zlib1g-dev mariadb-client vim libzip-dev \
+    && docker-php-ext-install zip pdo_mysql \
+    && apt-get -y install unzip
 
-
-# Node.jsをインストール
+# Node.js install
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get install -y nodejs
 
-# yarnをインストール
+# yarn install
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN apt-get update && apt-get install yarn
 
-#Composer install
+# Composer install
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php
 RUN php -r "unlink('composer-setup.php');"
@@ -28,9 +28,19 @@ ENV COMPOSER_HOME /composer
 
 ENV PATH $PATH:/composer/vendor/bin
 
+COPY ./docker/php/entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.6.0/wait /wait
+RUN chmod +x /wait
+
 WORKDIR /var/www
+COPY ./src /var/www
+RUN chown -R www-data:www-data /var/www
 
 RUN composer global require "laravel/installer"
 
 RUN echo 'alias ar="php artisan"' >> ~/.bashrc \
-  && echo 'alias watch="npm run watch-poll"' >> ~/.bashrc
+    && echo 'alias watch="npm run watch-poll"' >> ~/.bashrc
+
+# CMD /wait && /usr/local/bin/entrypoint.sh
