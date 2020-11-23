@@ -5,7 +5,6 @@ services:
     build:
       context: .
       dockerfile: ./docker/php/Dockerfile
-    command: bash -c "/wait && /usr/local/bin/entrypoint.sh"
     volumes:
       - ./src:/var/www
     depends_on:
