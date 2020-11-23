@@ -49,7 +49,6 @@ commands:
     steps:
       - checkout
       - aws-ecr/build-and-push-image:
-          context: divingapp
           path: .
           dockerfile: ./docker/php/Dockerfile
           # region: AWS_DEFAULT_REGION
@@ -61,7 +60,6 @@ commands:
     steps:
       - checkout
       - aws-ecr/build-and-push-image:
-          context: diingapp
           path: .
           dockerfile: ./docker/nginx/Dockerfile
           # region: AWS_DEFAULT_REGION
@@ -156,6 +154,7 @@ workflows:
             branches:
                 only: master
       - ecr_push:
+          context: divingapp
           requires:
             - test
           filters:
