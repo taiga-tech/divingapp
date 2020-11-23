@@ -107,7 +107,7 @@ commands:
 
 jobs:
   test:
-    machine: true
+    # machine: true
     steps:
       - checkout
       - docker_version
