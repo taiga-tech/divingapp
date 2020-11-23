@@ -49,23 +49,23 @@ commands:
     steps:
       - checkout
       - aws-ecr/build-and-push-image:
-          # path: .
+          path: .
+          dockerfile: ./docker/php/Dockerfile
           region: AWS_DEFAULT_REGION
           account-url: AWS_ECR_ACCOUNT_URL
           repo: "divingapp_php"
           tag: "${CIRCLE_SHA1}"
-          setup-remote-docker: true
 
   nginx_image_push:
     steps:
       - checkout
       - aws-ecr/build-and-push-image:
-          # path: .
+          path: .
+          dockerfile: ./docker/nginx/Dockerfile
           region: AWS_DEFAULT_REGION
           account-url: AWS_ECR_ACCOUNT_URL
           repo: "divingapp_nginx"
           tag: "${CIRCLE_SHA1}"
-          setup-remote-docker: true
 
   test_notification:
     steps:
