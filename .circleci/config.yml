@@ -49,10 +49,11 @@ commands:
     steps:
       - checkout
       - aws-ecr/build-and-push-image:
+          context: divingapp
           path: .
           dockerfile: ./docker/php/Dockerfile
-          region: AWS_DEFAULT_REGION
-          account-url: AWS_ECR_ACCOUNT_URL
+          # region: AWS_DEFAULT_REGION
+          # account-url: AWS_ECR_ACCOUNT_URL
           repo: "divingapp_php"
           tag: "${CIRCLE_SHA1}"
 
@@ -60,10 +61,11 @@ commands:
     steps:
       - checkout
       - aws-ecr/build-and-push-image:
+          context: diingapp
           path: .
           dockerfile: ./docker/nginx/Dockerfile
-          region: AWS_DEFAULT_REGION
-          account-url: AWS_ECR_ACCOUNT_URL
+          # region: AWS_DEFAULT_REGION
+          # account-url: AWS_ECR_ACCOUNT_URL
           repo: "divingapp_nginx"
           tag: "${CIRCLE_SHA1}"
 
@@ -74,6 +76,8 @@ commands:
           command: |
             docker -v
             docker-compose -v
+      - setup_remote_docker:
+          version: 19.03.13
 
   # ecs_fargate_deploy:
   #   steps:
