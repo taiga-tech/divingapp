@@ -131,7 +131,7 @@ jobs:
   ecr_push:
     machine: true
     steps:
-      - docker_version
+      # - docker_version
       - php_image_push
       - nginx_image_push
       - ecr_notification
