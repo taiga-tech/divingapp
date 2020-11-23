@@ -69,13 +69,13 @@ commands:
 
   docker_version:
     steps:
+      - setup_remote_docker:
+          version: 19.03.13
       - run:
           name: Docker Version
           command: |
             docker -v
             docker-compose -v
-      - setup_remote_docker:
-          version: 19.03.13
 
   # ecs_fargate_deploy:
   #   steps:
@@ -107,9 +107,10 @@ commands:
 
 jobs:
   test:
-    machine: true
+    # machine: true
     steps:
       - checkout
+      - docker_version
       - env_setup
       - docker_setup
       - laravel_setup
@@ -118,7 +119,7 @@ jobs:
       - test_notification
 
   ecr_push:
-    machine: true
+    # machine: true
     steps:
       - docker_version
       - php_image_push
@@ -126,7 +127,7 @@ jobs:
       - ecr_notification
 
   deploy_master:
-    machine: true
+    # machine: true
     steps:
       - ecs_fargate_deploy
       - deploy_notification
