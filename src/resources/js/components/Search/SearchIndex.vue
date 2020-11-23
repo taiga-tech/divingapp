@@ -7,9 +7,7 @@
   <div v-if="profiles">
     <profile-content v-for="profile in profiles" :key="profile.id" :profile="profile" />
   </div>
-  <h4 v-if="posts.length == 0 && profiles.length == 0" class="opacity-2 text-center">
-    検索結果がありません
-  </h4>
+  <enpty v-if="posts.length == 0 && profiles.length == 0" message="検索結果がありません" />
 </div>
 </template>
 
@@ -17,6 +15,7 @@
 import Search from './Search';
 import PostContent from '../Post/PostContent';
 import ProfileContent from '../Profile/ProfilesContent';
+import Enpty from '../Post/Enpty.vue';
 export default {
   data: function () {
     return {
@@ -29,6 +28,7 @@ export default {
     Search,
     PostContent,
     ProfileContent,
+    Enpty,
   },
 }
 </script>

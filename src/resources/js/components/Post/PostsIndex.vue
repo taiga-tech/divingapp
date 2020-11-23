@@ -1,11 +1,15 @@
 <template>
 <div>
-  <post-content v-for="post in posts" :key="post.id" :post="post" />
+  <div v-if="posts.length != 0">
+    <post-content v-for="post in posts" :key="post.id" :post="post" />
+  </div>
+  <enpty message='まだ投稿がありません' />
 </div>
 </template>
 
 <script>
 import PostContent from './PostContent';
+import Enpty from './Enpty';
 export default {
   data: function () {
     return {
@@ -25,6 +29,7 @@ export default {
   },
   components: {
     PostContent,
+    Enpty,
   },
 }
 </script>

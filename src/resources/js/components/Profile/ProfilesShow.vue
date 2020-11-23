@@ -11,6 +11,7 @@
   </div>
   <gmap-index v-if="geocode.length != 0" v-show="open" :geocode="geocode" />
   <post-content v-for="post in posts" :key="post.id" :post="post" />
+  <enpty message="まだ投稿がありません" />
 </div>
 </template>
 
@@ -27,6 +28,7 @@
 
 <script>
 import GmapIndex from '../Gmap/GmapIndex.vue';
+import Enpty from '../Post/Enpty.vue';
 import PostContent from '../Post/PostContent';
 export default {
   props: {
@@ -60,6 +62,7 @@ export default {
   components: {
     GmapIndex,
     PostContent,
+    Enpty,
   }
 }
 </script>
