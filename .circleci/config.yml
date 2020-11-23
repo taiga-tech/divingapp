@@ -51,22 +51,29 @@ commands:
       - aws-ecr/build-and-push-image:
           path: .
           dockerfile: ./docker/php/Dockerfile
-          dockerfile: ./docker/nginx/Dockerfile
           region: AWS_DEFAULT_REGION
           account-url: AWS_ECR_ACCOUNT_URL
           repo: "divingapp_php"
           tag: "${CIRCLE_SHA1}"
 
-  # nginx_image_push:
-  #   steps:
-  #     - checkout
-  #     - aws-ecr/build-and-push-image:
-  #         path: .
-  #         dockerfile: ./docker/nginx/Dockerfile
-  #         region: AWS_DEFAULT_REGION
-  #         account-url: AWS_ECR_ACCOUNT_URL
-  #         repo: "divingapp_nginx"
-  #         tag: "${CIRCLE_SHA1}"
+  nginx_image_push:
+    steps:
+      - checkout
+      - aws-ecr/build-and-push-image:
+          path: .
+          dockerfile: ./docker/nginx/Dockerfile
+          region: AWS_DEFAULT_REGION
+          account-url: AWS_ECR_ACCOUNT_URL
+          repo: "divingapp_nginx"
+          tag: "${CIRCLE_SHA1}"
+
+  docker_version:
+    steps:
+      - run:
+          name: Docker Version
+          command: |
+            docker -v
+            docker-compose -v
 
   # ecs_fargate_deploy:
   #   steps:
@@ -111,8 +118,9 @@ jobs:
   ecr_push:
     machine: true
     steps:
+      - docker_version
       - php_image_push
-      # - nginx_image_push
+      - nginx_image_push
       - ecr_notification
 
   deploy_master:
