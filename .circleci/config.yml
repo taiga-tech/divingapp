@@ -107,7 +107,7 @@ commands:
 
 jobs:
   test:
-    # machine: true
+    machine: true
     steps:
       - checkout
       - docker_version
@@ -119,7 +119,7 @@ jobs:
       - test_notification
 
   ecr_push:
-    # machine: true
+    machine: true
     steps:
       - docker_version
       - php_image_push
@@ -127,7 +127,7 @@ jobs:
       - ecr_notification
 
   deploy_master:
-    # machine: true
+    machine: true
     steps:
       - ecs_fargate_deploy
       - deploy_notification
