@@ -1,90 +1,70 @@
-<!-- # インストール方法
+# 概要
+### サーバサイド
+### フロントエンド
+  - vue (spa)
+# 開発環境
+|language|Version|
+|---|---|
+|Docker DeskTop|2.5.0.1 (stable)|
+|Docker Engine|19.03.13|
+|docker-compose|1.27.4|
+|PHP|7.4.12|
+|Laravel|4.1.1|
+|composer|2.0.7|
+|npm|6.14.8|
+|node|10.23.0|
 
+# 本番環境
+|AWS||
+|--|--|
+|ecs-cli|1.20.0|
+|ecs|fargate|
+|container|ecr|
+|volume|efs|
+|upload image|s3|
+
+## 現状デプロイ方法
+  > AWSCloud Containers Conference2020で発表された`DockerCLIでのECS統合`を使用してデプロイしました
+
+### 参考資料
+- https://docs.docker.com/storage/volumes/
+- https://docs.docker.com/engine/context/ecs-integration/#tuning-the-cloudformation-template
+- https://docs.aws.amazon.com/ja_jp/AmazonECS/latest/userguide/efs-volumes.html
+- https://matsuand.github.io/docs.docker.jp.onthefly/engine/context/ecs-integration/
+- https://dev.classmethod.jp/articles/docker-ecs/#toc-1
+- https://github.com/docker/compose-cli
+- https://aws.amazon.com/jp/about-aws/whats-new/2020/07/docker-and-aws-collaborate-to-help-deploy-applications-to-amazon-ecs-on-aws-fargate/
+
+### デプロイ手順
+- ecrに最新イメージpush
+- contextを作成したecsに変更する
+- `docker compose ls`でステータスがランニングになっていないことを確認する
+  > ecsにコンテナが立ち上がっていたらなぜかエラーが出る。
+- `docker compose up`でデプロイ完了
+
+### デプロイで苦戦したこと
+- ホストからのvolumeに対応していない
+- `$ENV` を読み取らない
+  > `env_file`でまとめて定義することで解決
+- デプロイ後にコンテナにアクセス出来ない(sshは推薦されていない)
+- ipが変動する
+
+
+# インストール方法
 ```bash
   % git clone https://github.com/taiga-tech/divingapp.git
-  % docker-compose up -d --build
-``` -->
-<!-- ![](https://user-images.githubusercontent.com/67569270/96187946-d2ad5880-0f78-11eb-8eae-fb99a7af7cc7.png) -->
-
-## 現状
-### back
-- [ ] auth
-  - [ ] snsauth
-- [x] profile
-- [ ] post
-  - [ ] imageupdate
-  - [ ] tags
-
-### front
-- [ ] layout
-  - all
-- [ ] errormessage
-  - all
-- [ ] vue
-  - all
-
-- [ ] deploy
+  % cd divingapp
+  % cp .docker-compose.env .env
+  % cp ./src/.env.example ./src/.env
+  % docker-compose -f docker-compose.local.yml up -d --build
+```
 
 <!--
+# CricleCIの動き
+![](https://user-images.githubusercontent.com/67569270/96187946-d2ad5880-0f78-11eb-8eae-fb99a7af7cc7.png)
+-->
 
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
-
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT). -->
+## タスク
+- [ ] IP固定
+- [ ] efs volume mount
+- [ ] circleci でecrを最新イメージに更新

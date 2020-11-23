@@ -72,7 +72,7 @@ export default {
           this.post = res.data;
           this.postImages = res.data.images;
           for (var i = 0; i < this.postImages.length; i++) {
-            this.previews.push(`/storage/images/${this.postImages[i].path}`);
+            this.previews.push(this.postImages[i].path);
           }
         });
       }

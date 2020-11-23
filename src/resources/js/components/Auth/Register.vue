@@ -104,6 +104,7 @@ export default {
   methods: {
     insertName() {
       this.profile.name = this.user.userid
+      this.profile.image = '/default.png'
     },
     async submit () {
       await this.$store.dispatch('auth/register', this.user);

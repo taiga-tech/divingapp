@@ -3,7 +3,7 @@
   <div class="d-flex px-1 justify-content-between">
     <router-link :to="{ name: 'profiles.show', params: { profileId: post.profile.id }}">
       <div class="d-flex">
-          <img class="postProfileImage rounded-circle" :src="'/storage/images/' + post.profile.image" alt="">
+          <img class="postProfileImage rounded-circle" :src="post.profile.image" alt="">
         <h5>{{ post.profile.name }}</h5>
         <p>({{ post.user.userid }})</p>
       </div>
@@ -19,7 +19,7 @@
       <img
         v-for="image in post.images"
         :key="image.id"
-        :src="'/storage/images/' + image.path"
+        :src="image.path"
         class="w-25"
       >
     </div>

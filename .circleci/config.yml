@@ -2,6 +2,8 @@ version: 2.1
 
 orbs:
   slack: circleci/slack@3.4.2
+  aws-ecr: circleci/aws-ecr@6.14.0
+  aws-ecs: circleci/aws-ecs@1.4.0
 
 # ---------------- Commands ----------------
 
@@ -19,14 +21,14 @@ commands:
       - run:
           name: Docker Setup
           command: |
-            docker-compose up -d --build
+            docker-compose -f docker-compose.local.yml up --build -d
 
   laravel_setup:
     steps:
       - run:
           name: Laravel Setup
           command: |
-            docker-compose run php composer install
+            docker-compose -f docker-compose.local.yml run php composer install
 
   test_db_setup:
     steps:
@@ -34,14 +36,14 @@ commands:
           name: Test DB Setup
           command: |
             touch src/database/database.sqlite
-            docker-compose run php php artisan migrate:fresh --env=testing
+            docker-compose -f docker-compose.local.yml run php php artisan migrate:fresh --env=testing
 
   test_run:
     steps:
       - run:
           name: Run Test
           command: |
-            docker-compose run php php artisan test
+            docker-compose -f docker-compose.local.yml run php php artisan test
 
   test_notification:
     steps:
@@ -49,6 +51,10 @@ commands:
           success_message: ':circleci-success: $CIRCLE_BRANCH のテストが完了しました\n\n:github-wh: User：$CIRCLE_USERNAME'
           failure_message: ':circleci-failed: $CIRCLE_BRANCH のテストが失敗しました\n\n:github-wh: User：$CIRCLE_USERNAME'
           webhook: '${SLACK_WEBHOOK}'
+
+  # 最新image ECR PUSH docker compose up
+  # docker tag divingapp_nginx:latest 824365639512.dkr.ecr.us-east-1.amazonaws.com/divingapp_nginx:latest # add tag
+  # docker push 824365639512.dkr.ecr.us-east-1.amazonaws.com/divingapp_nginx:latest # image push
 
   deploy_notification:
     steps:

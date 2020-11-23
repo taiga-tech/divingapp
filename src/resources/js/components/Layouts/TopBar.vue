@@ -3,7 +3,7 @@
   <img
     v-if="profile"
     v-on:click="sideMenu"
-    :src="'/storage/images/' + profile.image"
+    :src="profile.image"
     class="Active d-inline-block d-md-none rounded-circle float-left p-1"
     >
   <span
