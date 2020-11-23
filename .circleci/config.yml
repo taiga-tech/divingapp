@@ -45,16 +45,32 @@ commands:
           command: |
             docker-compose -f docker-compose.local.yml run php php artisan test
 
+  php_image_push:
+    steps:
+      - checkout
+      - aws-ecr/build-and-push-image:
+          path: ./docker/php
+          region: $AWS_DEFAULT_REGION
+          account-url: $AWS_ECR_ACCOUNT_URL
+          repo: 'divingapp_php'
+          tag: "${CIRCLE_SHA1}"
+
+  nginx_image_push:
+    steps:
+      - checkout
+      - aws-ecr/build-and-push-image:
+          path: ./docker/nginx
+          region: $AWS_DEFAULT_REGION
+          account-url: $AWS_ECR_ACCOUNT_URL
+          repo: 'divingapp_nginx'
+          tag: "${CIRCLE_SHA1}"
+
   test_notification:
     steps:
       - slack/status:
           success_message: ':circleci-success: $CIRCLE_BRANCH のテストが完了しました\n\n:github-wh: User：$CIRCLE_USERNAME'
           failure_message: ':circleci-failed: $CIRCLE_BRANCH のテストが失敗しました\n\n:github-wh: User：$CIRCLE_USERNAME'
           webhook: '${SLACK_WEBHOOK}'
-
-  # 最新image ECR PUSH docker compose up
-  # docker tag divingapp_nginx:latest 824365639512.dkr.ecr.us-east-1.amazonaws.com/divingapp_nginx:latest # add tag
-  # docker push 824365639512.dkr.ecr.us-east-1.amazonaws.com/divingapp_nginx:latest # image push
 
   deploy_notification:
     steps:
@@ -77,12 +93,24 @@ jobs:
       # - test_run
       - test_notification
 
+  ecr_push:
+    machine: true
+    steps:
+      - php_image_push
+      - nginx_image_push
+
 # ---------------- Workflows ----------------
 
 workflows:
   test:
     jobs:
       - test:
+          filters:
+            branches:
+                ignore: master
+      - ecr_push:
+          requires:
+            - test
           filters:
             branches:
                 ignore: master
@@ -93,9 +121,15 @@ workflows:
           filters:
             branches:
                 only: master
-#       - deploy_master:
-#           requires:
-#             - test
-#           filters:
-#             branches:
-#                 only: master
+      - ecr_push:
+          requires:
+            - test
+          filters:
+            branches:
+                only: master
+      # - deploy_master:
+      #     requires:
+      #       - test
+      #     filters:
+      #       branches:
+      #           only: master
