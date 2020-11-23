@@ -50,8 +50,8 @@ commands:
       - checkout
       - aws-ecr/build-and-push-image:
           path: ./docker/php
-          region: ${AWS_DEFAULT_REGION}
-          account-url: ${AWS_ECR_ACCOUNT_URL}
+          region: AWS_DEFAULT_REGION
+          account-url: AWS_ECR_ACCOUNT_URL
           repo: "divingapp_php"
           tag: "${CIRCLE_SHA1}"
 
@@ -60,8 +60,8 @@ commands:
       - checkout
       - aws-ecr/build-and-push-image:
           path: ./docker/nginx
-          region: ${AWS_DEFAULT_REGION}
-          account-url: ${AWS_ECR_ACCOUNT_URL}
+          region: AWS_DEFAULT_REGION
+          account-url: AWS_ECR_ACCOUNT_URL
           repo: "divingapp_nginx"
           tag: "${CIRCLE_SHA1}"
 
