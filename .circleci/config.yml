@@ -72,6 +72,13 @@ commands:
           failure_message: ':circleci-failed: $CIRCLE_BRANCH のテストが失敗しました\n\n:github-wh: User：$CIRCLE_USERNAME'
           webhook: '${SLACK_WEBHOOK}'
 
+  ecr_notification:
+    steps:
+      - slack/status:
+          success_message: ':circleci-success: ECRへのPUSHが完了しました'
+          failure_message: ':circleci-failed: ECRへのPUSHが失敗しました'
+          webhook: '${SLACK_WEBHOOK}'
+
   deploy_notification:
     steps:
       - slack/status:
@@ -98,6 +105,7 @@ jobs:
     steps:
       - php_image_push
       - nginx_image_push
+      - ecr_notification
 
 # ---------------- Workflows ----------------
 
