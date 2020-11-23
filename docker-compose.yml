@@ -1,11 +1,11 @@
-version: '3.8'
+version: '3.2'
 
 services:
   php:
     image: 824365639512.dkr.ecr.us-east-1.amazonaws.com/divingapp_php
     command: bash -c "/wait && /usr/local/bin/entrypoint.sh"
     # volumes:
-      # - src:/var/www
+    #   - src:/var/www
     depends_on:
       - db
     environment:
@@ -16,7 +16,7 @@ services:
     ports:
       - 80:80
     # volumes:
-      # - src:/var/www
+    #   - src:/var/www
     depends_on:
       - php
 
@@ -32,7 +32,7 @@ services:
 volumes:
   mysql_db:
     # driver_opts:
-      # device: fs-57f55ea2.efs.es-west-1.amazonaws.com
-  src:
+      # device: 'efs' #fs-0376c0f6.efs.es-west-1.amazonaws.com
+  # src:
     # driver_opts:
-      # device: fs-dfb71c2a.efs.es-west-1.amazonaws.com
+    #   device: fs-228034d7.efs.es-west-1.amazonaws.com
