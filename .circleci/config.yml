@@ -51,8 +51,8 @@ commands:
       - aws-ecr/build-and-push-image:
           path: .
           dockerfile: ./docker/php/Dockerfile
-          # region: AWS_DEFAULT_REGION
-          # account-url: AWS_ECR_ACCOUNT_URL
+          region: AWS_DEFAULT_REGION
+          account-url: AWS_ECR_ACCOUNT_URL
           repo: "divingapp_php"
           tag: "${CIRCLE_SHA1}"
 
@@ -62,8 +62,8 @@ commands:
       - aws-ecr/build-and-push-image:
           path: .
           dockerfile: ./docker/nginx/Dockerfile
-          # region: AWS_DEFAULT_REGION
-          # account-url: AWS_ECR_ACCOUNT_URL
+          region: AWS_DEFAULT_REGION
+          account-url: AWS_ECR_ACCOUNT_URL
           repo: "divingapp_nginx"
           tag: "${CIRCLE_SHA1}"
 
@@ -153,7 +153,6 @@ workflows:
             branches:
                 only: master
       - ecr_push:
-          context: divingapp
           requires:
             - test
           filters:
