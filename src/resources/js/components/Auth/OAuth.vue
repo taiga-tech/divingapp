@@ -3,13 +3,13 @@
   <div
     v-if="$route.name != 'auth.register'"
     v-on:click="$router.push({name: 'auth.register'})"
-    class="btn btn-outline-success mr-1">
+    class="btn btn-outline-light mr-1">
     <i class="far fa-envelope"> 新規登録</i>
   </div>
   <div
     v-if="$route.name != 'auth.login'"
     v-on:click="$router.push({name: 'auth.login'})"
-    class="btn btn-outline-warning mr-1">
+    class="btn btn-outline-light mr-1">
     <i class="far fa-envelope"> ログイン</i>
   </div>
   <button
