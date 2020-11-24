@@ -59,12 +59,27 @@
   % docker-compose -f docker-compose.local.yml up -d --build
 ```
 
-<!--
 # CricleCIの動き
-![](https://user-images.githubusercontent.com/67569270/96187946-d2ad5880-0f78-11eb-8eae-fb99a7af7cc7.png)
--->
 
-## タスク
-- [ ] IP固定
-- [ ] efs volume mount
-- [ ] circleci でecrを最新イメージに更新
+### master brunch 以外
+- test
+- test結果のslack通知
+
+### master brunch
+- ecrpush
+- ecsへのデプロイは、hostPCで実行
+  ``` shell
+    # circleciでしたいこと
+    % docker context use ecs
+    % docker compose up
+  ```
+  > circleciのデフォルトdocker versionでは、
+    現在おそらく対応していないようなので、完全自動化に向けてversion変更方法を調査中
+- test結果のslack通知
+- ecrpush結果のslack通知
+
+#### slack通知の参考画像
+![](https://user-images.githubusercontent.com/67569270/96187946-d2ad5880-0f78-11eb-8eae-fb99a7af7cc7.png)
+
+<!-- ## タスクメモ
+- [ ] IP固定 -->
