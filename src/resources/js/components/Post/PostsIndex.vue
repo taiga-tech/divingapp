@@ -3,7 +3,7 @@
   <div v-if="posts.length != 0">
     <post-content v-for="post in posts" :key="post.id" :post="post" />
   </div>
-  <enpty message='まだ投稿がありません' />
+  <enpty v-else message='まだ投稿がありません' />
 </div>
 </template>
 
@@ -17,11 +17,9 @@ export default {
     }
   },
   methods: {
-    getPosts() {
-      axios.get('/api/posts')
-      .then((res) => {
-        this.posts = res.data.reverse();
-      });
+    async getPosts() {
+      const posts = await axios.get('/api/posts')
+      this.posts = posts.data.reverse();
     }
   },
   mounted() {
