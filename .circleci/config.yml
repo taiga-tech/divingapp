@@ -94,7 +94,6 @@ jobs:
     steps:
       - checkout
       - env_setup
-      - docker_version
       - docker_setup
       - laravel_setup
       - test_db_setup
