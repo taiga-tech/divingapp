@@ -12,7 +12,11 @@
         <span>ユーザネーム</span>
       </div>
       <div class="">
-        <input type="text" name="name" class="w-100 dark:text-gray-400" required v-model="$parent.profile.name">
+        <input
+          type="text"
+          name="name"
+          class="px-2 w-100 dark:text-gray-400"
+          required v-model="$parent.profile.name">
         <!-- <span class="invalid-feedback" role="alert">
           <strong>{{ message }}</strong>
         </span> -->
@@ -25,7 +29,12 @@
       <span>ひとこと</span>
     </div>
     <div class="">
-      <textarea name="comment" class="w-100 dark:text-gray-400" rows="5" v-model="$parent.profile.comment"></textarea>
+      <textarea
+        name="comment"
+        rows="5"
+        v-model="$parent.profile.comment"
+        class="px-2 w-100 dark:text-gray-400"
+        ></textarea>
     </div>
   </div>
 </div>
