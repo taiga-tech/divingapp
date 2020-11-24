@@ -10,8 +10,6 @@ orbs:
 commands:
   env_setup:
     steps:
-      - setup_remote_docker:
-          version: 19.03.13
       - run:
           name: ENV Setup
           command: |
@@ -20,8 +18,6 @@ commands:
 
   docker_setup:
     steps:
-      - setup_remote_docker:
-          version: 19.03.13
       - run:
           name: Docker Setup
           command: |
@@ -29,8 +25,6 @@ commands:
 
   laravel_setup:
     steps:
-      - setup_remote_docker:
-          version: 19.03.13
       - run:
           name: Laravel Setup
           command: |
@@ -38,8 +32,6 @@ commands:
 
   test_db_setup:
     steps:
-      - setup_remote_docker:
-          version: 19.03.13
       - run:
           name: Test DB Setup
           command: |
@@ -48,8 +40,6 @@ commands:
 
   test_run:
     steps:
-      - setup_remote_docker:
-          version: 19.03.13
       - run:
           name: Run Test
           command: |
@@ -79,8 +69,6 @@ commands:
 
   docker_version:
     steps:
-      - setup_remote_docker:
-          version: 19.03.13
       - run:
           name: Docker Version
           command: |
@@ -117,7 +105,7 @@ commands:
 
 jobs:
   test:
-    # machine: true
+    machine: true
     steps:
       - checkout
       - docker_version
