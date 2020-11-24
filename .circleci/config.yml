@@ -65,20 +65,6 @@ commands:
           account-url: AWS_ECR_ACCOUNT_URL
           repo: "divingapp_nginx"
 
-  docker_version:
-    steps:
-      - run:
-          name: Docker Version
-          command: |
-            docker -v
-            docker-compose -v
-            docker context ls
-
-  # ecs_fargate_deploy:
-  #   steps:
-  #     - checkout
-  #     -
-
   test_notification:
     steps:
       - slack/status:
@@ -90,14 +76,14 @@ commands:
     steps:
       - slack/status:
           success_message: ':circleci-success: ECRへのPUSHが完了しました'
-          failure_message: ':circleci-failed: ECRへのPUSHが失敗しました'
+          failure_message: ':circleci-failed: ECRへのPUSHに失敗しました'
           webhook: '${SLACK_WEBHOOK}'
 
   deploy_notification:
     steps:
       - slack/status:
           success_message: ':circleci-success: $CIRCLE_BRANCH のデプロイが完了しました\n\n:github-wh: User：$CIRCLE_USERNAME'
-          failure_message: ':circleci-failed: $CIRCLE_BRANCH のデプロイが失敗しました\n\n:github-wh: User：$CIRCLE_USERNAME'
+          failure_message: ':circleci-failed: $CIRCLE_BRANCH のデプロイに失敗しました\n\n:github-wh: User：$CIRCLE_USERNAME'
           webhook: '${SLACK_WEBHOOK}'
 
 # ---------------- Jobs ----------------
@@ -137,12 +123,6 @@ workflows:
           filters:
             branches:
                 ignore: master
-      # - ecr_push:
-      #     requires:
-      #       - test
-      #     filters:
-      #       branches:
-      #           ignore: master
 
   test_and_deploy:
     jobs:
