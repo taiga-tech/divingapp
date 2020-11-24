@@ -51,8 +51,8 @@ commands:
       - aws-ecr/build-and-push-image:
           path: .
           dockerfile: ./docker/php/Dockerfile
-          # region: AWS_DEFAULT_REGION
-          # account-url: AWS_ECR_ACCOUNT_URL
+          region: AWS_DEFAULT_REGION
+          account-url: AWS_ECR_ACCOUNT_URL
           repo: "divingapp_php"
 
   nginx_image_push:
@@ -61,8 +61,8 @@ commands:
       - aws-ecr/build-and-push-image:
           path: .
           dockerfile: ./docker/nginx/Dockerfile
-          # region: AWS_DEFAULT_REGION
-          # account-url: AWS_ECR_ACCOUNT_URL
+          region: AWS_DEFAULT_REGION
+          account-url: AWS_ECR_ACCOUNT_URL
           repo: "divingapp_nginx"
 
   docker_version:
@@ -72,6 +72,7 @@ commands:
           command: |
             docker -v
             docker-compose -v
+            docker context ls
 
   # ecs_fargate_deploy:
   #   steps:
@@ -106,8 +107,8 @@ jobs:
     machine: true
     steps:
       - checkout
-      - docker_version
       - env_setup
+      - docker_version
       - docker_setup
       - laravel_setup
       - test_db_setup
@@ -117,7 +118,6 @@ jobs:
   ecr_push:
     machine: true
     steps:
-      # - docker_version
       - php_image_push
       - nginx_image_push
       - ecr_notification
@@ -137,12 +137,12 @@ workflows:
           filters:
             branches:
                 ignore: master
-      - ecr_push:
-          requires:
-            - test
-          filters:
-            branches:
-                ignore: master
+      # - ecr_push:
+      #     requires:
+      #       - test
+      #     filters:
+      #       branches:
+      #           ignore: master
 
   test_and_deploy:
     jobs:
