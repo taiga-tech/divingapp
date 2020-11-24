@@ -1,13 +1,22 @@
 <template>
 <div class="">
   <search class="border-bottom p-3" />
-  <div v-if="posts">
-    <post-content  v-for="post in posts" :key="post.id" :post="post" />
-  </div>
-  <div v-if="profiles">
-    <profile-content v-for="profile in profiles" :key="profile.id" :profile="profile" />
-  </div>
-  <enpty v-if="posts.length == 0 && profiles.length == 0" message="検索結果がありません" />
+  <v-wait>
+    <v-loading
+      slot="waiting"
+      type="barsCylon"
+      color="#335b66"
+      :size="{ width: '50px', height: '50px'}"
+      class="mt-5"
+    />
+    <div v-if="posts">
+      <post-content  v-for="post in posts" :key="post.id" :post="post" />
+    </div>
+    <div v-if="profiles">
+      <profile-content v-for="profile in profiles" :key="profile.id" :profile="profile" />
+    </div>
+    <enpty v-if="posts.length == 0 && profiles.length == 0" message="検索結果がありません" />
+  </v-wait>
 </div>
 </template>
 

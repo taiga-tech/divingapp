@@ -25,9 +25,6 @@
   line-height: 30px;
   div {
     font-weight: 600;
-    // &:hover {
-    //   // opacity: .6;
-    // }
   }
 }
 .search {
@@ -83,12 +80,16 @@ export default {
       }
       if (this.$route.query) {
         const params = this.$route.params.params
-        const response = await axios.get(`/api/search/${params}`, { params: this.$route.query })
+        this.$wait.start('loading')
+        const response = await axios.get(
+          `/api/search/${params}`, { params: this.$route.query }
+        )
         if (params == 'post') {
           this.$parent.posts = response.data.reverse()
         } else if (params == 'profile') {
           this.$parent.profiles = response.data
         }
+        this.$wait.end('loading')
       }
     },
     reset() {

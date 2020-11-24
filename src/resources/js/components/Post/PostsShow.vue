@@ -1,24 +1,36 @@
 <template>
-<div v-if="post" class="">
-  <div class="d-flex justify-content-between border-bottom p-2">
-    <div class="d-flex">
-      <img v-if="post.profile" class="postProfileImage rounded-circle" :src="post.profile.image">
-      <h4 v-if="post.user">{{ post.user.userid }}</h4>
+<div>
+  <div v-if="post">
+    <div class="d-flex justify-content-between p-2">
+      <div class="d-flex">
+        <img v-if="post.profile" class="postProfileImage rounded-circle" :src="post.profile.image">
+        <h4 v-if="post.user">{{ post.user.userid }}</h4>
+      </div>
+      <post-menu :postId="postId" />
     </div>
-    <post-menu :postId="postId" />
-  </div>
 
-  <div>
-    <p>{{ post.text }}</p>
-    <div v-on:click="open = !open">
-      <p>{{ post.place }}</p>
-    </div>
     <div>
-      <img v-for="image in post.images" :key="image.id" class="w-50" :src="image.path">
-    </div>
-    <gmap class="p-2" v-if="post.place" v-show="open" :geocode="post" />
+      <div class="p-2">{{ post.text }}</div>
+      <div v-on:click="open = !open">
+        <p>{{ post.place }}</p>
+      </div>
+      <div>
+        <img v-for="image in post.images" :key="image.id" class="w-50" :src="image.path">
+      </div>
+      <gmap class="p-2" v-if="post.place" v-show="open" :geocode="post" />
 
-    <p class="">{{ post.created_at }}</p>
+      <p class="mt-2 pl-1">{{ post.created_at }}</p>
+    </div>
+    <div class="border-bottom">
+      <i class="far fa-thumbs-up"> 良いね数</i>
+    </div>
+  </div>
+  <div v-else class="mt-5">
+    <v-loading
+      type="barsCylon"
+      color="#335b66"
+      :size="{ width: '50px', height: '50px'}"
+    />
   </div>
 </div>
 </template>
@@ -32,7 +44,7 @@ export default {
   },
   data: function () {
     return {
-      post: {},
+      post: null,
       open: false
     }
   },
