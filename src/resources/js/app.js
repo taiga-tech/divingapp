@@ -8,6 +8,8 @@ import VueSocialauth from 'vue-social-auth';
 import vSelect from "vue-select";
 import contenteditable from 'vue-contenteditable'
 import * as VueGoogleMaps from 'vue2-google-maps'
+import { VueLoading } from 'vue-loading-template';
+import VueWait from 'vue-wait';
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -19,6 +21,9 @@ require('./bootstrap')
 window.Vue = require('vue')
 Vue.use(VueTouch)
 Vue.component("v-select", vSelect);
+Vue.component('v-loading', VueLoading)
+// Vue.component('v-wait', VueWait)
+Vue.use(VueWait)
 Vue.use(contenteditable)
 Vue.use(VueAxios, axios)
 Vue.use(VueSocialauth, {
@@ -77,7 +82,10 @@ const createApp = async () => {
         router,
         store,
         components: { App },
-        template: '<App />'
+        template: '<App />',
+        wait: new VueWait({
+            useVuex: true
+        }),
     });
 }
 
