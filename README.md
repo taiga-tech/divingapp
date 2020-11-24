@@ -57,6 +57,9 @@
   % cp .docker-compose.env .env
   % cp ./src/.env.example ./src/.env
   % docker-compose -f docker-compose.local.yml up -d --build
+  % docker-compose -f docker-compose.local.yml run php php artisan migrate
+  % docker-compose -f docker-compose.local.yml run php npm install
+  % docker-compose -f docker-compose.local.yml run php npm run dev
 ```
 
 # CricleCIの動き
@@ -80,6 +83,3 @@
 
 #### slack通知の参考画像
 ![](https://user-images.githubusercontent.com/67569270/96187946-d2ad5880-0f78-11eb-8eae-fb99a7af7cc7.png)
-
-<!-- ## タスクメモ
-- [ ] IP固定 -->
