@@ -19,7 +19,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./src:/var/www
+      - ./src/public:/var/www/public
     depends_on:
       - php
 
@@ -31,7 +31,7 @@ services:
     volumes:
       - mysql_db:/var/lib/mysql
     ports:
-      - 3306:3306
+      - 4306:3306
 
 volumes:
   mysql_db:

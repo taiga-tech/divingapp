@@ -10,5 +10,5 @@ ENV LC_TIME C
 
 COPY ./docker/nginx/default.conf /etc/nginx/conf.d/
 
-COPY ./src /var/www
+COPY ./src/public /var/www/public
 RUN chown -R www-data:www-data /var/www
