@@ -1,19 +1,27 @@
 <template>
-<div>
-  <div class="border-bottom">
-    <div>
-      <img
-        class="profileImage rounded-circle"
-        :src="profile.image"
-        :alt="profile.name + 'のプロフィール画像'"
-      >
+<div class="">
+  <div class="p-2 border-bottom">
+    <div class="d-flex justify-content-between">
+      <div class="d-flex">
+        <img
+          class="profileImage rounded-circle mr-3"
+          :src="profile.image"
+          :alt="profile.name + 'のプロフィール画像'"
+        >
+        <div>
+          <div class="d-flex">
+            <h4>{{ profile.name }}</h4>
+            <h4 class="opa ml-1">{{ user.userid }}</h4>
+          </div>
+          <p>{{ profile.comment }}</p>
+        </div>
+      </div>
+      <div>
+        <profile-menu />
+      </div>
     </div>
-    <p>{{ profile.name }}</p>
-    <p>{{ profile.comment }}</p>
-    <p>{{ profile.user.userid }}</p>
     <p>{{ profile.created_at }}</p>
     <p v-if="geocode.length != 0" v-on:click="open = !open">mapを開く</p>
-    <router-link :to="{ name: 'profiles.edit', params: profileId }">プロフィール編集</router-link>
   </div>
   <v-wait>
     <v-loading
@@ -23,23 +31,23 @@
       :size="{ width: '50px', height: '50px'}"
       class="mt-5"
     />
-    <div>
+    <div v-if="posts.length != 0">
       <gmap-index v-if="geocode.length != 0" v-show="open" :geocode="geocode" />
-      <post-content v-for="post in posts" :key="post.id" :post="post" />
+      <post-content v-on:getPosts="getPosts" v-for="post in posts" :key="post.id" :post="post" />
     </div>
-    <enpty v-if="posts.length == 0" message="まだ投稿がありません" />
+    <enpty v-else message="まだ投稿がありません" />
   </v-wait>
 </div>
 </template>
 
 <style>
 .profileImage {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
 }
 .postProfileImage {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
 }
 </style>
 
@@ -47,6 +55,8 @@
 import GmapIndex from '../Gmap/GmapIndex.vue';
 import Enpty from '../Post/Enpty.vue';
 import PostContent from '../Post/PostContent';
+import PostMenu from '../Post/PostMenu.vue';
+import ProfileMenu from './ProfileMenu';
 export default {
   props: {
     profileId: NaN
@@ -59,7 +69,7 @@ export default {
     }
   },
   methods: {
-    async getProfilePosts () {
+    async getPosts () {
       this.$wait.start('loading')
       await axios.get('/api/profiles/' + this.profileId)
       .then(( res ) => {
@@ -74,17 +84,22 @@ export default {
     },
   },
   mounted() {
-    this.getProfilePosts()
+    this.getPosts()
   },
   computed: {
     profile () {
       return this.$store.getters['profile/profile'][0]
-    }
+    },
+    user () {
+      return this.$store.getters['auth/user']
+    },
   },
   components: {
     GmapIndex,
     PostContent,
     Enpty,
+    PostMenu,
+    ProfileMenu,
   }
 }
 </script>

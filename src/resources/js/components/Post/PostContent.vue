@@ -1,18 +1,17 @@
 <template>
 <div class="p-2 border-bottom">
-  <div class="d-flex px-1 justify-content-between">
-    <router-link :to="{ name: 'profiles.show', params: { profileId: post.profile.id }}">
-      <div class="d-flex">
-          <img class="postProfileImage rounded-circle" :src="post.profile.image" alt="">
-        <h5>{{ post.profile.name }}</h5>
-        <p>({{ post.user.userid }})</p>
+  <div class="d-flex px-1 justify-content-between" style="position:relative">
+    <div class="d-flex">
+      <div v-on:click="pushProfile">
+        <img class="postProfileImage rounded-circle" :src="post.profile.image">
       </div>
-    </router-link>
-    <div v-on:click="postMenu"><i class="fas fa-ellipsis-v"></i></div>
+      <h5>{{ post.profile.name }}</h5>
+      <p>({{ post.user.userid }})</p>
+    </div>
+    <post-menu v-on:postDelete="deleted" :postId="post.id" :index="$parent.key" />
   </div>
-  <router-link :to="{ name: 'posts.show', params: { postId: post.id }}">
+  <div v-on:click="$router.push({ name: 'posts.show', params: { postId: post.id } })">
     <p>{{ post.text }}</p>
-    <p>{{ post.spot }}</p>
     <p>{{ post.place }}</p>
     <p>{{ post.created_at }}</p>
     <div>
@@ -23,7 +22,7 @@
         class="w-25"
       >
     </div>
-  </router-link>
+  </div>
 </div>
 </template>
 
@@ -32,14 +31,23 @@ a { text-decoration: none; }
 </style>
 
 <script>
+import PostMenu from './PostMenu.vue'
 export default {
   props: {
-    post: {}
+    post: null
   },
   methods: {
-    postMenu() {
-      console.log('menu')
+    pushProfile() {
+      if (this.$route.name != 'profiles.show') {
+        this.$router.push({ name: 'profiles.show', params: { profileId: this.post.profile.id } })
+      }
     },
+    deleted() {
+      this.$emit('getPosts')
+    },
+  },
+  components: {
+    PostMenu,
   },
 }
 </script>

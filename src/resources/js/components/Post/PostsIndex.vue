@@ -8,7 +8,12 @@
     class="mt-5"
   />
   <div v-if="posts.length != 0">
-    <post-content v-for="post in posts" :key="post.id" :post="post" />
+    <post-content
+      v-for="post in posts"
+      :key="post.id"
+      :post="post"
+      v-on:getPosts="getPosts"
+    />
   </div>
   <enpty v-else message='まだ投稿がありません' />
 </v-wait>
