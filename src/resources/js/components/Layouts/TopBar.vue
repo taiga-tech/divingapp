@@ -10,7 +10,7 @@
     v-else
     v-on:click="sideMenu"
     class="Active d-inline-block d-md-none rounded-circle float-left"
-    >
+  >
     <i class="fas fa-bars"></i>
   </span>
   <span class="title ml-n5 m-md-0">{{ appname }}</span>

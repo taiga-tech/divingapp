@@ -3,7 +3,7 @@
   <div id="sideMenu" class="d-none d-md-block col-xl-2 py-3 border-right">
     <left-bar />
   </div>
-  <div class="col-md-7 col-xl-4 p-0">
+  <div class="mainContainer col-md-7 col-xl-4 p-0">
     <top-bar ref='topBar' />
     <div id="unActive" class="main overflow-auto">
       <router-view />
