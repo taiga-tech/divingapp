@@ -5,7 +5,7 @@
       <div><i class="fas fa-home"></i></div>
     </router-link>
     <router-link v-if="isLogin" class="flex-fill d-flex align-items-center justify-content-center" :to="{ name: 'posts.create' }">
-      <div><i class="fas fa-plus"></i></div>
+      <div><i class="far fa-plus-square"></i></div>
     </router-link>
     <router-link class="flex-fill d-flex align-items-center justify-content-center" :to="{ name: 'search' }">
       <div><i class="fas fa-search"></i></div>
