@@ -9,10 +9,11 @@
   />
   <div v-if="posts.length != 0">
     <post-content
-      v-for="post in posts"
-      :key="post.id"
+      v-for="(post, index) in posts"
+      :key="index"
       :post="post"
-      v-on:getPosts="getPosts"
+      :index="index"
+      v-on:removePost="removePost"
     />
   </div>
   <enpty v-else message='まだ投稿がありません' />
@@ -35,6 +36,9 @@ export default {
       this.posts = posts.data.reverse()
       this.$wait.end('loading')
     },
+    removePost(e) {
+      this.posts.splice(e, 1)
+    }
   },
 
   mounted() {

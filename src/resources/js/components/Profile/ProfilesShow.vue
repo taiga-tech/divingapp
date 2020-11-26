@@ -33,7 +33,13 @@
     />
     <div v-if="posts.length != 0">
       <gmap-index v-if="geocode.length != 0" v-show="open" :geocode="geocode" />
-      <post-content v-on:getPosts="getPosts" v-for="post in posts" :key="post.id" :post="post" />
+      <post-content
+        v-on:removePost="removePost"
+        v-for="(post, index) in posts"
+        :key="index"
+        :post="post"
+        :index="index"
+      />
     </div>
     <enpty v-else message="まだ投稿がありません" />
   </v-wait>
@@ -82,6 +88,9 @@ export default {
       });
       this.$wait.end('loading')
     },
+    removePost(e) {
+      this.posts.splice(e, 1)
+    }
   },
   mounted() {
     this.getPosts()

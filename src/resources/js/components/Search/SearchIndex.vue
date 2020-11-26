@@ -10,7 +10,13 @@
       class="mt-5"
     />
     <div v-if="posts">
-      <post-content  v-for="post in posts" :key="post.id" :post="post" />
+      <post-content
+        v-for="(post, index) in posts"
+        :key="index"
+        :post="post"
+        :index="index"
+        v-on:removePost="removePost"
+      />
     </div>
     <div v-if="profiles">
       <profile-content v-for="profile in profiles" :key="profile.id" :profile="profile" />
@@ -31,6 +37,11 @@ export default {
       selected: 'text',
       posts: [],
       profiles: [],
+    }
+  },
+  methods: {
+    removePost(e) {
+      this.posts.splice(e, 1)
     }
   },
   components: {

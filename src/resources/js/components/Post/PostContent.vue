@@ -8,7 +8,7 @@
       <h5>{{ post.profile.name }}</h5>
       <p>({{ post.user.userid }})</p>
     </div>
-    <post-menu v-on:postDelete="deleted" :postId="post.id" :index="$parent.key" />
+    <post-menu v-on:postDelete="deleted" :postId="post.id" :index="index" />
   </div>
   <div v-on:click="$router.push({ name: 'posts.show', params: { postId: post.id } })">
     <p>{{ post.text }}</p>
@@ -34,7 +34,8 @@ a { text-decoration: none; }
 import PostMenu from './PostMenu.vue'
 export default {
   props: {
-    post: null
+    post: null,
+    index: NaN,
   },
   methods: {
     pushProfile() {
@@ -42,8 +43,8 @@ export default {
         this.$router.push({ name: 'profiles.show', params: { profileId: this.post.profile.id } })
       }
     },
-    deleted() {
-      this.$emit('getPosts')
+    deleted(e) {
+      this.$emit('removePost', e)
     },
   },
   components: {
