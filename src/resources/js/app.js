@@ -20,9 +20,8 @@ import VueWait from 'vue-wait';
 require('./bootstrap')
 window.Vue = require('vue')
 Vue.use(VueTouch)
-Vue.component("v-select", vSelect);
+Vue.component("v-select", vSelect)
 Vue.component('v-loading', VueLoading)
-// Vue.component('v-wait', VueWait)
 Vue.use(VueWait)
 Vue.use(contenteditable)
 Vue.use(VueAxios, axios)
