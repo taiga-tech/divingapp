@@ -18,6 +18,12 @@ export default new VueRouter({
     mode: 'history',
     routes: [
         {
+            path: '/',
+            name: 'posts.index',
+            component: PostsIndex,
+            meta: { title: 'TOP', desc: 'TOPページです' },
+        },
+        {
             path: '/register',
             name: 'auth.register',
             component: Register,
@@ -65,11 +71,6 @@ export default new VueRouter({
                     next('/login')
                 }
             }
-        },
-        {
-            path: '/',
-            name: 'posts.index',
-            component: PostsIndex
         },
         {
             path: '/posts/create',
