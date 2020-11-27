@@ -8,10 +8,15 @@
       <h5>{{ post.profile.name }}</h5>
       <p>({{ post.user.userid }})</p>
     </div>
-    <post-menu v-on:postDelete="deleted" :postId="post.id" :index="index" />
+    <post-menu
+      v-if="user.id == post.user.id"
+      v-on:postDelete="deleted"
+      :postId="post.id"
+      :index="index"
+    />
   </div>
   <div v-on:click="$router.push({ name: 'posts.show', params: { postId: post.id } })">
-    <p>{{ post.text }}</p>
+    <div class="textArea">{{ post.text }}</div>
     <p>{{ post.place }}</p>
     <p>{{ post.created_at }}</p>
     <div>
@@ -45,6 +50,11 @@ export default {
     },
     deleted(e) {
       this.$emit('removePost', e)
+    },
+  },
+  computed: {
+    user () {
+      return this.$store.getters['auth/user']
     },
   },
   components: {

@@ -1,14 +1,14 @@
 <template>
 <div class="p-2 border-bottom">
   <div class="d-flex justify-content-between p-1">
-    <router-link :to="{ name: 'profiles.show', params: { profileId: this.profile.id }}">
+    <div v-on:click="$router.push({ name: 'profiles.show', params: { profileId: profile.id }})">
       <div class="d-flex">
         <img class="rounded-circle" :src="profile.image">
         <p>{{ profile.name }}</p>
         <p>{{ profile.user.userid }}</p>
         <p>{{ profile.posts.length }}</p>
       </div>
-    </router-link>
+    </div>
     <div v-on:click="follow">フォロー</div>
   </div>
 </div>

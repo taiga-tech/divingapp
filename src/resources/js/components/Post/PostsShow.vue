@@ -21,7 +21,7 @@
     </div>
 
     <div>
-      <div class="p-2">{{ post.text }}</div>
+      <div class="textArea p-2">{{ post.text }}</div>
       <div v-on:click="open = !open">
         <p>{{ post.place }}</p>
       </div>

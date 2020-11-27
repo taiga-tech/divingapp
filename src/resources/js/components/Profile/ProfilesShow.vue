@@ -1,6 +1,6 @@
 <template>
 <div class="">
-  <div class="p-2 border-bottom">
+  <div v-if="profile" class="p-2 border-bottom">
     <div class="d-flex justify-content-between">
       <div class="d-flex">
         <img
@@ -13,11 +13,11 @@
             <h4>{{ profile.name }}</h4>
             <h4 class="opa ml-1">{{ user.userid }}</h4>
           </div>
-          <p>{{ profile.comment }}</p>
+          <div class="textArea">{{ profile.comment }}</div>
         </div>
       </div>
       <div>
-        <profile-menu />
+        <profile-menu v-if="user.id == profileId" />
       </div>
     </div>
     <p>{{ profile.created_at }}</p>
@@ -47,6 +47,9 @@
 </template>
 
 <style>
+.textArea {
+  white-space: pre-wrap;
+}
 .profileImage {
   width: 80px;
   height: 80px;
@@ -69,6 +72,7 @@ export default {
   },
   data: function() {
     return {
+      profile: null,
       posts: [],
       geocode: [],
       open: false,
@@ -79,6 +83,7 @@ export default {
       this.$wait.start('loading')
       await axios.get('/api/profiles/' + this.profileId)
       .then(( res ) => {
+        this.profile = res.data[0]
         this.posts = res.data[1].reverse();
         for(var i = 0; i < this.posts.length; i++) {
           if (this.posts[i].lat && this.posts[i].lng) {
@@ -96,9 +101,6 @@ export default {
     this.getPosts()
   },
   computed: {
-    profile () {
-      return this.$store.getters['profile/profile'][0]
-    },
     user () {
       return this.$store.getters['auth/user']
     },
