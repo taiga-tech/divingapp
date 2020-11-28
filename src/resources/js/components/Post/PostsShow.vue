@@ -8,7 +8,7 @@
     class="mt-5"
   />
 
-  <div v-if="post" class="px-2">
+  <div v-if="post" class="px-2 border-bottom">
     <div class="d-flex p-2">
       <img v-if="post.profile" class="postProfileImage rounded-circle" :src="post.profile.image">
       <div class="d-flex justify-content-between w-100 ml-2">
@@ -30,23 +30,24 @@
       </div>
       <gmap class="p-2" v-if="post.place" v-show="open" :geocode="post" />
     </div>
-    <div class="d-flex justify-content-between border-bottom border-top p-2">
-      <div>
-        <i class="far fa-thumbs-up mr-1"> 良いね数</i>
-        <i class="far fa-comment-alt"> コメント</i>
-      </div>
-      <p class="">{{ post.created_at }}</p>
-    </div>
+    <post-info
+      :post="post"
+      :goods="goods"
+      :comments="comments"
+      class="border-top p-2"
+    />
+  </div>
+  <div v-if="post">
+    <comment-index :postId="post.id" :comments="comments" />
   </div>
 </v-wait>
 </template>
 
-<style lang="scss" scoped>
-</style>
-
 <script>
 import Gmap from '../Gmap/Gmap';
-import PostMenu from './PostMenu.vue';
+import CommentIndex from './Comment/CommentIndex';
+import PostMenu from './PostMenu';
+import PostInfo from './PostInfo';
 export default {
   props: {
     postId: NaN
@@ -54,15 +55,17 @@ export default {
   data: function () {
     return {
       post: null,
-      open: false
+      open: false,
+      goods: [],
+      comments: [],
     }
   },
   methods: {
     async getPost() {
-      await axios.get('/api/posts/' + this.postId)
-      .then((res) => {
-        this.post = res.data;
-      });
+      const response = await axios.get('/api/posts/' + this.postId)
+      this.post = response.data
+      // this.goods = response.data.goods
+      // this.comments = response.data.comments
     },
   },
   mounted() {
@@ -71,6 +74,8 @@ export default {
   components: {
     Gmap,
     PostMenu,
+    PostInfo,
+    CommentIndex,
   }
 }
 </script>

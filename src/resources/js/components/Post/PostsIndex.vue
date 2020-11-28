@@ -40,7 +40,6 @@ export default {
       this.posts.splice(e, 1)
     }
   },
-
   mounted() {
     this.getPosts();
   },
