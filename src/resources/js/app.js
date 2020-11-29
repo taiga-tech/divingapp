@@ -10,6 +10,7 @@ import contenteditable from 'vue-contenteditable'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import { VueLoading } from 'vue-loading-template';
 import VueWait from 'vue-wait';
+import Vuelidate from 'vuelidate'
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -20,6 +21,7 @@ import VueWait from 'vue-wait';
 require('./bootstrap')
 window.Vue = require('vue')
 Vue.use(VueTouch)
+Vue.use(Vuelidate)
 Vue.component("v-select", vSelect)
 Vue.component('v-loading', VueLoading)
 Vue.use(VueWait)
