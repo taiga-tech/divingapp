@@ -9,27 +9,10 @@
 </div>
 </template>
 
-<style lang="scss" scoped>
-.lanking {
-  background-color: rgba(0,0,0,0.1);
-  .lank {
-    background-color: rgba(0,0,0,0.1);
-    p {
-      font-size: 17px;
-    }
-  }
-}
-</style>
-
 <script>
 export default {
   props: {
     lanking: Array,
   },
-  data: function() {
-    return {}
-  },
-  methods: {},
-  mounted() {}
 }
 </script>

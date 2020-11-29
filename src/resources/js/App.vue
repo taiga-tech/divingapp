@@ -18,22 +18,6 @@
 </div>
 </template>
 
-<style>
-@media (min-width: 755px) {
-  #sideMenu {
-    width: 80px;
-  }
-  .main {
-    height: calc(100vh - 53px);
-  }
-}
-@media (max-width: 754px) {
-  .main {
-    height: calc(100vh - 103px);
-  }
-}
-</style>
-
 <script>
 export default {
   methods: {

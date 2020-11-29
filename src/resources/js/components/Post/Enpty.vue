@@ -20,12 +20,6 @@
 </div>
 </template>
 
-<style scope>
-.opa {
-  opacity: 0.7;
-}
-</style>
-
 <script>
 import OAuth from '../Auth/OAuth.vue'
 export default {

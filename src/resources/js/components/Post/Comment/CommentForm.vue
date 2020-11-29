@@ -4,7 +4,8 @@
     <contenteditable
       tag="div"
       v-model="text"
-      class="commentField w-100 p-2 dark:text-gray-400"
+      class="w-100 p-2 dark:text-gray-400"
+      style="outline:none;"
     />
     <div v-on:click="submit" type="submit" class="commentSubmit">
       <i class="fas fa-paper-plane"></i>
@@ -12,20 +13,6 @@
   </div>
 </div>
 </template>
-
-<style lang="scss" scoped>
-.commentField {
-  outline:none;
-}
-.commentSubmit {
-  position: absolute;
-  bottom:0;
-  right: 0;
-  line-height: 40px;
-  width: 40px;
-  text-align: center;
-}
-</style>
 
 <script>
 export default {

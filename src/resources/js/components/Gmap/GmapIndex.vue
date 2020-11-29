@@ -17,9 +17,6 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
-</style>
-
 <script>
 export default {
   props: {
@@ -31,8 +28,5 @@ export default {
       center: { lat: 36, lng: 138 }
     }
   },
-  methods: {
-  },
-  mounted() {},
 }
 </script>

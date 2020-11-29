@@ -8,27 +8,6 @@
 </div>
 </template>
 
-<style lang="scss">
-.menuTorigger {
-  position: relative;
-  .Menu {
-    position: absolute;
-    top: 1;
-    right: 0;
-    z-index: 3;
-    width: 150px;
-    border-radius: 5px;
-    li {
-      cursor: pointer;
-      padding: 5px 0;
-      &:hover {
-        opacity: 0.7;
-      }
-    }
-  }
-}
-</style>
-
 <script>
 export default {
   props: {

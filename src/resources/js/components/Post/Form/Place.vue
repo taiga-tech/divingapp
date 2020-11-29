@@ -1,29 +1,29 @@
 <template>
-<div class=" my-4 w-100">
+<div class="my-4 w-100">
   <div class="d-flex justify-content-between px-1">
     <div class="">どこの海？</div>
     <div v-on:click="open">マップを開く</div>
   </div>
   <div class="d-flex">
     <v-select
+      v-model="place.prefCode"
       @input="prefSelect"
       :loading="prefectures.length <= 0"
       :options="prefectures"
       label="name_ja"
-      v-model="place.prefCode"
-      class="w-100"
       placeholder="都道府県を選択"
+      class="w-100"
     ><template #spinner="{ loading }"><div v-if="loading" class="vs__spinner"/></template>
     </v-select>
 
     <v-select
       v-if="place.prefCode"
+      v-model="place.municipal"
       @input="municipalSelect"
       :loading="prefChildren.length <= 0"
       :options="prefChildren"
       :reduce="prefChildren => prefChildren"
       label="name"
-      v-model="place.municipal"
       class="w-100"
       placeholder="もっと絞り込む"
     ><template #spinner="{ loading }"><div v-if="loading" class="vs__spinner"/></template>
@@ -33,10 +33,10 @@
   <div class="search mt-2">
     <form class="" v-on:submit.prevent="geoCoding($parent.post.place)">
       <input
-        v-model="$parent.post.place"
         type="search"
-        class="w-100 pl-2 pr-5"
+        v-model="$parent.post.place"
         placeholder="住所で検索する"
+        class="w-100 pl-2 pr-5"
       >
       <span class="searchIcon rounded-circle">
         <i v-on:click.prevent="geoCoding($parent.post.place)" class="fas fa-search"></i>
@@ -65,7 +65,6 @@
     color: rgba(203,213,224,var(--text-opacity))
   }
 }
-
 </style>
 
 <script>

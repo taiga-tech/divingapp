@@ -46,20 +46,6 @@
 </div>
 </template>
 
-<style>
-.textArea {
-  white-space: pre-wrap;
-}
-.profileImage {
-  width: 80px;
-  height: 80px;
-}
-.postProfileImage {
-  width: 50px;
-  height: 50px;
-}
-</style>
-
 <script>
 import GmapIndex from '../Gmap/GmapIndex.vue';
 import Enpty from '../Post/Enpty.vue';

@@ -17,9 +17,6 @@
           name="name"
           class="px-2 w-100 dark:text-gray-400"
           required v-model="$parent.profile.name">
-        <!-- <span class="invalid-feedback" role="alert">
-          <strong>{{ message }}</strong>
-        </span> -->
       </div>
     </div>
   </div>
@@ -38,24 +35,7 @@
     </div>
   </div>
 </div>
-
 </template>
-
-<style lang="scss">
-.preview {
-  background-color: #ffffff0a;
-  font-size: 20px;
-  width: 58px;
-  height: 58px;
-  &:hover {
-    background-color: #ffffff28;
-  }
-  img {
-    width: 58px;
-    height: 58px;
-  }
-}
-</style>
 
 <script>
 export default {
