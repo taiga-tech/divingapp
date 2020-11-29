@@ -40,16 +40,12 @@ export default {
     v: Object,
   },
   methods: {
-    fileOpen () {
+    async fileOpen () {
       const file = document.getElementById('file')
       file.click()
     },
-    fileChange (event) {
+    async fileChange (event) {
       const fileList = event.target.files
-      if (fileList.length == 0) {
-        this.reset()
-        return false
-      }
       if ((fileList.length + this.$parent.postImages.length) > this.v.images.$params.maxLength.max) {
         this.reset()
         alert(`画像は最大${ this.v.images.$params.maxLength.max }枚までです`)
@@ -66,10 +62,12 @@ export default {
         }
         reader.readAsDataURL(fileList[i])
       }
-      this.$parent.previews = []
-      this.$parent.images = Array.from(fileList)
+      if (fileList.length != 0) {
+        this.$parent.previews = []
+        this.$parent.images = Array.from(fileList)
+      }
     },
-    reset() {
+    async reset() {
       this.$parent.previews = []
       this.$parent.images = null
       this.$el.querySelector('input[type="file"]').value = null

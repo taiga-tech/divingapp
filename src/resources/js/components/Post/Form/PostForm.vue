@@ -69,8 +69,8 @@ export default {
       }
       this.$router.push('/');
     },
-    getPost() {
-    if (this.$route.name == 'posts.edit') {
+    async getPost() {
+      if (this.$route.name == 'posts.edit') {
         axios.get('/api/posts/' + this.postId)
         .then((res) => {
           this.post = res.data
