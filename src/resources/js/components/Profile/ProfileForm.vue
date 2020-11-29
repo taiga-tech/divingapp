@@ -10,13 +10,21 @@
     <div class="formBlock" style="width: calc(100% - 63px)">
       <div class="label px-1">
         <span>ユーザネーム</span>
+        <span v-if="v.profile.name.$error" :class="{ 'error': v.profile.name.$error }">
+          <span v-if="!v.profile.name.required">ユーザーネームは必須項目です</span>
+        </span>
       </div>
-      <div class="">
+
+      <div>
         <input
           type="text"
           name="name"
+          v-model="$parent.profile.name"
+          required
+          @blur="v.profile.name.$touch()"
           class="px-2 w-100 dark:text-gray-400"
-          required v-model="$parent.profile.name">
+        >
+        <div class="borderBottom" :class="{ 'errorBorderBottom': v.profile.name.$error }"></div>
       </div>
     </div>
   </div>
@@ -25,13 +33,14 @@
     <div class="label px-1">
       <span>ひとこと</span>
     </div>
-    <div class="">
+    <div>
       <textarea
         name="comment"
         rows="5"
         v-model="$parent.profile.comment"
         class="px-2 w-100 dark:text-gray-400"
         ></textarea>
+        <div class="borderBottom"></div>
     </div>
   </div>
 </div>
@@ -39,16 +48,15 @@
 
 <script>
 export default {
+  props: {
+    v: Object,
+  },
   methods: {
     fileOpen () {
       let file = document.getElementById('file');
       file.click();
     },
     fileChange (event) {
-      if (event.target.files.length === 0) {
-        this.reset()
-        return false
-      }
       if (! event.target.files[0].type.match('image.*')) {
         this.reset()
         return false
