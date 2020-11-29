@@ -3,23 +3,27 @@
   <h4 class="text-center pt-3">{{ info.title }}</h4>
   <div class="card-body">
     <form v-on:submit.prevent="submit">
-      <text-image />
+
+      <text-image :v="$v"/>
+        <span v-if="!$v.images.maxLength" class="text-right error">
+          画像は最大{{ $v.images.$params.maxLength.max }}枚までです
+        </span>
       <place />
-      <div class="">
-        <button
-          type="submit"
-          :disabled="!post.text && !images"
-          class="btn btn-primary w-100"
-        >{{ info.button }}</button>
-      </div>
+
+      <button type="submit" :disabled="$v.$invalid" class="btn btn-primary w-100">
+        {{ info.button }}
+      </button>
+
     </form>
   </div>
 </div>
 </template>
 
 <script>
+import { required, alphaNum, email, maxLength } from "vuelidate/lib/validators";
 import TextImage from './TextImage';
 import Place from './Place';
+
 export default {
   props: {
     info: Object,
@@ -30,7 +34,7 @@ export default {
       post: { text: '', latlng: null },
       images: null,
       previews: [],
-      postImages: null,
+      postImages: [],
     }
   },
   methods: {
@@ -69,11 +73,8 @@ export default {
     if (this.$route.name == 'posts.edit') {
         axios.get('/api/posts/' + this.postId)
         .then((res) => {
-          this.post = res.data;
-          this.postImages = res.data.images;
-          for (var i = 0; i < this.postImages.length; i++) {
-            this.previews.push(this.postImages[i].path);
-          }
+          this.post = res.data
+          this.postImages = res.data.images
         });
       }
     },
@@ -81,6 +82,16 @@ export default {
   mounted() {
     if (this.$route.name == 'posts.edit') {
       this.getPost();
+    }
+  },
+  validations: {
+    post: {
+      text: {
+        required,
+      },
+    },
+    images: {
+      maxLength: maxLength(6)
     }
   },
   components: {
