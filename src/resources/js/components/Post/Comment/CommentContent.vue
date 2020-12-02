@@ -6,8 +6,9 @@
     </div>
     <div>
       <div class="d-flex">
-        <p class="mr-1">profilename</p>
-        <p>@username</p>
+        <p>profilename</p>
+        <p class="ml-1 opa">@username</p>
+        <p class="ml-1 opa">・1分前<!-- {{ comment.created_at | moment }} --></p>
       </div>
       <div class="textArea mt-1">{{ comment }}</div>
     </div>
@@ -19,9 +20,17 @@
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
   props: {
     comment: Object,
+  },
+  filters: {
+    moment: function (data) {
+      moment.locale('ja')
+      return moment(data).fromNow()
+    }
   },
 }
 </script>
