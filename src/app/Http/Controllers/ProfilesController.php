@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Profile;
 use App\Models\User;
 use App\Models\Post;
+use App\Http\Requests\ProfileRequest;
 
 class ProfilesController extends Controller
 {
@@ -98,7 +99,7 @@ class ProfilesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProfileRequest $request, $id)
     {
         $profile = $this->profiles->find($id);
         $input = $request->all();
