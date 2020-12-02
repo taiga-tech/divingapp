@@ -9,7 +9,7 @@
           <span>ユーザーID (半角英数)<span> *</span></span>
           <span v-if="$v.user.userid.$error" :class="{ 'error': $v.user.userid.$error }">
             <span v-if="!$v.user.userid.required">ユーザーIDは必須項目です</span>
-            <span v-if="!$v.user.userid.alphaNum">半角英数で入力してください</span>
+            <span v-if="!$v.user.userid.userid">半角英数字、記号で入力してください</span>
           </span>
         </div>
 
@@ -17,7 +17,7 @@
           <input
             type="text"
             name="userid"
-            v-model="user.userid"
+            v-model.trim="user.userid"
             @blur="$v.user.userid.$touch()"
             v-on:input="insertName"
             required
@@ -36,19 +36,22 @@
             <span v-if="!$v.user.email.required">メールアドレスは必須項目です</span>
             <span v-if="!$v.user.email.email">有効なメールアドレスを入力してください</span>
           </span>
+          <span v-if="errors">
+            <span class="error" v-for="(error, index) in errors" :key="index">{{ error }}</span>
+          </span>
         </div>
 
         <div>
           <input
             type="email"
             name="email"
-            v-model="user.email"
+            v-model.trim="user.email"
             @blur="$v.user.email.$touch()"
             required
             utocomplete="email"
             class="w-100 px-2 dark:text-gray-400"
           >
-          <div class="borderBottom" :class="{ 'errorBorderBottom': $v.user.email.$error }"></div>
+          <div class="borderBottom" :class="{ 'errorBorderBottom': $v.user.email.$error || errors }"></div>
         </div>
       </div>
 
@@ -65,7 +68,7 @@
         <div>
           <input
             type="password"
-            v-model="user.password"
+            v-model.trim="user.password"
             @blur="$v.user.password.$touch()"
             autocomplete="new-password"
             class="w-100 px-2 dark:text-gray-400"
@@ -88,7 +91,7 @@
         <div>
           <input
             type="password"
-            v-model="user.password_confirmation"
+            v-model.trim="user.password_confirmation"
             @blur="$v.user.password_confirmation.$touch()"
             autocomplete="new-password"
             class="w-100 px-2 dark:text-gray-400"
@@ -110,13 +113,15 @@
 
 <script>
 import OAuth from './OAuth';
-import { required, alphaNum, email, minLength, sameAs } from "vuelidate/lib/validators";
+import { required, alphaNum, email, minLength, sameAs, helpers } from "vuelidate/lib/validators";
+const userid = helpers.regex('userid', /^[a-zA-Z0-9!-/:-@¥[-`{-~]*$/)
 
 export default {
   data: function () {
     return {
       user: {},
       profile: {},
+      errors: null
     }
   },
   methods: {
@@ -125,16 +130,29 @@ export default {
       this.profile.image = '/default.png'
     },
     async submit () {
-      await this.$store.dispatch('auth/register', this.user);
-      await this.$store.dispatch('profile/create', this.profile);
-      this.$router.push('/');
+      this.errors = null
+      if (!this.$v.$invalid) {
+        await this.$store.dispatch('auth/register', this.user)
+        .catch((error) =>
+          this.errors = error.response.data.errors.email
+        )
+        if (!this.errors) {
+          await this.$store.dispatch('profile/create', this.profile)
+          .catch((error) =>
+            this.errors = error.response.data.errors
+          )
+          if (!this.errors) {
+            this.$router.push('/')
+          }
+        }
+      }
     },
   },
   validations: {
     user: {
       userid: {
         required,
-        alphaNum,
+        userid,
       },
       email: {
         email,

@@ -17,14 +17,14 @@
           <input
             type="email"
             name="email"
-            v-model="user.email"
+            v-model.trim="user.email"
             @blur="$v.user.email.$touch()"
             required
             autofocus
             autocomplete="email"
             class="w-100 px-2 dark:text-gray-400"
           >
-          <div class="borderBottom" :class="{ 'errorBorderBottom': $v.user.email.$error }"></div>
+          <div class="borderBottom" :class="{ 'errorBorderBottom': $v.user.email.$error || errors }"></div>
         </div>
       </div>
 
@@ -41,18 +41,23 @@
         <div>
           <input
             type="password"
-            v-model="user.password"
+            v-model.trim="user.password"
             @blur="$v.user.password.$touch()"
             autocomplete="current-password"
             class="w-100 px-2 dark:text-gray-400"
           >
-          <div class="borderBottom" :class="{ 'errorBorderBottom': $v.user.password.$error }"></div>
+          <div class="borderBottom" :class="{ 'errorBorderBottom': $v.user.password.$error || errors }"></div>
         </div>
       </div>
 
       <button type="submit" :disabled="$v.$invalid" class="btn btn-primary w-100">ログイン</button>
 
     </form>
+
+    <div class="error mt-3" v-if="errors">
+      <strong v-for="(err, index) in errors" :key="index">{{ err }}</strong>
+    </div>
+
     <o-auth />
   </div>
 </div>
@@ -66,14 +71,21 @@ export default {
   data: function () {
     return {
       show: false,
-      user: {}
+      user: {},
+      errors: null
     }
   },
   methods: {
     async submit () {
+      this.errors = null
       await this.$store.dispatch('auth/login', this.user)
-      this.$router.push('/')
-      location.reload()
+      .catch((error) =>
+        this.errors = error.response.data.errors.email
+      )
+      if (!this.errors) {
+        await this.$router.push('/')
+        await location.reload()
+      }
     },
   },
   validations: {
