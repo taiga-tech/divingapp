@@ -2,7 +2,7 @@ version: '3.2'
 
 services:
   php:
-    image: 824365639512.dkr.ecr.us-east-1.amazonaws.com/divingapp_php
+    image: 824365639512.dkr.ecr.us-east-1.amazonaws.com/divingapp_php:latest
     command: bash -c "/wait && /usr/local/bin/entrypoint.sh"
     # volumes:
     #   - src:/var/www
@@ -12,7 +12,7 @@ services:
       WAIT_HOSTS: db:3306
 
   nginx:
-    image: 824365639512.dkr.ecr.us-east-1.amazonaws.com/divingapp_nginx
+    image: 824365639512.dkr.ecr.us-east-1.amazonaws.com/divingapp_nginx:latest
     ports:
       - 80:80
     # volumes:
