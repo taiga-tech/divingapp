@@ -1,28 +1,33 @@
 <template>
-<div class="">
+<div>
+
   <div v-if="profile" class="p-2 border-bottom">
-    <div class="d-flex justify-content-between">
-      <div class="d-flex">
-        <img
-          class="profileImage rounded-circle mr-3"
-          :src="profile.image"
-          :alt="profile.name + 'のプロフィール画像'"
-        >
-        <div>
-          <div class="d-flex">
-            <h4>{{ profile.name }}</h4>
-            <h4 class="opa ml-1">{{ user.userid }}</h4>
+    <div class="d-flex">
+      <img
+        class="profileImage rounded-circle mr-2"
+        :src="profile.image"
+        :alt="profile.name + 'のプロフィール画像'"
+      >
+      <div class="d-flex justify-content-between w-100">
+        <div class="d-flex align-items-center">
+          <div>
+            <h2>{{ profile.name }}</h2>
+            <p class="opa">{{ user.userid }}</p>
           </div>
-          <div class="textArea">{{ profile.comment }}</div>
         </div>
-      </div>
-      <div>
         <profile-menu v-if="user.id == profileId" />
       </div>
     </div>
-    <p>{{ profile.created_at }}</p>
-    <p v-if="geocode.length != 0" v-on:click="open = !open">mapを開く</p>
+
+    <div class="textArea mt-2">{{ profile.comment }}</div>
+
+    <p v-if="geocode.length != 0" class="text-right">
+      <span v-on:click="open = !open">
+        <i class="fas" :class="{ 'fa-chevron-up': !open, 'fa-chevron-down': open }"></i> MAPS
+      </span>
+    </p>
   </div>
+
   <v-wait>
     <v-loading
       slot="waiting"
@@ -52,6 +57,8 @@ import Enpty from '../Post/Enpty.vue';
 import PostContent from '../Post/PostContent';
 import PostMenu from '../Post/PostMenu.vue';
 import ProfileMenu from './ProfileMenu';
+import moment from 'moment';
+
 export default {
   props: {
     profileId: NaN
@@ -81,6 +88,12 @@ export default {
     },
     removePost(e) {
       this.posts.splice(e, 1)
+    }
+  },
+  filters: {
+    moment: function (data) {
+      moment.locale('ja')
+      return moment(data).fromNow()
     }
   },
   mounted() {
