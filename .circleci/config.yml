@@ -130,7 +130,6 @@ workflows:
             branches:
                 only: master
       - ecr_push:
-          context: divingapp
           requires:
             - test
           filters:
