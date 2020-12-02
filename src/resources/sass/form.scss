@@ -4,7 +4,7 @@
   input[type="password"],
   textarea {
     outline: none;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: #00000000;
     font-size: 18px;
     &:focus + .borderBottom {
       background: rgb(0, 132, 255);
@@ -13,13 +13,24 @@
     }
   }
   .formBlock {
-    background-color: rgba(0, 0, 0, 0.1);
+    @media(prefers-color-scheme:dark) {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+    background-color: rgba(180, 190, 190, 0.1);
   }
 }
+
+[contenteditable=true]:empty:before {
+  content: attr(placeholder);
+  pointer-events: none;
+  display: block;
+  opacity: 0.4;
+}
+
 .borderBottom {
   height: 3px;
   width: 100%;
-  background: white;
+  background: rgb(225, 225, 225);
   border: none;
   // transform: scaleX(0) translateY(-2px);
   transform-origin: 50%;

@@ -7,10 +7,12 @@
 .search {
   position: relative;
   input {
-    background: rgba(0, 0, 0, 0.1);
+    @media(prefers-color-scheme:dark){
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+    background-color: rgba(180, 190, 190, 0.1);
     height: 40px;
     outline: none;
-    color: white;
     font-size: 16px;
   }
   .searchIcon {

@@ -3,13 +3,13 @@
   <div
     v-if="$route.name != 'auth.register'"
     v-on:click="$router.push({name: 'auth.register'})"
-    class="btn btn-outline-light mr-1">
+    class="btn mr-1" :class="{ 'btn-outline-light': media, 'btn-outline-secondary': !media }">
     <i class="far fa-envelope"> 新規登録</i>
   </div>
   <div
     v-if="$route.name != 'auth.login'"
     v-on:click="$router.push({name: 'auth.login'})"
-    class="btn btn-outline-light mr-1">
+    class="btn mr-1" :class="{ 'btn-outline-light': media, 'btn-outline-secondary': !media }">
     <i class="far fa-envelope"> ログイン</i>
   </div>
   <button
@@ -25,12 +25,17 @@
 
 <script>
 export default {
+  data: function() {
+    return {
+      media: null,
+    }
+  },
   methods: {
     async AuthProvider (provider) {
       var self = this
       const response = await this.$auth.authenticate(provider)
       .catch(err => {
-        console.log({ err:err })
+        // console.log({ err:err })
       })
       self.SocialLogin(provider, response)
     },
@@ -39,6 +44,9 @@ export default {
       this.$router.push(`/profiles/create`)
       location.reload()
     },
+  },
+  mounted() {
+    this.media = window.matchMedia('(prefers-color-scheme: dark)').matches
   }
 }
 </script>
