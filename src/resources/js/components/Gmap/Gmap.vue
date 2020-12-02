@@ -1,5 +1,5 @@
 <template>
-  <div id="map" v-if="geocode">
+  <div v-if="geocode" id="map">
     <GmapMap
       v-if="geocode"
       :center="geocode"
@@ -38,12 +38,6 @@
   </div>
 </template>
 
-<style lang="scss">
-#map {
-  height: 400px;
-}
-</style>
-
 <script>
 export default {
   props: {
@@ -78,6 +72,5 @@ export default {
       }
     },
   },
-  mounted() {},
 }
 </script>

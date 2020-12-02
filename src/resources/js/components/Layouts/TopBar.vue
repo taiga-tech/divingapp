@@ -10,35 +10,12 @@
     v-else
     v-on:click="sideMenu"
     class="Active d-inline-block d-md-none rounded-circle float-left"
-    >
+  >
     <i class="fas fa-bars"></i>
   </span>
   <span class="title ml-n5 m-md-0">{{ appname }}</span>
 </div>
 </template>
-
-<style>
-@media (max-width: 754px) {
-  .fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 250px;
-    z-index: 2;
-    box-shadow: 8px 0px 8px -1px rgba(0, 0, 0, 0.25);
-  }
-  #grayOut {
-    background: rgba(0, 0, 0, 0.3);
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 1;
-  }
-}
-</style>
 
 <script>
 export default {

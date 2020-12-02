@@ -132,7 +132,7 @@ class PostsController extends Controller
         if (Auth::id() === $post->user->id) {
             $post->delete();
         }
-        return redirect('/');
+        return $post; #redirect('/');
     }
 
     public function imageDestroy($id) {

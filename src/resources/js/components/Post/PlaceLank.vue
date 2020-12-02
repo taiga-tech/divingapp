@@ -2,8 +2,8 @@
 <div class="lanking">
   <h4 class="p-2">最近投稿された地域</h4>
   <div class="lank p-2">
-    <div v-for="lank in lanking" :key="lank.id" class="d-flex p-1">
-      <p># {{ lank }}</p>
+    <div v-for="(lank, index) in lanking" :key="index" class="d-flex p-1">
+      <p v-on:click="pushSearch(index)"># {{ lank }}</p>
     </div>
   </div>
 </div>
@@ -11,11 +11,10 @@
 
 <style lang="scss" scoped>
 .lanking {
-  background-color: rgba(0,0,0,0.1);
-  .lank {
-    background-color: rgba(0,0,0,0.1);
-    p {
-      font-size: 17px;
+  p {
+    &:hover {
+      opacity:0.6;
+      cursor: pointer;
     }
   }
 }
@@ -26,10 +25,14 @@ export default {
   props: {
     lanking: Array,
   },
-  data: function() {
-    return {}
+  methods: {
+    async pushSearch(i) {
+      this.$router.push({
+        name: 'search.index',
+        params: { params: 'post' },
+        query: { place: this.lanking[i] }
+      })
+    }
   },
-  methods: {},
-  mounted() {}
 }
 </script>

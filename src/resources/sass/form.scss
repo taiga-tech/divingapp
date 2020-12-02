@@ -4,8 +4,8 @@
   input[type="password"],
   textarea {
     outline: none;
-    background-color: rgba(0, 0, 0, 0);
-    font-size: 20px;
+    background-color: #00000000;
+    font-size: 18px;
     &:focus + .borderBottom {
       background: rgb(0, 132, 255);
       outline-color: transparent;
@@ -13,15 +13,74 @@
     }
   }
   .formBlock {
-    background-color: rgba(0, 0, 0, 0.1);
+    @media(prefers-color-scheme:dark) {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+    background-color: rgba(180, 190, 190, 0.1);
   }
 }
+
+[contenteditable=true]:empty:before {
+  content: attr(placeholder);
+  pointer-events: none;
+  display: block;
+  opacity: 0.4;
+}
+
 .borderBottom {
   height: 3px;
   width: 100%;
-  background: white;
+  background: rgb(225, 225, 225);
   border: none;
   // transform: scaleX(0) translateY(-2px);
   transform-origin: 50%;
   transition: all .50s;
+}
+
+.error {
+  color: orangered;
+  opacity: 0.7;
+}
+
+.errorBorderBottom {
+  background-color: orangered;
+}
+
+// post
+.textbox {
+  position: relative;
+  outline: none;
+  font-size: 18px;
+}
+.postImage {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding-left: 5px;
+  font-size: 20px;
+}
+
+// profile
+.preview {
+  background-color: #ffffff0a;
+  font-size: 20px;
+  width: 58px;
+  height: 58px;
+  &:hover {
+    background-color: #ffffff28;
+  }
+  img {
+    width: 58px;
+    height: 58px;
+  }
+}
+
+// Comment
+.commentSubmit {
+  position: absolute;
+  bottom:0;
+  right: 0;
+  line-height: 40px;
+  width: 40px;
+  text-align: center;
 }

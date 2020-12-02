@@ -12,47 +12,13 @@
     </div>
   </div>
   <form class="search" v-on:submit.prevent="search">
-    <input class="w-100 pl-2 pr-5" type="search" placeholder="キーワード検索" v-model="keyword[selected.query]">
+    <input type="search" v-model.trim="keyword[selected.query]" class="w-100 pl-2 pr-5 dark:text-gray-400" placeholder="キーワード検索">
     <span class="searchIcon rounded-circle">
       <i v-on:click.prevent="search" class="fas fa-search"></i>
     </span>
   </form>
 </div>
 </template>
-
-<style lang="scss">
-.tab {
-  line-height: 30px;
-  div {
-    font-weight: 600;
-    // &:hover {
-    //   // opacity: .6;
-    // }
-  }
-}
-.search {
-  position: relative;
-  input {
-    background: rgba(0, 0, 0, 0.1);
-    height: 40px;
-    outline: none;
-    color: white;
-    font-size: 16px;
-  }
-  .searchIcon {
-    position: absolute;
-    right: 0;
-    top: 0;
-    line-height: 40px;
-    padding: 0 10px;
-    font-size: 20px;
-    &:hover {
-      cursor: pointer;
-      background-color: rgba(255,255,255,0.1);
-    }
-  }
-}
-</style>
 
 <script>
 export default {
@@ -77,18 +43,22 @@ export default {
       if (Object.keys(this.keyword).length != 0){
         this.$router.push({
           name: 'search.index',
-          params: {params: this.selected.params},
+          params: { params: this.selected.params },
           query: this.keyword
         })
       }
       if (this.$route.query) {
         const params = this.$route.params.params
-        const response = await axios.get(`/api/search/${params}`, { params: this.$route.query })
+        this.$wait.start('loading')
+        const response = await axios.get(
+          `/api/search/${params}`, { params: this.$route.query }
+        )
         if (params == 'post') {
           this.$parent.posts = response.data.reverse()
         } else if (params == 'profile') {
           this.$parent.profiles = response.data
         }
+        this.$wait.end('loading')
       }
     },
     reset() {

@@ -3,17 +3,20 @@
   <h4 class="text-center pt-3">プロフィール編集</h4>
   <div class="card-body">
     <form v-on:submit.prevent="submit" enctype="multipart/form-data">
-      <profile-form />
-      <div class="">
-        <button type="submit" :disabled="!profile.name" class="btn btn-primary w-100">編集</button>
-      </div>
+
+      <profile-form :v="$v" />
+
+      <button type="submit" :disabled="$v.$invalid" class="btn btn-primary w-100">編集</button>
+
     </form>
   </div>
 </div>
 </template>
 
 <script>
+import { required } from "vuelidate/lib/validators";
 import ProfileForm from './ProfileForm.vue';
+
 export default {
   props: {
     profileId: NaN
@@ -21,7 +24,7 @@ export default {
   data: function () {
     return {
       profile: {
-        comment: ' ',
+        comment: '',
       },
       preview: null,
     }
@@ -50,6 +53,13 @@ export default {
   },
   components: {
     ProfileForm,
+  },
+  validations: {
+    profile: {
+      name: {
+        required,
+      }
+    }
   },
   computed: {
     user () {

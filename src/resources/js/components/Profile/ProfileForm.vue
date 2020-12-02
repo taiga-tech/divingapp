@@ -10,12 +10,21 @@
     <div class="formBlock" style="width: calc(100% - 63px)">
       <div class="label px-1">
         <span>ユーザネーム</span>
+        <span v-if="v.profile.name.$error" :class="{ 'error': v.profile.name.$error }">
+          <span v-if="!v.profile.name.required">ユーザーネームは必須項目です</span>
+        </span>
       </div>
-      <div class="">
-        <input type="text" name="name" class="w-100 dark:text-gray-400" required v-model="$parent.profile.name">
-        <!-- <span class="invalid-feedback" role="alert">
-          <strong>{{ message }}</strong>
-        </span> -->
+
+      <div>
+        <input
+          type="text"
+          name="name"
+          v-model.trim="$parent.profile.name"
+          required
+          @blur="v.profile.name.$touch()"
+          class="px-2 w-100 dark:text-gray-400"
+        >
+        <div class="borderBottom" :class="{ 'errorBorderBottom': v.profile.name.$error }"></div>
       </div>
     </div>
   </div>
@@ -24,42 +33,30 @@
     <div class="label px-1">
       <span>ひとこと</span>
     </div>
-    <div class="">
-      <textarea name="comment" class="w-100 dark:text-gray-400" rows="5" v-model="$parent.profile.comment"></textarea>
+    <div>
+      <textarea
+        name="comment"
+        rows="5"
+        v-model.trim="$parent.profile.comment"
+        class="px-2 w-100 dark:text-gray-400"
+        ></textarea>
+        <div class="borderBottom"></div>
     </div>
   </div>
 </div>
-
 </template>
-
-<style lang="scss">
-.preview {
-  background-color: #ffffff0a;
-  font-size: 20px;
-  width: 58px;
-  height: 58px;
-  &:hover {
-    background-color: #ffffff28;
-  }
-  img {
-    width: 58px;
-    height: 58px;
-  }
-}
-</style>
 
 <script>
 export default {
+  props: {
+    v: Object,
+  },
   methods: {
     fileOpen () {
       let file = document.getElementById('file');
       file.click();
     },
     fileChange (event) {
-      if (event.target.files.length === 0) {
-        this.reset()
-        return false
-      }
       if (! event.target.files[0].type.match('image.*')) {
         this.reset()
         return false

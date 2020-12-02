@@ -45,6 +45,26 @@ commands:
           command: |
             docker-compose -f docker-compose.local.yml run php php artisan test
 
+  php_image_push:
+    steps:
+      - checkout
+      - aws-ecr/build-and-push-image:
+          path: .
+          dockerfile: ./docker/php/Dockerfile
+          region: AWS_DEFAULT_REGION
+          account-url: AWS_ECR_ACCOUNT_URL
+          repo: "divingapp_php"
+
+  nginx_image_push:
+    steps:
+      - checkout
+      - aws-ecr/build-and-push-image:
+          path: .
+          dockerfile: ./docker/nginx/Dockerfile
+          region: AWS_DEFAULT_REGION
+          account-url: AWS_ECR_ACCOUNT_URL
+          repo: "divingapp_nginx"
+
   test_notification:
     steps:
       - slack/status:
@@ -52,15 +72,18 @@ commands:
           failure_message: ':circleci-failed: $CIRCLE_BRANCH のテストが失敗しました\n\n:github-wh: User：$CIRCLE_USERNAME'
           webhook: '${SLACK_WEBHOOK}'
 
-  # 最新image ECR PUSH docker compose up
-  # docker tag divingapp_nginx:latest 824365639512.dkr.ecr.us-east-1.amazonaws.com/divingapp_nginx:latest # add tag
-  # docker push 824365639512.dkr.ecr.us-east-1.amazonaws.com/divingapp_nginx:latest # image push
+  ecr_notification:
+    steps:
+      - slack/status:
+          success_message: ':circleci-success: ECRへのPUSHが完了しました'
+          failure_message: ':circleci-failed: ECRへのPUSHに失敗しました'
+          webhook: '${SLACK_WEBHOOK}'
 
   deploy_notification:
     steps:
       - slack/status:
           success_message: ':circleci-success: $CIRCLE_BRANCH のデプロイが完了しました\n\n:github-wh: User：$CIRCLE_USERNAME'
-          failure_message: ':circleci-failed: $CIRCLE_BRANCH のデプロイが失敗しました\n\n:github-wh: User：$CIRCLE_USERNAME'
+          failure_message: ':circleci-failed: $CIRCLE_BRANCH のデプロイに失敗しました\n\n:github-wh: User：$CIRCLE_USERNAME'
           webhook: '${SLACK_WEBHOOK}'
 
 # ---------------- Jobs ----------------
@@ -74,8 +97,21 @@ jobs:
       - docker_setup
       - laravel_setup
       - test_db_setup
-      # - test_run
+      - test_run
       - test_notification
+
+  ecr_push:
+    machine: true
+    steps:
+      - php_image_push
+      - nginx_image_push
+      - ecr_notification
+
+  deploy_master:
+    machine: true
+    steps:
+      - ecs_fargate_deploy
+      - deploy_notification
 
 # ---------------- Workflows ----------------
 
@@ -93,9 +129,16 @@ workflows:
           filters:
             branches:
                 only: master
-#       - deploy_master:
-#           requires:
-#             - test
-#           filters:
-#             branches:
-#                 only: master
+      - ecr_push:
+          context: divingapp
+          requires:
+            - test
+          filters:
+            branches:
+                only: master
+      # - deploy_master:
+      #     requires:
+      #       - test
+      #     filters:
+      #       branches:
+      #           only: master
