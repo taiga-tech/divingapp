@@ -10,7 +10,8 @@ import contenteditable from 'vue-contenteditable'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import { VueLoading } from 'vue-loading-template';
 import VueWait from 'vue-wait';
-import Vuelidate from 'vuelidate'
+import Vuelidate from 'vuelidate';
+
 
 /**
  * First we will load all of this project's JavaScript dependencies which
