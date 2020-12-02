@@ -1,35 +1,38 @@
 <template>
 <div class="p-2 border-bottom">
-  <div class="d-flex px-1 justify-content-between">
-    <div class="d-flex">
+  <div class="d-flex justify-content-between px-1 w-100">
+    <div class="d-flex w-100">
       <div v-on:click="pushProfile" class="mr-2">
         <img class="postProfileImage rounded-circle" :src="post.profile.image">
       </div>
-      <div>
-        <div class="d-flex">
-          <h5>{{ post.profile.name }}</h5>
-          <p>({{ post.user.userid }})</p>
+      <div class="w-100">
+        <div class="d-flex justify-content-between">
+          <div class="d-flex">
+            <h5>{{ post.profile.name }}</h5>
+            <p class="opa ml-1">{{ post.user.userid }}</p>
+          </div>
+          <post-menu
+            v-if="user.id == post.user.id"
+            v-on:postDelete="deleted"
+            :postId="post.id"
+            :index="index"
+          />
         </div>
         <div v-on:click="pushPost">
           <div class="textArea">{{ post.text }}</div>
-          <p>{{ post.place }}</p>
           <div>
             <img
               v-for="image in post.images"
               :key="image.id"
               :src="image.path"
-              class="w-25"
+              class="w-30 p-1"
+              style="border-radius:10px"
             >
           </div>
+          <p class="opa">{{ post.place }}</p>
         </div>
       </div>
     </div>
-    <post-menu
-      v-if="user.id == post.user.id"
-      v-on:postDelete="deleted"
-      :postId="post.id"
-      :index="index"
-    />
   </div>
   <post-info
     :post="post"
@@ -58,14 +61,14 @@ export default {
     }
   },
   methods: {
-    pushProfile() {
+    async pushProfile() {
       if (this.$route.name != 'profiles.show') {
         this.$router.push(
           { name: 'profiles.show', params: { profileId: this.post.profile.id } }
         )
       }
     },
-    pushPost() {
+    async pushPost() {
       this.$router.push({ name: 'posts.show', params: { postId: this.post.id } })
     },
     deleted(e) {

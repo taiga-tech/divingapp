@@ -19,7 +19,7 @@
         <input
           type="text"
           name="name"
-          v-model="$parent.profile.name"
+          v-model.trim="$parent.profile.name"
           required
           @blur="v.profile.name.$touch()"
           class="px-2 w-100 dark:text-gray-400"
@@ -37,7 +37,7 @@
       <textarea
         name="comment"
         rows="5"
-        v-model="$parent.profile.comment"
+        v-model.trim="$parent.profile.comment"
         class="px-2 w-100 dark:text-gray-400"
         ></textarea>
         <div class="borderBottom"></div>

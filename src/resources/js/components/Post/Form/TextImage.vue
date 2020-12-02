@@ -4,7 +4,7 @@
   <div class="pb-3" style="min-height: 300px">
     <contenteditable
       tag="div"
-      v-model="$parent.post.text"
+      v-model.trim="$parent.post.text"
       class="textbox w-100 p-2 dark:text-gray-400"
     />
 

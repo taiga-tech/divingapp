@@ -18,6 +18,7 @@
 import Search from '../Search/Search';
 import GmapIndex from '../Gmap/GmapIndex';
 import PlaceLank from '../Post/PlaceLank';
+
 export default {
   data: function() {
     return {

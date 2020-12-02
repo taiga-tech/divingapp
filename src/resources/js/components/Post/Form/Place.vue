@@ -6,7 +6,7 @@
   </div>
   <div class="d-flex">
     <v-select
-      v-model="place.prefCode"
+      v-model.trim="place.prefCode"
       @input="prefSelect"
       :loading="prefectures.length <= 0"
       :options="prefectures"
@@ -18,7 +18,7 @@
 
     <v-select
       v-if="place.prefCode"
-      v-model="place.municipal"
+      v-model.trim="place.municipal"
       @input="municipalSelect"
       :loading="prefChildren.length <= 0"
       :options="prefChildren"
@@ -34,9 +34,9 @@
     <form class="" v-on:submit.prevent="geoCoding($parent.post.place)">
       <input
         type="search"
-        v-model="$parent.post.place"
+        v-model.trim="$parent.post.place"
         placeholder="住所で検索する"
-        class="w-100 pl-2 pr-5"
+        class="w-100 pl-2 pr-5 dark:text-gray-400"
       >
       <span class="searchIcon rounded-circle">
         <i v-on:click.prevent="geoCoding($parent.post.place)" class="fas fa-search"></i>

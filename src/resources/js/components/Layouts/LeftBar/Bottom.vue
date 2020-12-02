@@ -1,17 +1,18 @@
 <template>
 <div class="bottom">
-  <div v-if="profile" class="d-flex justify-content-between">
-    <div v-on:click="pushProfile" class="d-flex link">
-      <div class="iocn">
-        <img v-if="profile.image" :src="profile.image" class="rounded-circle mr-md-2">
+  <div v-if="profile" class="d-flex justify-content-between link-p">
+    <div v-on:click="pushProfile" class="d-flex">
+      <div class="iocn d-flex flex-wrap align-content-center">
+        <div><img v-if="profile.image" :src="profile.image" class="rounded-circle mr-md-2"></div>
       </div>
-      <div class="d-md-none d-xl-block mx-4">
-        {{ profile.name }} {{ user.userid }}
-      </div>
+      <span class="d-md-none d-xl-block mx-4">
+        <span>{{ profile.name }}</span><br>
+        <span class="opa">{{ user.userid }}</span>
+      </span>
     </div>
+
     <div v-on:click="open = !open" style="line-height: 50px;" class="d-md-none d-xl-block mr-3">
-      <i v-show="!open" class="fas fa-chevron-up"></i>
-      <i v-show="open" class="fas fa-chevron-down"></i>
+      <i class="fas" :class="{ 'fa-chevron-up': !open, 'fa-chevron-down': open }"></i>
     </div>
   </div>
 

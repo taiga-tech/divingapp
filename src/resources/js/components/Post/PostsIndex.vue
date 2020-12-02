@@ -41,7 +41,7 @@ export default {
     }
   },
   mounted() {
-    this.getPosts();
+    this.getPosts()
   },
   components: {
     PostContent,

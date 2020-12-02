@@ -12,7 +12,7 @@
     </div>
   </div>
   <form class="search" v-on:submit.prevent="search">
-    <input class="w-100 pl-2 pr-5" type="search" placeholder="キーワード検索" v-model="keyword[selected.query]">
+    <input type="search" v-model.trim="keyword[selected.query]" class="w-100 pl-2 pr-5 dark:text-gray-400" placeholder="キーワード検索">
     <span class="searchIcon rounded-circle">
       <i v-on:click.prevent="search" class="fas fa-search"></i>
     </span>
@@ -43,7 +43,7 @@ export default {
       if (Object.keys(this.keyword).length != 0){
         this.$router.push({
           name: 'search.index',
-          params: {params: this.selected.params},
+          params: { params: this.selected.params },
           query: this.keyword
         })
       }
