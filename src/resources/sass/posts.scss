@@ -1,5 +1,15 @@
 .textArea {
   white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.contentLeft {
+  width: 50px;
+}
+
+.contentRight {
+  width: calc(100% - 60px);
 }
 
 // empty

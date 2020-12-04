@@ -2,10 +2,10 @@
 <div class="p-2 border-bottom">
   <div class="d-flex justify-content-between px-1 w-100">
     <div class="d-flex w-100">
-      <div v-on:click="pushProfile" class="mr-2">
+      <div v-on:click="pushProfile" class="contentLeft mr-2">
         <img class="postProfileImage rounded-circle" :src="post.profile.image">
       </div>
-      <div class="w-100">
+      <div class="contentRight">
         <div class="d-flex justify-content-between">
           <div class="d-flex">
             <h5>{{ post.profile.name }}</h5>
