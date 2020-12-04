@@ -30,13 +30,13 @@ commands:
           command: |
             docker-compose -f docker-compose.local.yml run php composer install
 
-  test_db_setup:
-    steps:
-      - run:
-          name: Test DB Setup
-          command: |
-            touch src/database/database.sqlite
-            docker-compose -f docker-compose.local.yml run php php artisan migrate:fresh --env=testing
+  # test_db_setup:
+  #   steps:
+  #     - run:
+  #         name: Test DB Setup
+  #         command: |
+  #           touch src/database/database.sqlite
+  #           docker-compose -f docker-compose.local.yml run php php artisan migrate:fresh --env=testing
 
   test_run:
     steps:
@@ -96,7 +96,7 @@ jobs:
       - env_setup
       - docker_setup
       - laravel_setup
-      - test_db_setup
+      # - test_db_setup
       - test_run
       - test_notification
 
