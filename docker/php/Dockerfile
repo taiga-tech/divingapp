@@ -3,9 +3,11 @@ FROM php:7.4-fpm-buster
 COPY ./docker/php/php.ini /usr/local/etc/php/
 
 RUN apt-get update \
-    && apt-get install -y zlib1g-dev mariadb-client vim libzip-dev \
+    && apt-get install -y zlib1g-dev libpng-dev libzip-dev libjpeg-dev libfreetype6-dev \
+    && apt-get install -y unzip mariadb-client vim \
     && docker-php-ext-install zip pdo_mysql \
-    && apt-get -y install unzip
+    && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) gd
 
 # Node.js install
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
