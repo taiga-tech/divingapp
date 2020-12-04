@@ -2,7 +2,7 @@
 <div class="my-4 w-100">
   <div class="d-flex justify-content-between px-1">
     <div class="">どこの海？</div>
-    <div v-on:click="open">マップを開く</div>
+    <div v-on:click="Gmap = !Gmap">マップを開く</div>
   </div>
   <div class="d-flex">
     <v-select
