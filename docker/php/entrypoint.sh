@@ -5,9 +5,11 @@ set -e
 # localではmigrateのみ
 # php aritsan migrate
 
-# npm run production
+composer install
+npm install
 
 php artisan migrate:fresh
+npm run production
 
 php-fpm
 
