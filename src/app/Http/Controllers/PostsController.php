@@ -21,13 +21,14 @@ class PostsController extends Controller
 
     public function __construct(Post $posts)
     {
-        // $this->middleware('auth:api')->except(['index', 'show']);
+        $this->middleware('auth')->except(['index', 'show']);
         $this->posts = $posts;
     }
 
     public function index()
     {
         $posts = Post::with('user', 'profile', 'images')->get();
+
         return $posts; //view('posts.index', compact('posts'));
     }
 
@@ -55,15 +56,19 @@ class PostsController extends Controller
         $input['profile_id'] = Auth::user()->profile->id;
         $post = $this->posts->create($input);
         $timeStamp = date('Ymd-His');
-        if ($request->file('files')) {
-            foreach ($request->file('files') as $index=> $e) {
+
+        if ($request->file('files'))
+        {
+            foreach ($request->file('files') as $index=> $e)
+            {
                 $ext = $e['image']->guessExtension();
                 $filename = "{$timeStamp}_{$index}.{$ext}";
-                $image = Storage::disk('s3')->putFileAs('post/'.$post->id, $e['image'], $filename, 'public');
+                $image = Storage::disk('s3')->putFileAs('images/post/'.$post->id, $e['image'], $filename, 'public');
                 $path = Storage::disk('s3')->url($image);
                 $post->images()->create([ 'path' => $path ]);
             }
         }
+
         return $post; //redirect('/');
     }
 
@@ -76,6 +81,7 @@ class PostsController extends Controller
     public function show($id)
     {
         $post = Post::with('user', 'profile', 'images')->find($id);
+
         return $post; //view('posts.show', compact('post'));
     }
 
@@ -108,15 +114,18 @@ class PostsController extends Controller
         $post->update($request->all());
         $timeStamp = date('Ymd-His');
         // 個別で画像編集できるようにする
-        if ($request->file('files')) {
-            foreach ($request->file('files') as $index=> $e) {
+        if ($request->file('files'))
+        {
+            foreach ($request->file('files') as $index=> $e)
+            {
                 $ext = $e['image']->guessExtension();
                 $filename = "{$timeStamp}_{$index}.{$ext}";
-                $image = Storage::disk('s3')->putFileAs('post/'.$post->id, $e['image'], $filename, 'public');
+                $image = Storage::disk('s3')->putFileAs('images/post/'.$post->id, $e['image'], $filename, 'public');
                 $path = Storage::disk('s3')->url($image);
                 $post->images()->create(['path'=> $path]);
             }
         }
+
         return $post; //->update($request->all());//redirect(route('posts.show', $id));
     }
 
@@ -129,15 +138,19 @@ class PostsController extends Controller
     public function destroy($id)
     {
         $post = $this->posts->find($id);
-        if (Auth::id() === $post->user->id) {
+        if (Auth::id() === $post->user->id)
+        {
             $post->delete();
         }
+
         return $post; #redirect('/');
     }
 
-    public function imageDestroy($id) {
+    public function imageDestroy($id)
+    {
         $image = PostImage::find($id);
         $image->delete();
+
         return $image;
     }
 }

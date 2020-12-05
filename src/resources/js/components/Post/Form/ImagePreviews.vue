@@ -1,5 +1,5 @@
 <template>
-<div class="mb-4 w-100">
+<div v-if="postImages.length != 0 || previews.lenght != 0" class="mb-4 w-100">
 
   <span v-if="postImages.length != 0">
     <span v-for="(image, index) in postImages" :key="index" style="position:relative">

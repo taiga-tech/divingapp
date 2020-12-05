@@ -20,3 +20,4 @@ app/storage/
 .env.php
 .rocketeer/
 .DS_Store
+:memory

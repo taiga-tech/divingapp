@@ -1,11 +1,12 @@
 <template>
 <div class="formBlock mb-3 w-100 textbox">
 
-  <div class="pb-3" style="min-height: 300px">
+  <div class="pb-3" style="min-height: 300px" v-on:click="focus">
     <contenteditable
       tag="div"
       v-model.trim="$parent.post.text"
       class="textbox w-100 p-2 dark:text-gray-400"
+      style="height:50px"
     />
 
     <image-previews
@@ -40,6 +41,9 @@ export default {
     v: Object,
   },
   methods: {
+    async focus(e) {
+      e.target.childNodes[0].focus()
+    },
     async fileOpen () {
       const file = document.getElementById('file')
       file.click()
@@ -69,7 +73,7 @@ export default {
     },
     async reset() {
       this.$parent.previews = []
-      this.$parent.images = null
+      this.$parent.images = []
       this.$el.querySelector('input[type="file"]').value = null
     },
   },

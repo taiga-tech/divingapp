@@ -9,17 +9,17 @@
     v-on="$route.name != 'posts.show' ? { click: $parent.pushPost } : {}"
     class="infoRight text-right opa"
   >
-    {{ post.updated_at | moment }}
+    {{ post.created_at | moment }}
   </p>
 </div>
 </template>
 
 <style lang="scss" scoped>
 .infoLeft {
-  width: 78px;
+  width: 100px;
 }
 .infoRight {
-  width: calc(100% - 78px);
+  width: calc(100% - 100px);
 }
 </style>
 
