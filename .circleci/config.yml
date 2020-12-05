@@ -120,13 +120,13 @@ workflows:
           filters:
             branches:
                 only: master
-      - ecr_push:
-          requires:
-            - test
-          filters:
-            branches:
-                only: master
-      # - deploy_master:
+      # - ecr_push:
+      #     requires:
+      #       - test
+      #     filters:
+      #       branches:
+      #           only: master
+      # # - deploy_master:
       #     requires:
       #       - test
       #     filters:
