@@ -5,7 +5,7 @@ set -e
 # localではmigrateのみ
 # php aritsan migrate
 
-npm run production
+# npm run production
 
 php artisan migrate:fresh
 
