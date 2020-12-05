@@ -24,6 +24,7 @@
 |upload image|s3|
 
 ## 現状デプロイ方法
+http://3.238.141.69/
   > AWSCloud Containers Conference2020で発表された`DockerCLIでのECS統合`を使用してデプロイしました
 
 ### 参考資料
