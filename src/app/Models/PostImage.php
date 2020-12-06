@@ -11,7 +11,8 @@ class PostImage extends Model
 
     protected $fillable = ['path', 'post_id'];
 
-    public function post() {
+    public function post()
+    {
         return $this->belongsTo('App\Models\Post');
     }
 }
