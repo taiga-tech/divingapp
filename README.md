@@ -70,17 +70,29 @@ http://3.238.141.69/
 - test結果のslack通知
 
 ### master brunch
-- ecrpush
-- ecsへのデプロイは、hostPCで実行
+- test
+- ~~ecrpush~~
+  > ecrへのpushは成功したが、必要なものがなかったので、現在調査中
+
+- ecr, ecsへのデプロイは、hostPCで実行
   ``` shell
-    # circleciでしたいこと
+  # circleciでしたいこと
+  # ecrログイン
+    % aws ecr get-login-password --profile < profile名 > | docker login --username AWS --password-stdin xxxxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com
+  # php push
+    % docker tag divingapp_php:latest xxxxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/< リポジトリ名 >:latest
+    % docker push xxxxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/< リポジトリ名 >:latest
+  # nginx push
+    % docker tag divingapp_nginx:latest xxxxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/< リポジトリ名 >:latest
+    % docker push xxxxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/< リポジトリ名 >:latest
+  # deploy
     % docker context use ecs
     % docker compose up
   ```
   > circleciのデフォルトdocker versionでは、
     現在おそらく対応していないようなので、完全自動化に向けてversion変更方法を調査中
 - test結果のslack通知
-- ecrpush結果のslack通知
+- ~~ecrpush結果のslack通知~~
 
 #### slack通知の参考画像
 ![](https://user-images.githubusercontent.com/67569270/96187946-d2ad5880-0f78-11eb-8eae-fb99a7af7cc7.png)
