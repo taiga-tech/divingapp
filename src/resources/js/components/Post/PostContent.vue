@@ -13,7 +13,7 @@
           </div>
           <post-menu
             v-if="user.id == post.user.id"
-            v-on:postDelete="deleted"
+            v-on:removePost="removePost"
             :postId="post.id"
             :index="index"
           />
@@ -34,10 +34,11 @@
       </div>
     </div>
   </div>
+
   <post-info
     :post="post"
     :goods="goods"
-    :comments="comments"
+    :comments="post.comments"
   />
 </div>
 </template>
@@ -49,6 +50,7 @@ a { text-decoration: none; }
 <script>
 import PostMenu from './PostMenu';
 import PostInfo from './PostInfo';
+
 export default {
   props: {
     post: null,
@@ -57,7 +59,6 @@ export default {
   data: function() {
     return {
       goods: [],
-      comments: [],
     }
   },
   methods: {
@@ -71,7 +72,7 @@ export default {
     async pushPost() {
       this.$router.push({ name: 'posts.show', params: { postId: this.post.id } })
     },
-    deleted(e) {
+    async removePost(e) {
       this.$emit('removePost', e)
     },
   },
