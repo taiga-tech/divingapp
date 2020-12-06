@@ -16,10 +16,18 @@ class Profile extends Model
         'user_id'
     ];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo('App\Models\User');
     }
-    public function posts() {
+
+    public function posts()
+    {
         return $this->hasMany('App\Models\Post');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Models\PostComment');
     }
 }
