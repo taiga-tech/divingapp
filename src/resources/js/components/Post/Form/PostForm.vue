@@ -73,8 +73,8 @@ export default {
       if (this.$route.name == 'posts.edit') {
         axios.get('/api/posts/' + this.postId)
         .then((res) => {
-          this.post = res.data
-          this.postImages = res.data.images
+          this.post = res.data[0]
+          this.postImages = res.data[0].images
         });
       }
     },

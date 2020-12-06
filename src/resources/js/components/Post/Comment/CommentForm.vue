@@ -6,7 +6,7 @@
     </div>
     <contenteditable
       tag="div"
-      v-model.trim="text"
+      v-model.trim="comment.content"
       class="placecholder w-100 p-2 dark:text-gray-400"
       style="outline:none;"
       placeholder="コメント"
@@ -25,20 +25,17 @@ export default {
   },
   data: function() {
     return {
-      text: null,
+      comment: { content: null },
     }
   },
   methods: {
     async submit() {
-      if (this.text) {
-        this.$parent.comments.push(this.text)
-        this.text = null
+      this.comment.post_id = this.postId
+      if (this.comment) {
+        const response = await axios.post('/api/comments', this.comment)
+        await this.$parent.comments.push(response.data)
+        this.comment.content = null
       }
-      // サーバー後に実装
-      // if (this.comment.text) {
-        // const response = await axios('comment_store_url', this.text)
-        // this.$parent.comments.push(response.data)
-      // }
     },
   },
   computed: {

@@ -6,6 +6,8 @@
       v-for="(comment, index) in comments"
       :key="index"
       :comment="comment"
+      :index="index"
+      v-on:removeComment="removeComment"
     />
   </div>
 </div>
@@ -18,6 +20,11 @@ export default {
   props: {
     postId: NaN,
     comments: Array,
+  },
+  methods: {
+    async removeComment(e) {
+      this.comments.splice(e, 1)
+    }
   },
   computed: {
     isLogin () {

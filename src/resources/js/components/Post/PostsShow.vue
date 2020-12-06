@@ -47,7 +47,6 @@
             >
           </a>
         </div>
-
       </div>
 
       <div v-if="post.place">
@@ -57,8 +56,8 @@
       </div>
 
       <gmap class="p-2" v-if="post.place" v-show="open" :geocode="post" />
-
     </div>
+
     <post-info
       :post="post"
       :goods="goods"
@@ -66,6 +65,7 @@
       class="border-top p-2"
     />
   </div>
+
   <div v-if="post">
     <comment-index :postId="post.id" :comments="comments" />
   </div>
@@ -93,9 +93,9 @@ export default {
   methods: {
     async getPost() {
       const response = await axios.get('/api/posts/' + this.postId)
-      this.post = response.data
-      // this.goods = response.data.goods
-      // this.comments = response.data.comments
+      this.post = await response.data[0]
+      // this.goods = await response.data.goods
+      this.comments = await response.data[1]
     },
   },
   mounted() {
