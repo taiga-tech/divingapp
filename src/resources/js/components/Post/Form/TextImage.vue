@@ -4,6 +4,7 @@
   <div class="pb-3" style="min-height: 300px" v-on:click="focus">
     <contenteditable
       tag="div"
+      @click.stop
       v-model.trim="$parent.post.text"
       class="textbox w-100 p-2 dark:text-gray-400"
       style="height:50px"
@@ -15,7 +16,7 @@
       :images="$parent.images"
     />
 
-    <div class="postImage" v-on:click="fileOpen">
+    <div class="postImage" v-on:click="fileOpen" @click.stop>
       <i class="fas fa-camera"></i>
       <input
         id="file"
