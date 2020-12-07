@@ -3,6 +3,7 @@
   <i v-on:click="open = !open" class="fas fa-ellipsis-h"></i>
   <ul v-show="open" class="Menu border text-center dark:bg-gray-900">
     <li v-on:click="removeComment(index)">削除</li>
+    <li v-on:click="closeMenu" class="error">キャンセル</li>
   </ul>
 </div>
 </template>
@@ -25,13 +26,13 @@ export default {
         await this.$emit('removeComment', e)
       }
     },
-    closeMenu() {
+    async closeMenu() {
       this.open = false
     },
   },
   watch: {
     open: function(val) {
-      if(val == true) {
+      if(val) {
         setTimeout(this.closeMenu, 5000);
       }
     },

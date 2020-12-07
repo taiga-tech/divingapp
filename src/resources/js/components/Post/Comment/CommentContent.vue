@@ -14,6 +14,7 @@
     </div>
   </div>
   <comment-menu
+    v-if="comment.user.id == user.id"
     :commentId="comment.id"
     :index="index"
     v-on:removeComment="removeComment"
@@ -40,6 +41,11 @@ export default {
     async removeComment(e) {
       this.$emit('removeComment', e)
     }
+  },
+  computed: {
+    user() {
+      return this.$store.getters['auth/user']
+    },
   },
   components: {
     CommentMenu,

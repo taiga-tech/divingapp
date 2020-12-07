@@ -4,6 +4,7 @@
   <ul v-show="open" class="Menu border text-center dark:bg-gray-900">
     <li v-on:click="$router.push({ name: 'posts.edit', params: { postId: postId} })">編集</li>
     <li v-on:click="removePost(index)">削除</li>
+    <li v-on:click="closeMenu" class="error">キャンセル</li>
   </ul>
 </div>
 </template>
@@ -32,13 +33,13 @@ export default {
         }
       }
     },
-    closeMenu() {
+    async closeMenu() {
       this.open = false
     },
   },
   watch: {
     open: function(val) {
-      if(val == true) {
+      if(val) {
         setTimeout(this.closeMenu, 5000);
       }
     },
