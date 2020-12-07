@@ -4,7 +4,7 @@
   <div class="card-body">
     <form v-on:submit.prevent="submit">
 
-      <text-image :v="$v"/>
+      <text-image :v="$v" />
         <span v-if="!$v.images.maxLength" class="text-right error">
           画像は最大{{ $v.images.$params.maxLength.max }}枚までです
         </span>
@@ -73,8 +73,8 @@ export default {
       if (this.$route.name == 'posts.edit') {
         axios.get('/api/posts/' + this.postId)
         .then((res) => {
-          this.post = res.data
-          this.postImages = res.data.images
+          this.post = res.data[0]
+          this.postImages = res.data[0].images
         });
       }
     },

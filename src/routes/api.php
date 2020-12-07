@@ -25,8 +25,11 @@ Auth::routes();
 Route::post('sociallogin/{provider}', [LoginController::class, 'SocialSignup'])->name('social');
 Route::get('auth/{provider}/callback', [LoginController::class, 'handleProviderCallback'])->where('provider', '.*');
 Route::get('/user', fn() => Auth::user())->name('user');
+Route::apiResource('profiles', ProfilesController::class)->except('index', 'destroy');
 
 Route::apiResource('posts', PostsController::class);
-Route::apiResource('profiles', ProfilesController::class)->except('destroy');
-Route::get('search/{search}', [SearchController::class, 'search'])->name('search');
 Route::delete('imagedestroy/{id}', [PostsController::class, 'imageDestroy']);
+Route::apiResource('comments', PostCommentsController::class)->except('index', 'show', 'update');
+Route::apiResource('goods', PostGoodsController::class)->except('index', 'show', 'update');
+
+Route::get('search/{search}', [SearchController::class, 'search'])->name('search');

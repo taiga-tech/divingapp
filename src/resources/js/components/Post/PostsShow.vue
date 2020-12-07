@@ -21,7 +21,7 @@
           <h4>{{ post.profile.name }}</h4>
           <p v-if="post.user" class="ml-1 opa">{{ post.user.userid }}</p>
         </div>
-        <post-menu :postId="postId" />
+        <post-menu v-if="user.id == post.user.id" :postId="postId" />
       </div>
     </div>
 
@@ -47,7 +47,6 @@
             >
           </a>
         </div>
-
       </div>
 
       <div v-if="post.place">
@@ -57,15 +56,15 @@
       </div>
 
       <gmap class="p-2" v-if="post.place" v-show="open" :geocode="post" />
-
     </div>
     <post-info
       :post="post"
-      :goods="goods"
+      :goods="post.goods"
       :comments="comments"
       class="border-top p-2"
     />
   </div>
+
   <div v-if="post">
     <comment-index :postId="post.id" :comments="comments" />
   </div>
@@ -86,20 +85,23 @@ export default {
     return {
       post: null,
       open: false,
-      goods: [],
       comments: [],
     }
   },
   methods: {
     async getPost() {
       const response = await axios.get('/api/posts/' + this.postId)
-      this.post = response.data
-      // this.goods = response.data.goods
-      // this.comments = response.data.comments
+      this.post = await response.data[0]
+      this.comments = await response.data[1]
     },
   },
   mounted() {
     this.getPost();
+  },
+  computed: {
+    user () {
+      return this.$store.getters['auth/user']
+    },
   },
   components: {
     Gmap,

@@ -1,6 +1,5 @@
 <template>
 <div>
-
   <div v-if="profile" class="p-2 border-bottom">
     <div class="d-flex">
       <img
@@ -19,7 +18,7 @@
       </div>
     </div>
 
-    <div class="textArea mt-2">{{ profile.comment }}</div>
+    <div v-if="profile.comment" class="textArea mt-2">{{ profile.comment }}</div>
 
     <p v-if="geocode.length != 0" class="text-right">
       <span v-on:click="open = !open">
@@ -52,10 +51,10 @@
 </template>
 
 <script>
-import GmapIndex from '../Gmap/GmapIndex.vue';
-import Enpty from '../Post/Enpty.vue';
+import GmapIndex from '../Gmap/GmapIndex';
+import Enpty from '../Post/Enpty';
 import PostContent from '../Post/PostContent';
-import PostMenu from '../Post/PostMenu.vue';
+import PostMenu from '../Post/PostMenu';
 import ProfileMenu from './ProfileMenu';
 import moment from 'moment';
 
@@ -86,7 +85,7 @@ export default {
       });
       this.$wait.end('loading')
     },
-    removePost(e) {
+    async removePost(e) {
       this.posts.splice(e, 1)
     }
   },

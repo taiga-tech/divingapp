@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\PostImage;
+use App\Models\PostComment;
 use App\Http\Requests\PostRequest;
 use Storage;
 
@@ -27,20 +28,10 @@ class PostsController extends Controller
 
     public function index()
     {
-        $posts = Post::with('user', 'profile', 'images')->get();
+        $posts = Post::with('user', 'profile', 'images', 'comments', 'goods')->get();
 
-        return $posts; //view('posts.index', compact('posts'));
+        return $posts;
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // public function create()
-    // {
-    //     return view('posts.create');
-    // }
 
     /**
      * Store a newly created resource in storage.
@@ -69,7 +60,7 @@ class PostsController extends Controller
             }
         }
 
-        return $post; //redirect('/');
+        return $post;
     }
 
     /**
@@ -80,26 +71,13 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        $post = Post::with('user', 'profile', 'images')->find($id);
+        $post = Post::with('user', 'profile', 'images', 'goods')->find($id);
+        $comments = PostComment::where('post_id', $id)
+            ->with('user', 'profile')
+            ->get();
 
-        return $post; //view('posts.show', compact('post'));
+        return [ $post, $comments ];
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function edit($id)
-    // {
-    //     $post = $this->posts->find($id);
-    //     if (Auth::id() === $post->user->id) {
-    //         return view('posts.edit', compact("post"));
-    //     } else {
-    //         return redirect('/');
-    //     }
-    // }
 
     /**
      * Update the specified resource in storage.
@@ -113,7 +91,6 @@ class PostsController extends Controller
         $post = $this->posts->find($id);
         $post->update($request->all());
         $timeStamp = date('Ymd-His');
-        // 個別で画像編集できるようにする
         if ($request->file('files'))
         {
             foreach ($request->file('files') as $index=> $e)
@@ -126,7 +103,7 @@ class PostsController extends Controller
             }
         }
 
-        return $post; //->update($request->all());//redirect(route('posts.show', $id));
+        return $post;
     }
 
     /**
@@ -143,7 +120,7 @@ class PostsController extends Controller
             $post->delete();
         }
 
-        return $post; #redirect('/');
+        return $post;
     }
 
     public function imageDestroy($id)

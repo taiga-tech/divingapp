@@ -19,30 +19,14 @@ class ProfilesController extends Controller
         $this->middleware('auth')->except(['index', 'show']);
         $this->profiles = $profiles;
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        // $profiles = $this->profiles->all();
-        $profiles = Profile::with('user')->get();
-        return $profiles; //view('profiles.index', compact('profiles'));
-    }
-
-    // public function create()
-    // {
-    //     $name = str_replace('@', '', Auth::user()->userid);
-    //     return view('profiles.create', compact('name'));
-    // }
 
     public function store(Request $request)
     {
         $profile = new Profile;
         $input = $request->all();
         $input['user_id'] = Auth::id();
-        return $profile->create($input); // redirect(route('profiles.show', Auth::user()->profile->id));
+
+        return $profile->create($input);
     }
 
     /**
@@ -53,29 +37,13 @@ class ProfilesController extends Controller
      */
     public function show($id)
     {
-        // $profile = $this->profiles->find($id);
         $profile = Profile::with('user')->find($id);
         $posts = Post::where('profile_id', $id)
-            ->with('user', 'profile', 'images')
+            ->with('user', 'profile', 'images', 'comments', 'goods')
             ->get();
-        return [$profile, $posts]; //view('profiles.show', compact('profile'));
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function edit($id)
-    // {
-    //     $profile = $this->profiles->find($id);
-    //     if (Auth::id() === $profile->user_id) {
-    //         return view('profiles.edit', compact('profile'));
-    //     } else {
-    //         return view('profiles.show', compact('profile'));
-    //     }
-    // }
+        return [$profile, $posts];
+    }
 
     /**
      * Update the specified resource in storage.
@@ -101,6 +69,7 @@ class ProfilesController extends Controller
             $input['image'] = $path;
         }
         $profile->update($input);
-        return $profile; // view('profiles.show', compact('profile'));
+
+        return $profile;
     }
 }
