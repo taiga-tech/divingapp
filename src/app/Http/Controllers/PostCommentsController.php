@@ -11,7 +11,7 @@ class PostCommentsController extends Controller
 {
     public function __construct(PostComment $comments)
     {
-        $this->middleware('auth')->except(['index', 'show']);
+        $this->middleware('auth');
         $this->comments = $comments;
     }
 
