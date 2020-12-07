@@ -30,4 +30,9 @@ class Profile extends Model
     {
         return $this->hasMany('App\Models\PostComment');
     }
+
+    public function goods()
+    {
+        return $this->hasMany('App\Models\PostGood');
+    }
 }

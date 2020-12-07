@@ -18,7 +18,7 @@ class SearchController extends Controller
             if ($search == 'post')
             {
                 $result = Post::where("$key", 'LIKE', "%$keyword%")
-                    ->with('images', 'user', 'profile')
+                    ->with('images', 'user', 'profile', 'comments', 'goods')
                     ->get();
             }
             elseif ($search == 'profile')
@@ -27,7 +27,7 @@ class SearchController extends Controller
                     ->with('user', 'posts')
                     ->get();
             }
-            
+
             return $result;
         }
     }

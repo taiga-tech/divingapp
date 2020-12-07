@@ -39,7 +39,7 @@ class ProfilesController extends Controller
     {
         $profile = Profile::with('user')->find($id);
         $posts = Post::where('profile_id', $id)
-            ->with('user', 'profile', 'images', 'comments')
+            ->with('user', 'profile', 'images', 'comments', 'goods')
             ->get();
 
         return [$profile, $posts];

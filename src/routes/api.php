@@ -30,5 +30,6 @@ Route::apiResource('profiles', ProfilesController::class)->except('index', 'dest
 Route::apiResource('posts', PostsController::class);
 Route::delete('imagedestroy/{id}', [PostsController::class, 'imageDestroy']);
 Route::apiResource('comments', PostCommentsController::class)->except('index', 'show', 'update');
+Route::apiResource('goods', PostGoodsController::class)->except('index', 'show', 'update');
 
 Route::get('search/{search}', [SearchController::class, 'search'])->name('search');

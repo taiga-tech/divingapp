@@ -28,7 +28,7 @@ class PostsController extends Controller
 
     public function index()
     {
-        $posts = Post::with('user', 'profile', 'images', 'comments')->get();
+        $posts = Post::with('user', 'profile', 'images', 'comments', 'goods')->get();
 
         return $posts;
     }
@@ -71,7 +71,7 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        $post = Post::with('user', 'profile', 'images')->find($id);
+        $post = Post::with('user', 'profile', 'images', 'goods')->find($id);
         $comments = PostComment::where('post_id', $id)
             ->with('user', 'profile')
             ->get();
