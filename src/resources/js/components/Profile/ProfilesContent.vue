@@ -1,15 +1,14 @@
 <template>
-<div class="p-2 border-bottom">
-  <div class="d-flex justify-content-between p-1">
-    <div v-on:click="$router.push({ name: 'profiles.show', params: { profileId: profile.id }})">
-      <div class="d-flex">
-        <img class="rounded-circle" :src="profile.image">
-        <p>{{ profile.name }}</p>
-        <p>{{ profile.user.userid }}</p>
-        <p>{{ profile.posts.length }}</p>
-      </div>
+<div class="border-bottom">
+  <div class="py-2 d-flex" v-on:click="pushProfile">
+    <div class="d-flex justify-content-center" style="width:80px">
+      <img class="rounded-circle" :src="profile.image">
     </div>
-    <div v-on:click="follow">フォロー</div>
+    <div style="width: calc(100% - 80px)">
+      <h4 style="width: calc(100% - 80px)">{{ profile.name }}</h4>
+      <p class="opa">{{ profile.user.userid }}</p>
+      <p>{{ profile.comment }}</p>
+    </div>
   </div>
 </div>
 </template>
@@ -26,12 +25,12 @@ a { text-decoration: none; }
 export default {
   props: {
     profileId: NaN,
-    profile: {},
+    profile: Object,
   },
   methods: {
-    follow() {
-      console.log('フォロー')
-    }
+    pushProfile() {
+      this.$router.push({ name: 'profiles.show', params: { profileId: this.profile.id }})
+    },
   },
 }
 </script>
