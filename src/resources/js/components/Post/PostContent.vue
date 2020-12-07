@@ -37,7 +37,7 @@
 
   <post-info
     :post="post"
-    :goods="goods"
+    :goods="post.goods"
     :comments="post.comments"
   />
 </div>
@@ -55,11 +55,6 @@ export default {
   props: {
     post: null,
     index: NaN,
-  },
-  data: function() {
-    return {
-      goods: [],
-    }
   },
   methods: {
     async pushProfile() {
