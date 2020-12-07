@@ -4,7 +4,7 @@
   <div class="card-body">
     <form v-on:submit.prevent="submit">
 
-      <text-image :v="$v"/>
+      <text-image :v="$v" />
         <span v-if="!$v.images.maxLength" class="text-right error">
           画像は最大{{ $v.images.$params.maxLength.max }}枚までです
         </span>

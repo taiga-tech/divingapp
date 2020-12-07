@@ -51,10 +51,10 @@
 </template>
 
 <script>
-import GmapIndex from '../Gmap/GmapIndex.vue';
-import Enpty from '../Post/Enpty.vue';
+import GmapIndex from '../Gmap/GmapIndex';
+import Enpty from '../Post/Enpty';
 import PostContent from '../Post/PostContent';
-import PostMenu from '../Post/PostMenu.vue';
+import PostMenu from '../Post/PostMenu';
 import ProfileMenu from './ProfileMenu';
 import moment from 'moment';
 
