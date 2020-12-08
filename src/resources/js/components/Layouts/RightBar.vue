@@ -35,12 +35,12 @@ export default {
         for(var i = 0; i < this.posts.length; i++) {
           if (this.posts[i].lat && this.posts[i].lng) {
             this.geocode.push({
-              lat: this.posts[i].lat,
-              lng: this.posts[i].lng
+              id: this.posts[i].id,
+              latlng: { lat: this.posts[i].lat, lng: this.posts[i].lng }
             })
           }
           if (this.posts[i].place) {
-            this.lanking.push(this.posts[i].place)
+            this.lanking.push(this.posts[i])
           }
         }
       });
