@@ -14,8 +14,9 @@
 </template>
 
 <script>
-import CommentContent from './CommentContent.vue'
-import CommentForm from './CommentForm.vue'
+import CommentContent from './CommentContent'
+import CommentForm from './CommentForm'
+
 export default {
   props: {
     postId: NaN,

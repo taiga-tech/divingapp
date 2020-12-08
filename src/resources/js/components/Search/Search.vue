@@ -1,5 +1,5 @@
 <template>
-<div class="">
+<div>
   <div class="tab text-center d-flex w-100 mb-2 justify-content-around">
     <div class="w-100" v-on:click="select('post', 'text')">
       投稿<div v-show="selected.query == 'text'" class="borderBottom"></div>

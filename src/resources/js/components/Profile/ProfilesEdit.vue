@@ -15,7 +15,7 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-import ProfileForm from './ProfileForm.vue';
+import ProfileForm from './ProfileForm';
 
 export default {
   props: {

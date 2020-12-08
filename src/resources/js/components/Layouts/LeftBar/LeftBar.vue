@@ -12,7 +12,8 @@ a { text-decoration: none; }
 
 <script>
 import Top from './Top';
-import Bottom from './Bottom.vue';
+import Bottom from './Bottom';
+
 export default {
   data: function () {
     return {}

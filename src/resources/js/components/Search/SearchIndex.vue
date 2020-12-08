@@ -30,7 +30,8 @@
 import Search from './Search';
 import PostContent from '../Post/PostContent';
 import ProfileContent from '../Profile/ProfilesContent';
-import Enpty from '../Post/Enpty.vue';
+import Enpty from '../Post/Enpty';
+
 export default {
   data: function () {
     return {

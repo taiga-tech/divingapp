@@ -21,7 +21,8 @@
 </template>
 
 <script>
-import OAuth from '../Auth/OAuth.vue'
+import OAuth from '../Auth/OAuth'
+
 export default {
   components: { OAuth },
   props: {
