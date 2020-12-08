@@ -23,7 +23,11 @@
   .lank {
     background-color: rgba(0,0,0,0.1);
     p {
-      font-size: 17px;
+      font-size: 16px;
+      &:hover {
+        opacity:0.6;
+        cursor: pointer;
+      }
     }
   }
 }
@@ -46,4 +50,21 @@
       }
     }
   }
+}
+
+// postinfo
+.infoLeft {
+  width: 100px;
+  .goodIcon {
+    &:hover {
+      color: rgb(201, 41, 92);
+    }
+  }
+  .goodedIcon {
+    color: rgb(201, 41, 92);
+  }
+}
+
+.infoRight {
+  width: calc(100% - 100px);
 }
