@@ -27,7 +27,7 @@ const actions = {
     context.commit('changeProfile', response.data);
   },
   async currentProfile (context, id) {
-    const response = await axios.get(`/api/profiles/${id}`);
+    const response = await axios.get(`/api/search/profile?user_id=${id}`);
     const profile = response.data || null;
     context.commit('setProfile', profile);
   },
