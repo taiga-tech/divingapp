@@ -1,9 +1,14 @@
 <template>
-<div class="p-2 border-bottom">
+<div class="p-2 border-bottom" v-on:click="pushPost">
   <div class="d-flex justify-content-between px-1 w-100">
     <div class="d-flex w-100">
-      <div v-on:click="pushProfile" class="contentLeft mr-2">
-        <img class="postProfileImage rounded-circle" :src="post.profile.image">
+      <div class="contentLeft mr-2">
+        <img
+          @click.stop
+          v-on:click="pushProfile"
+          :src="post.profile.image"
+          class="postProfileImage rounded-circle"
+        >
       </div>
       <div class="contentRight">
         <div class="d-flex justify-content-between">
@@ -18,7 +23,7 @@
             :index="index"
           />
         </div>
-        <div v-on:click="pushPost">
+        <div>
           <div class="textArea">{{ post.text }}</div>
           <div>
             <img
@@ -59,9 +64,7 @@ export default {
   methods: {
     async pushProfile() {
       if (this.$route.name != 'profiles.show') {
-        this.$router.push(
-          { name: 'profiles.show', params: { profileId: this.post.profile.id } }
-        )
+        this.$router.push({ name: 'profiles.show', params: { profileId: this.post.profile.id } })
       }
     },
     async pushPost() {

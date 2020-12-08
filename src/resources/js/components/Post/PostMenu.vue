@@ -1,10 +1,10 @@
 <template>
 <div class="menuTorigger">
-  <i v-on:click="open = !open" class="fas fa-ellipsis-h"></i>
-  <ul v-show="open" class="Menu border text-center dark:bg-gray-900">
-    <li v-on:click="$router.push({ name: 'posts.edit', params: { postId: postId} })">編集</li>
-    <li v-on:click="removePost(index)">削除</li>
-    <li v-on:click="closeMenu" class="error">キャンセル</li>
+  <i @click.stop v-on:click="open = !open" class="fas fa-ellipsis-h"></i>
+  <ul v-show="open" class="Menu border text-center dark:bg-gray-900 light:bg">
+    <li @click.stop v-on:click="$router.push({ name: 'posts.edit', params: { postId: postId} })">編集</li>
+    <li @click.stop v-on:click="removePost(index)">削除</li>
+    <li @click.stop v-on:click="closeMenu" class="error">キャンセル</li>
   </ul>
 </div>
 </template>
