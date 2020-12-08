@@ -116,7 +116,6 @@ export default {
       )
       this.geocode = response.data.results[0].geometry.location
       this.fullPlace = response.data.results[0].formatted_address
-      console.log(response.data.results[0].address_components)
       this.mapOpen()
     },
     async mapOpen() {

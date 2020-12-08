@@ -79,7 +79,10 @@ export default {
         this.posts = res.data[1].reverse();
         for(var i = 0; i < this.posts.length; i++) {
           if (this.posts[i].lat && this.posts[i].lng) {
-            this.geocode.push({ lat: this.posts[i].lat, lng: this.posts[i].lng })
+            this.geocode.push({
+              id: this.posts[i].id,
+              latlng: { lat: this.posts[i].lat, lng: this.posts[i].lng }
+            })
           }
         }
       });

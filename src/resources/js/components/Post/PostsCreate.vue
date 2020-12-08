@@ -4,6 +4,7 @@
 
 <script>
 import PostForm from './Form/PostForm';
+
 export default {
   data: function () {
     return {

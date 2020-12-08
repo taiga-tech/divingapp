@@ -7,9 +7,10 @@
       style="width: 100%; height: 100%;"
     >
       <GmapMarker
-        v-for="geo in geocode"
-        :key="geo.index"
-        :position="geo"
+        v-for="(geo, index) in geocode"
+        :key="index"
+        v-on:click="$router.push('/posts/' + geo.id)"
+        :position="geo.latlng"
         :clickable="true"
         :draggable="false"
       ></GmapMarker>

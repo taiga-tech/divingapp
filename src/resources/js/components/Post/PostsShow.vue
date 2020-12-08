@@ -61,7 +61,7 @@
       :post="post"
       :goods="post.goods"
       :comments="comments"
-      class="border-top p-2"
+      class="pb-2"
     />
   </div>
 

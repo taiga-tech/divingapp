@@ -4,6 +4,7 @@
 
 <script>
 import PostForm from './Form/PostForm';
+
 export default {
   props: {
     postId: NaN

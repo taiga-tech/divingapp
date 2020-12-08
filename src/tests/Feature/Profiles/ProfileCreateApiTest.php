@@ -22,14 +22,12 @@ class ProfileCreateApiTest extends TestCase
 
     public function test_新規ユーザ作成のプロフィール作成()
     {
-        $this->profile = $this
+        $response = $this
             ->actingAs($this->user)
             ->json('POST', route('profiles.store'), $data = [
                 'name' => $this->user->userid,
                 'image' => '/default.png',
             ]);
-
-        $response = $this->json('POST', route('profiles.store'), $data);
 
         $profile = Profile::first();
         $this->assertEquals($data['name'], $profile->name);

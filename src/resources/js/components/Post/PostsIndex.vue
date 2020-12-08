@@ -23,6 +23,7 @@
 <script>
 import PostContent from './PostContent';
 import Enpty from './Enpty';
+
 export default {
   data: function () {
     return {

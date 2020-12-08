@@ -63,7 +63,7 @@ export default {
       if (this.$route.name == 'posts.create') {
         await axios.post('/api/posts', formData)
       } else if (this.$route.name == 'posts.edit') {
-        await axios.post(`/api/posts/${this.post.id}`, formData,  {
+        await axios.post(`/api/posts/${this.post.id}`, formData, {
           headers: { 'X-HTTP-Method-Override': 'PUT' }
         });
       }
