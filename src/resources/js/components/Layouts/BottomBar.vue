@@ -1,5 +1,5 @@
 <template>
-<div class="d-md-none dark:bg-gray-800" style="height: 50px">
+<div class="d-md-none dark:bg-gray-800 light:bg100" style="height: 50px">
   <div class="d-flex h-100">
     <router-link class="flex-fill d-flex align-items-center justify-content-center" :to="{ name: 'posts.index' }">
       <div><i class="fas fa-home"></i></div>

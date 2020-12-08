@@ -1,7 +1,7 @@
 <template>
 <div class="menuTorigger">
   <i v-on:click="open = !open" class="fas fa-ellipsis-h"></i>
-  <ul v-show="open" class="Menu border text-center dark:bg-gray-900">
+  <ul v-show="open" class="Menu border text-center dark:bg-gray-900 light:bg">
     <li v-on:click="removeComment(index)">削除</li>
     <li v-on:click="closeMenu" class="error">キャンセル</li>
   </ul>
