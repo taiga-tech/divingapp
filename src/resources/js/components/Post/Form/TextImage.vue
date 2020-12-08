@@ -1,13 +1,11 @@
 <template>
 <div class="formBlock mb-3 w-100 textbox">
-
   <div class="pb-3" style="min-height: 300px" v-on:click="focus">
     <contenteditable
       tag="div"
       @click.stop
-      v-model.trim="$parent.post.text"
+      v-model="$parent.post.text"
       class="textbox w-100 p-2 dark:text-gray-400"
-      style="height:50px"
     />
 
     <image-previews
@@ -30,7 +28,6 @@
   </div>
 
   <div class="borderBottom"></div>
-
 </div>
 </template>
 
