@@ -69,8 +69,7 @@
 ## DB設計
 
 ### ER図
-
-<img alt="ER図" src="https://user-images.githubusercontent.com/67569270/102033290-66c36100-3dfe-11eb-9d55-9b3fc3f89d30.jpg" width="800">
+![ER図](https://user-images.githubusercontent.com/67569270/102033290-66c36100-3dfe-11eb-9d55-9b3fc3f89d30.jpg)
 
 ### Users
 |Column|Type|Options|
