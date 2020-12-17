@@ -1,4 +1,4 @@
-# [DivingApp](http://3.82.104.16/)
+# [DivingApp](http://54.86.66.12/)
 
 ## 開発環境
 |language|Version|
@@ -171,7 +171,7 @@
 <br>
 
 ## AppURL
-http://3.82.104.16/
+http://54.86.66.12/
 
 #### テストアカウント
 - Email: test@test.com
