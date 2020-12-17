@@ -178,7 +178,9 @@ http://3.82.104.16/
 - Password: test1234
 
 ## デプロイ方法
-<b>AWSCloud Containers Conference2020で発表された`"DockerCLIでのECS統合"`を使用してデプロイしました</b>
+<b>AWSCloud Containers Conference2020で発表されたdocker-compose.ymlを使用してAWS Fargateへデプロイができる`"DockerCLIでのECS統合"`を使用してデプロイしました</b>
+https://docs.docker.com/engine/context/ecs-integration/
+
 
 ### デプロイ手順
 - Dockerイメージをビルド
@@ -211,6 +213,10 @@ http://3.82.104.16/
 ```
 > CircleCIのデフォルトdockerバージョンでは、
   現在対応していないようなので、完全自動化に向けてバージョン変更方法を調査中
+
+
+# ドメイン
+http://www.freenom.com/ja/index.html
 
 <br>
 
@@ -254,7 +260,7 @@ http://3.82.104.16/
 
 ### 参考資料
 - https://docs.docker.com/storage/volumes/
-- https://docs.docker.com/engine/context/ecs-integration/#tuning-the-cloudformation-template
+- https://docs.docker.com/engine/context/ecs-integration/
 - https://docs.aws.amazon.com/ja_jp/AmazonECS/latest/userguide/efs-volumes.html
 - https://matsuand.github.io/docs.docker.jp.onthefly/engine/context/ecs-integration/
 - https://github.com/docker/compose-cli
