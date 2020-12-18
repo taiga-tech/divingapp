@@ -8,7 +8,7 @@
 |docker-compose|1.27.4|
 |aws-cli|2.1.1|
 |PHP|7.4.13|
-|Laravel|4.1.1|
+|Laravel|8.11.2|
 |composer|2.0.8|
 |Node|15.4.0|
 |npm|7.0.15|
@@ -29,19 +29,25 @@
 # Lalavel内の環境変数設置
   % cp ./src/.env.example ./src/.env
 
-# Docker build
-  % docker compose -f docker-compose.local.yml build
-  % docker compose -f docker-compose.local.yml up -d
-  % docker compose -f docker-compose.local.yml run php php artisan migrate
+# Docker setup
+  % docker-compose -f docker-compose.local.yml build
+  % docker-compose -f docker-compose.local.yml up -d
+
+# Laravel setup
+  % docker-compose -f docker-compose.local.yml run --rm php php artisan migrate
 
 # アセットコンパイル
-  % docker compose -f docker-compose.local.yml run php npm install
-  % docker compose -f docker-compose.local.yml run php npm run dev
+  % docker-compose -f docker-compose.local.yml run --rm php npm install
+  % docker-compose -f docker-compose.local.yml run --rm php npm run dev
 ```
 
 <br>
 
 ## 概要
+行ったことのない南国へ旅行に行った際、GoogleMapなどで調べても海が多すぎてどこに行くか迷います、
+一年ほど宮古島に住んでた頃に、あまり観光客が知らないようなローカルな海でも魅力的な海が非常にたくさんありました。
+そこで写真で海の魅力を伝えつつ、位置情報まで共有できるようなSNSがあるといいなと思い、作成してみました。
+
 ### サーバサイド
 全てAPIで実装しました
 
@@ -54,7 +60,7 @@
   - プロフィール編集機能
     - S3へのプロフィール画像保存
 
-- CRUD機能
+- 投稿機能
   - 投稿一覧
   - 投稿機能
     - S3への投稿画像保存
@@ -63,14 +69,24 @@
 
 - 投稿へのコメント機能
 - 投稿へのGood機能
-- 投稿、プロフィール検索機能
+- 投稿・プロフィール検索機能
 - 各機能のユニットテスト
+
+### サーバーサイドで苦戦したこと
+- Railsでは意識しなかったような実装や、コマンドの動きの違いがたくさんあり、勉強できることが非常にたくさんありました。
+- Laravel8だと他のバージョンと少し記法が違うところがあり、バージョン違いの記事を参照しているとエラーが起きた際の原因特定が非常に困難でした。
+  > 公式リファレンスが非常に読みやすかったので公式にかじりついてました。
+
 
 ## DB設計
 
 ### ER図
 
 ![ER図](https://user-images.githubusercontent.com/67569270/102034086-7e034e00-3e00-11eb-93d9-472d15fdc3ff.png)
+
+### テーブル
+<details>
+<summary>開く</summary>
 
 ### Users
 |Column|Type|Options|
@@ -153,6 +169,8 @@
 - belongsTo->user
 - belongsTo->profile
 
+</details>
+
 ### フロントエンド
 - ダークモード対応
 ![darkmode](https://user-images.githubusercontent.com/67569270/102039475-3e8f2e80-3e0d-11eb-80b3-c222f52157f3.gif)
@@ -160,10 +178,17 @@
 - Vueを使用したSPAの実装
 - Vuexを使用した状態管理
 - 外部APIを使用した都道府県、市町村の取得
-- GmapAPIを使用したGeocoding
+- Geocoding APIを使用した緯度経度の取得
+- Maps JavaScript APIを使用したGmap表示
+- 取得した緯度経度を使用してGmapへのピン立て
+- レスポンシブ対応
 
+### フロントエンドで苦戦したこと
+RailsではSassなどのコンパイルは自動でしていたらしく、コンパイルが必要なことすら知らなかったので、変更点が反映されなかったときに非常に困惑しました。
 
 ### インフラ
+- dockerを使用した環境構築
+  > docker-composeでデプロイをするので、docker-compose.ymlをローカル・本番で使い分けています。
 - ECRへのDockerイメージ保存
 - EFSへのDockerボリューム保存
 - AWS Fargate(サーバレス)へのデプロイ
@@ -211,12 +236,6 @@ https://docs.docker.com/engine/context/ecs-integration/
   % docker context use ecs
   % docker compose up
 ```
-> CircleCIのデフォルトdockerバージョンでは、
-  現在対応していないようなので、完全自動化に向けてバージョン変更方法を調査中
-
-
-# ドメイン
-http://www.freenom.com/ja/index.html
 
 <br>
 
@@ -248,8 +267,8 @@ http://www.freenom.com/ja/index.html
 - ~~ECR Push結果のSlack通知~~
 - ~~ECS Deploy~~
 - ~~ECS Deploy結果のSlack通知~~
-> ECRへのPushは成功したが、必要な物がイメージに含まれてなかったので保留、現在調査中
-  Docker ECS統合も動かなかったので、完全自動化に向けて調査中
+> ECRへのPushは成功したが、必要な物がイメージに含まれてなかったので保留しました、現在調査中
+  Docker ECS統合(`docker compose up`)も動かなかったので、完全自動化に向けて調査中
 
 <br>
 
@@ -258,7 +277,7 @@ http://www.freenom.com/ja/index.html
 
 <br>
 
-### 参考資料
+## 参考資料
 - https://docs.docker.com/storage/volumes/
 - https://docs.docker.com/engine/context/ecs-integration/
 - https://docs.aws.amazon.com/ja_jp/AmazonECS/latest/userguide/efs-volumes.html
