@@ -1,98 +1,287 @@
-# 概要
-### サーバサイド
-### フロントエンド
-  - vue (spa)
-# 開発環境
+# [DivingApp](http://54.86.66.12/)
+
+## 開発環境
 |language|Version|
 |---|---|
-|Docker DeskTop|2.5.0.1 (stable)|
-|Docker Engine|19.03.13|
+|Docker DeskTop|3.0.1|
+|Docker Engine|20.10.0|
 |docker-compose|1.27.4|
-|PHP|7.4.12|
-|Laravel|4.1.1|
-|composer|2.0.7|
-|npm|6.14.8|
-|node|10.23.0|
+|aws-cli|2.1.1|
+|PHP|7.4.13|
+|Laravel|8.11.2|
+|composer|2.0.8|
+|Node|15.4.0|
+|npm|7.0.15|
+|Vue|2.6.12|
 
-# 本番環境
-|AWS||
-|--|--|
-|ecs-cli|1.20.0|
-|ecs|fargate|
-|container|ecr|
-|volume|efs|
-|upload image|s3|
+<br>
 
-## 現状デプロイ方法
-http://54.86.66.12/
-  > AWSCloud Containers Conference2020で発表された`DockerCLIでのECS統合`を使用してデプロイしました
+## インストール方法
 
-### 参考資料
-- https://docs.docker.com/storage/volumes/
-- https://docs.docker.com/engine/context/ecs-integration/#tuning-the-cloudformation-template
-- https://docs.aws.amazon.com/ja_jp/AmazonECS/latest/userguide/efs-volumes.html
-- https://matsuand.github.io/docs.docker.jp.onthefly/engine/context/ecs-integration/
-- https://dev.classmethod.jp/articles/docker-ecs/#toc-1
-- https://github.com/docker/compose-cli
-- https://aws.amazon.com/jp/about-aws/whats-new/2020/07/docker-and-aws-collaborate-to-help-deploy-applications-to-amazon-ecs-on-aws-fargate/
-
-### デプロイ手順
-- ecrに最新イメージpush
-- contextを作成したecsに変更する
-- `docker compose ls`でステータスがランニングになっていないことを確認する
-  > ecsにコンテナが立ち上がっていたらなぜかエラーが出る。
-- `docker compose up`でデプロイ完了
-
-### デプロイで苦戦したこと
-- ホストからのvolumeに対応していない
-- `$ENV` を読み取らない
-  > `env_file`でまとめて定義することで解決
-- デプロイ後にコンテナにアクセス出来ない(sshは推薦されていない)
-- ipが変動する
-
-
-# インストール方法
-```bash
+``` bash
+# Git Clone
   % git clone https://github.com/taiga-tech/divingapp.git
   % cd divingapp
+
+# Docker Build時の環境変数設置
   % cp .docker-compose.env .env
+
+# Lalavel内の環境変数設置
   % cp ./src/.env.example ./src/.env
-  % docker-compose -f docker-compose.local.yml up -d --build
-  % docker-compose -f docker-compose.local.yml run php php artisan migrate
-  % docker-compose -f docker-compose.local.yml run php npm install
-  % docker-compose -f docker-compose.local.yml run php npm run dev
+
+# Docker setup
+  % docker-compose -f docker-compose.local.yml build
+  % docker-compose -f docker-compose.local.yml up -d
+
+# Laravel setup
+  % docker-compose -f docker-compose.local.yml run --rm php php artisan migrate
+
+# アセットコンパイル
+  % docker-compose -f docker-compose.local.yml run --rm php npm install
+  % docker-compose -f docker-compose.local.yml run --rm php npm run dev
 ```
 
-# CricleCIの動き
+<br>
 
-### master brunch 以外
-- test
-- test結果のslack通知
+## 概要
+行ったことのない南国へ旅行に行った際、GoogleMapなどで調べても海が多すぎてどこに行くか迷います、
+一年ほど宮古島に住んでた頃に、あまり観光客が知らないようなローカルな海でも魅力的な海が非常にたくさんありました。
+そこで写真で海の魅力を伝えつつ、位置情報まで共有できるようなSNSがあるといいなと思い、作成してみました。
 
-### master brunch
-- test
-- ~~ecrpush~~
-  > ecrへのpushは成功したが、必要なものがなかったので、現在調査中
+### サーバサイド
+全てAPIで実装しました
 
-- ecr, ecsへのデプロイは、hostPCで実行
-  ``` shell
-  # circleciでしたいこと
-  # ecrログイン
-    % aws ecr get-login-password --profile < profile名 > | docker login --username AWS --password-stdin xxxxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com
-  # php push
-    % docker tag divingapp_php:latest xxxxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/< リポジトリ名 >:latest
-    % docker push xxxxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/< リポジトリ名 >:latest
-  # nginx push
-    % docker tag divingapp_nginx:latest xxxxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/< リポジトリ名 >:latest
-    % docker push xxxxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/< リポジトリ名 >:latest
-  # deploy
-    % docker context use ecs
-    % docker compose up
-  ```
-  > circleciのデフォルトdocker versionでは、
-    現在おそらく対応していないようなので、完全自動化に向けてversion変更方法を調査中
-- test結果のslack通知
-- ~~ecrpush結果のslack通知~~
+- ログイン機能
+  - GoogleOAuth
+  - FacebookOAuth
 
-#### slack通知の参考画像
-![](https://user-images.githubusercontent.com/67569270/96187946-d2ad5880-0f78-11eb-8eae-fb99a7af7cc7.png)
+- プロフィール機能
+  - 新規登録時に新規プロフィール作成
+  - プロフィール編集機能
+    - S3へのプロフィール画像保存
+
+- 投稿機能
+  - 投稿一覧
+  - 投稿機能
+    - S3への投稿画像保存
+  - 投稿編集機能
+  - 投稿削除
+
+- 投稿へのコメント機能
+- 投稿へのGood機能
+- 投稿・プロフィール検索機能
+- 各機能のユニットテスト
+
+### サーバーサイドで苦戦したこと
+- Railsでは意識しなかったような実装や、コマンドの動きの違いがたくさんあり、勉強できることが非常にたくさんありました。
+- Laravel8だと他のバージョンと少し記法が違うところがあり、バージョン違いの記事を参照しているとエラーが起きた際の原因特定が非常に困難でした。
+  > 公式リファレンスが非常に読みやすかったので公式にかじりついてました。
+
+
+## DB設計
+
+### ER図
+
+![ER図](https://user-images.githubusercontent.com/67569270/102034086-7e034e00-3e00-11eb-93d9-472d15fdc3ff.png)
+
+### テーブル
+<details>
+<summary>開く</summary>
+
+### Users
+|Column|Type|Options|
+|------|----|-------|
+|provider_id|string|unique, nullable|
+|provider_name|string|unique, nullable|
+|userid|string|nullable|
+|email|string|unique|
+|password|string|nullable|
+
+#### Association
+- hasOne->profile
+- hasMany->posts
+- hasMany->comments
+- hasMany->goods
+
+### profile
+|Column|Type|Options|
+|------|----|-------|
+|name|string||
+|image|string||
+|comment|string|nullable|
+|user_id|foreignId|unique|
+
+#### Association
+- bolongsTo->user
+- hasMany->posts
+- hasMany->comments
+- hasMany->goods
+
+### posts
+|Column|Type|Options|
+|------|----|-------|
+|text|string||
+|place|string|nullable|
+|lat|double|nullable|
+|lng|double|nullable|
+|user_id|foreignId||
+|profile_id|foreignId||
+
+#### Association
+- bolongsTo->user
+- bolongsTo->profile
+- hasMany->post_images
+- hasMany->comments
+- hasMany->goods
+
+### post_images
+|Column|Type|Options|
+|------|----|-------|
+|path|string||
+|post_id|foreignId||
+
+#### Association
+- bolongsTo->post
+
+### post_comments
+|Column|Type|Options|
+|------|----|-------|
+|content|||
+|post_id|foreignId||
+|user_id|foreignId||
+|profile_id|foreignId||
+
+#### Association
+- belongsTo->post
+- belongsTo->user
+- belongsTo->profile
+
+### post_goods
+|Column|Type|Options|
+|------|----|-------|
+|boolean|||
+|post_id|foreignId||
+|user_id|foreignId||
+|profile_id|foreignId||
+
+#### Association
+- belongsTo->post
+- belongsTo->user
+- belongsTo->profile
+
+</details>
+
+### フロントエンド
+- ダークモード対応
+![darkmode](https://user-images.githubusercontent.com/67569270/102039475-3e8f2e80-3e0d-11eb-80b3-c222f52157f3.gif)
+
+- Vueを使用したSPAの実装
+- Vuexを使用した状態管理
+- 外部APIを使用した都道府県、市町村の取得
+- Geocoding APIを使用した緯度経度の取得
+- Maps JavaScript APIを使用したGmap表示
+- 取得した緯度経度を使用してGmapへのピン立て
+- レスポンシブ対応
+
+### フロントエンドで苦戦したこと
+RailsではSassなどのコンパイルは自動でしていたらしく、コンパイルが必要なことすら知らなかったので、変更点が反映されなかったときに非常に困惑しました。
+
+### インフラ
+- dockerを使用した環境構築
+  > docker-composeでデプロイをするので、docker-compose.ymlをローカル・本番で使い分けています。
+- ECRへのDockerイメージ保存
+- EFSへのDockerボリューム保存
+- AWS Fargate(サーバレス)へのデプロイ
+
+<br>
+
+## AppURL
+http://54.86.66.12/
+
+#### テストアカウント
+- Email: test@test.com
+- Password: test1234
+
+## デプロイ方法
+<b>AWSCloud Containers Conference2020で発表されたdocker-compose.ymlを使用してAWS Fargateへデプロイができる`"DockerCLIでのECS統合"`を使用してデプロイしました</b>
+https://docs.docker.com/engine/context/ecs-integration/
+
+
+### デプロイ手順
+- Dockerイメージをビルド
+- `aws-cli`を使用してECRへログイン
+- `aws-cli`を使用してECRへ最新イメージをPush
+- `docker context use ecs`を実行し、docker contextを作成したECS用のcontextに変更する
+- `docker compose ls`を実行し、コンテナが立ち上がっていないことを確認する
+  > ECSにコンテナが立ち上がっていたらエラーが出る。
+- `docker compose up`を実行
+- `docker compose ps`で全てコンテナが立ち上がっていたらデプロイ完了
+
+``` bash
+# Image Build
+  % docker compose -f docker-compose.local.yml build
+
+# ECR Login
+  % aws ecr get-login-password --profile < profile名 > | docker login --username AWS --password-stdin xxxxxxxxxxxx.dkr.< リージョン >.amazonaws.com
+
+# PHP Image Push
+  % docker tag divingapp_php:latest xxxxxxxxxxxx.dkr.< リージョン >.amazonaws.com/< リポジトリ名 >:latest
+  % docker push xxxxxxxxxxxx.dkr.< リージョン >.amazonaws.com/< リポジトリ名 >:latest
+
+# Nginx Image Push
+  % docker tag divingapp_nginx:latest xxxxxxxxxxxx.dkr.< リージョン >.amazonaws.com/< リポジトリ名 >:latest
+  % docker push xxxxxxxxxxxx.dkr.< リージョン >.amazonaws.com/< リポジトリ名 >:latest
+
+# Deploy
+  % docker context use ecs
+  % docker compose up
+```
+
+<br>
+
+### デプロイで苦戦したこと
+- ホストからのDockerボリュームが対応していないのでS3や、EFSなどのストレージに保存するか、イメージに保存するしかない
+  - Laravel本体はDockerfileでイメージに保存
+  - DBのデータはEFSに保存
+- ECS統合でのデプロイは現状1コンテナに付き1つのボリュームしか対応していない様子
+  > Docker公式Issuesにもあったので変更があるかも。[これと似たような現象？]('https://github.com/docker/compose-cli/issues/1054')
+- docker-compose.ymlの`環境変数` を読み取らない
+  > `env_file`でまとめて定義することで解決
+- デプロイ後にコンテナへアクセス(`php artisan migrate`など)が出来ない
+  > sshは推薦されていない
+- IPアドレスが変動する
+
+今回初めてECSを触り、さらにDockerの最新デプロイ方法を試してみたので、公式リファレンスしか頼るところがなかったので、非常に苦しいこともありましたが、その分issuesなどを見ながら解決する方法を知れたので非常に勉強になりました。
+
+<br>
+
+## CricleCIの動き
+### Master Brunch 以外
+- テスト
+- テスト結果のSlack通知
+
+### Master Brunch
+- テスト
+- テスト結果のSlack通知
+- ~~ECR Push~~
+- ~~ECR Push結果のSlack通知~~
+- ~~ECS Deploy~~
+- ~~ECS Deploy結果のSlack通知~~
+> ECRへのPushは成功したが、必要な物がイメージに含まれてなかったので保留しました、現在調査中
+  Docker ECS統合(`docker compose up`)も動かなかったので、完全自動化に向けて調査中
+
+<br>
+
+#### Slack通知の参考画像
+![Slack通知の参考画像](https://user-images.githubusercontent.com/67569270/96187946-d2ad5880-0f78-11eb-8eae-fb99a7af7cc7.png)
+
+<br>
+
+## 参考資料
+- https://docs.docker.com/storage/volumes/
+- https://docs.docker.com/engine/context/ecs-integration/
+- https://docs.aws.amazon.com/ja_jp/AmazonECS/latest/userguide/efs-volumes.html
+- https://matsuand.github.io/docs.docker.jp.onthefly/engine/context/ecs-integration/
+- https://github.com/docker/compose-cli
+- https://dev.classmethod.jp/articles/docker-ecs/#toc-1
+- https://aws.amazon.com/jp/about-aws/whats-new/2020/07/docker-and-aws-collaborate-to-help-deploy-applications-to-amazon-ecs-on-aws-fargate/

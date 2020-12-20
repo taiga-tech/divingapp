@@ -10,7 +10,7 @@ RUN apt-get update \
     && docker-php-ext-install -j$(nproc) gd
 
 # Node.js install
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_15.x | bash -
 RUN apt-get install -y nodejs
 
 # yarn install
