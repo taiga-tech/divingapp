@@ -200,14 +200,21 @@
 - Maps JavaScript APIを使用したGmap表示
 - 取得した緯度経度を使用してGmapへのピン立て
 - レスポンシブ対応
-- PWA対応
+- PWA対応(iPhoneのみ検証)
 - [Electronでネイティブアプリ化](https://github.com/taiga-tech/divingapp_for_electron-local/blob/master/README.md)
 
 ### PWA参考画像
+#### for Mac
 <p align="center">
+  <img width="250" alt="スクリーンショット 2020-12-21 17 22 37" src="https://user-images.githubusercontent.com/67569270/102755028-28efab00-43b1-11eb-9d38-8e7537e3e9db.png">
+  <img width="250" src="https://user-images.githubusercontent.com/67569270/102752353-c399bb00-43ac-11eb-9468-a04d09656a38.png"><br>
+</p>
+
+#### for iPhone
+<p align="center">
+  <img width="200" src="https://user-images.githubusercontent.com/67569270/102755160-5e949400-43b1-11eb-817d-395cce66d808.jpeg">
   <img width="200" src="https://user-images.githubusercontent.com/67569270/102751788-c9db6780-43ab-11eb-9b67-12a5ab1b44ab.jpeg">
   <img width="200" src="https://user-images.githubusercontent.com/67569270/102751736-a6182180-43ab-11eb-857b-468577e25279.jpeg">
-  <img width="250" src="https://user-images.githubusercontent.com/67569270/102752353-c399bb00-43ac-11eb-9468-a04d09656a38.png">
 </p>
 
 ### Electron参考画像
