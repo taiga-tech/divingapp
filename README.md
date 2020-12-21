@@ -1,20 +1,20 @@
-# [DivingApp](http://54.86.66.12/)
+<h1 align="center"><a src="http://54.86.66.12/">DivingApp</a></h1>
 
-## 開発環境
-|language|Version|
-|---|---|
-|Docker DeskTop|3.0.1|
-|Docker Engine|20.10.0|
-|docker-compose|1.27.4|
-|aws-cli|2.1.1|
-|PHP|7.4.13|
-|Laravel|8.11.2|
-|composer|2.0.8|
-|Node|15.4.0|
-|npm|7.0.15|
-|Vue|2.6.12|
+<div align="center">
+ <img src="https://user-images.githubusercontent.com/67569270/102722777-c2ce3e00-4346-11eb-8d7f-291a6f651e6b.png" width="100px">
+</div>
 
-<br>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/67569270/102722956-0c6b5880-4348-11eb-9e94-6cc06fae88f3.png" width="90px">
+<img src="https://user-images.githubusercontent.com/67569270/102723036-a4694200-4348-11eb-8202-004f80b38d9c.png" width="140px">
+<img src="https://user-images.githubusercontent.com/67569270/102747430-9e547f00-43a3-11eb-8bd5-c6305fa19bdd.png" width="100px">
+</div>
+
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/67569270/102721953-4d13a380-4341-11eb-9d04-d5f1668a2db7.png" width="120px">
+<img src="https://user-images.githubusercontent.com/67569270/102721957-4f75fd80-4341-11eb-9d6e-302c8fb8e733.png" width="120px">
+ <img src="https://user-images.githubusercontent.com/67569270/102723037-a7643280-4348-11eb-80c3-62bb678ceb50.png" width="70px">
+</div>
 
 ## インストール方法
 
@@ -42,6 +42,23 @@
 ```
 
 <br>
+
+## 開発環境
+|language|Version|
+|---|---|
+|Docker DeskTop|3.0.1|
+|Docker Engine|20.10.0|
+|docker-compose|1.27.4|
+|aws-cli|2.1.1|
+|PHP|7.4.13|
+|Laravel|8.11.2|
+|composer|2.0.8|
+|Node|15.4.0|
+|npm|7.0.15|
+|Vue|2.6.12|
+
+<br>
+
 
 ## 概要
 行ったことのない南国へ旅行に行った際、GoogleMapなどで調べても海が多すぎてどこに行くか迷います、
@@ -182,6 +199,19 @@
 - Maps JavaScript APIを使用したGmap表示
 - 取得した緯度経度を使用してGmapへのピン立て
 - レスポンシブ対応
+- PWA対応
+- [Electronでネイティブアプリ化](https://github.com/taiga-tech/divingapp_for_electron-local/blob/master/README.md)
+
+### PWA参考画像
+<p align="center">
+  <img width="200" src="https://user-images.githubusercontent.com/67569270/102751788-c9db6780-43ab-11eb-9b67-12a5ab1b44ab.jpeg">
+  <img width="200" src="https://user-images.githubusercontent.com/67569270/102751736-a6182180-43ab-11eb-857b-468577e25279.jpeg">
+  <img width="250" src="https://user-images.githubusercontent.com/67569270/102752353-c399bb00-43ac-11eb-9468-a04d09656a38.png">
+</p>
+
+### Electron参考画像
+<p align="center"><img width="250" src="https://user-images.githubusercontent.com/67569270/102720950-d2e02080-433a-11eb-9152-4e99f1911aac.png"></p>
+
 
 ### フロントエンドで苦戦したこと
 RailsではSassなどのコンパイルは自動でしていたらしく、コンパイルが必要なことすら知らなかったので、変更点が反映されなかったときに非常に困惑しました。
