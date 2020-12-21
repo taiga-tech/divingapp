@@ -1,0 +1,26 @@
+{
+  "short_name": "Divingapp",
+  "name": "Divingapp",
+  "background_color": "#1a202c",
+  "theme_color": "#1a202c",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/?source=pwa",
+  "icons": [
+    {
+      "src": "/vue.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "/vue.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "/vue.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ]
+}

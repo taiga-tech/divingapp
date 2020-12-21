@@ -10,18 +10,22 @@
 
   <title>{{ config('app.name', 'Laravel') }}</title>
   {{-- <title>@yield('title')</title> --}}
+  <meta name="description" content="テキスト、画像、位置情報が共有できるアプリです！">
+
+  <link rel="shortcut icon" href="{{ asset('/vue-icon.ico') }}">
 
   <!-- Scripts -->
-  <script src="{{ asset('js/app.js') }}" defer></script>
+  <script src="{{ mix('js/app.js') }}" defer></script>
 
   <!-- Fonts -->
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
   <!-- Styles -->
-  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+  <link rel="manifest" href="/manifest.json">
 </head>
 <body>
-  <div id="app"></div>
+<div id="app"></div>
 </body>
 </html>
