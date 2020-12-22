@@ -199,8 +199,8 @@
 - Maps JavaScript APIを使用したGmap表示
 - 取得した緯度経度を使用してGmapへのピン立て
 - レスポンシブ対応
-- PWA対応(iPhoneのみ検証)
-- [Electronでネイティブアプリ化](https://github.com/taiga-tech/divingapp_for_electron-local/blob/master/README.md)
+- PWA対応(Localhost・iPhoneのみ検証)
+- [Electronでデスクトップアプリ化](https://github.com/taiga-tech/divingapp_for_electron-local/blob/master/README.md)
 
 ### PWA参考画像
 #### for Mac
