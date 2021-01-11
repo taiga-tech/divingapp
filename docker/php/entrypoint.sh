@@ -5,7 +5,7 @@ set -e
 # localではmigrateのみ
 # php aritsan migrate
 
-php artisan migrate:fresh
+php artisan migrate
 
 php-fpm
 

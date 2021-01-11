@@ -1,4 +1,5 @@
-<h1 align="center"><a src="http://35.171.45.193/">DivingApp</a></h1>
+<h1 align="center">DivingApp</h1>
+
 
 <div align="center">
  <img src="https://user-images.githubusercontent.com/67569270/102722777-c2ce3e00-4346-11eb-8d7f-291a6f651e6b.png" width="100px">
@@ -233,7 +234,8 @@ RailsではSassなどのコンパイルは自動でしていたらしく、コ�
 <br>
 
 ## AppURL
-http://35.171.45.193/
+~~http://54.86.66.12/~~
+
 
 #### テストアカウント
 - Email: test@test.com
@@ -325,3 +327,4 @@ https://docs.docker.com/engine/context/ecs-integration/
 - https://github.com/docker/compose-cli
 - https://dev.classmethod.jp/articles/docker-ecs/#toc-1
 - https://aws.amazon.com/jp/about-aws/whats-new/2020/07/docker-and-aws-collaborate-to-help-deploy-applications-to-amazon-ecs-on-aws-fargate/
+- https://qiita.com/sychocola1/items/f9cc960f85d2fc17d355#%E3%82%AF%E3%83%A9%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AE%E4%BD%9C%E6%88%90
