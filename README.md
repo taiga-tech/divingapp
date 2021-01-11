@@ -1,5 +1,6 @@
 <h1 align="center">DivingApp</h1>
 
+
 <div align="center">
  <img src="https://user-images.githubusercontent.com/67569270/102722777-c2ce3e00-4346-11eb-8d7f-291a6f651e6b.png" width="100px">
 </div>
@@ -59,7 +60,6 @@
 |Vue|2.6.12|
 
 <br>
-
 
 ## 概要
 行ったことのない南国へ旅行に行った際、GoogleMapなどで調べても海が多すぎてどこに行くか迷います、
@@ -200,8 +200,8 @@
 - Maps JavaScript APIを使用したGmap表示
 - 取得した緯度経度を使用してGmapへのピン立て
 - レスポンシブ対応
-- PWA対応(iPhoneのみ検証)
-- [Electronでネイティブアプリ化](https://github.com/taiga-tech/divingapp_for_electron-local/blob/master/README.md)
+- PWA対応(Localhost・iPhoneのみ検証)
+- [Electronでデスクトップアプリ化](https://github.com/taiga-tech/divingapp_for_electron-local/blob/master/README.md)
 
 ### PWA参考画像
 #### for Mac
@@ -235,6 +235,7 @@ RailsではSassなどのコンパイルは自動でしていたらしく、コ�
 
 ## AppURL
 ~~http://54.86.66.12/~~
+
 
 #### テストアカウント
 - Email: test@test.com
@@ -274,6 +275,9 @@ https://docs.docker.com/engine/context/ecs-integration/
   % docker context use ecs
   % docker compose up
 ```
+
+![画面収録-2020-12-21-21 57 59_1](https://user-images.githubusercontent.com/67569270/102783935-02e0ff80-43df-11eb-8b69-fa24ad2052ac.gif)
+10分ほどの動画を12倍速＆カットしてます
 
 <br>
 
