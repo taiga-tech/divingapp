@@ -2,20 +2,20 @@
 
 
 <div align="center">
- <img src="https://user-images.githubusercontent.com/67569270/102722777-c2ce3e00-4346-11eb-8d7f-291a6f651e6b.png" width="100px">
+ <img src="https://user-images.githubusercontent.com/67569270/102722777-c2ce3e00-4346-11eb-8d7f-291a6f651e6b.png" alt="laravel_icon" width="100px">
 </div>
 
 <div align="center">
-<img src="https://user-images.githubusercontent.com/67569270/102722956-0c6b5880-4348-11eb-9e94-6cc06fae88f3.png" width="90px">
-<img src="https://user-images.githubusercontent.com/67569270/102723036-a4694200-4348-11eb-8202-004f80b38d9c.png" width="140px">
-<img src="https://user-images.githubusercontent.com/67569270/102747430-9e547f00-43a3-11eb-8bd5-c6305fa19bdd.png" width="100px">
+<img src="https://user-images.githubusercontent.com/67569270/102722956-0c6b5880-4348-11eb-9e94-6cc06fae88f3.png" alt="docker_icon" width="90px">
+<img src="https://user-images.githubusercontent.com/67569270/102723036-a4694200-4348-11eb-8202-004f80b38d9c.png" alt="compose_icon" width="140px">
+<img src="https://user-images.githubusercontent.com/67569270/102747430-9e547f00-43a3-11eb-8bd5-c6305fa19bdd.png" alt="aws_icon" width="100px">
 </div>
 
 <div align="center">
-  <img src="https://user-images.githubusercontent.com/67569270/102721953-4d13a380-4341-11eb-9d04-d5f1668a2db7.png" width="120px">
-<img src="https://user-images.githubusercontent.com/67569270/102721957-4f75fd80-4341-11eb-9d6e-302c8fb8e733.png" width="120px">
- <img src="https://user-images.githubusercontent.com/67569270/102723037-a7643280-4348-11eb-80c3-62bb678ceb50.png" width="70px">
-  <img src="https://user-images.githubusercontent.com/67569270/102721168-839aef80-433c-11eb-9a0f-b32accd56384.png" width="60px">
+  <img src="https://user-images.githubusercontent.com/67569270/102721953-4d13a380-4341-11eb-9d04-d5f1668a2db7.png" alt="node_icon" width="120px">
+<img src="https://user-images.githubusercontent.com/67569270/102721957-4f75fd80-4341-11eb-9d6e-302c8fb8e733.png" alt="npm_icon" width="120px">
+ <img src="https://user-images.githubusercontent.com/67569270/102723037-a7643280-4348-11eb-80c3-62bb678ceb50.png" alt="vue_icon" width="70px">
+  <img src="https://user-images.githubusercontent.com/67569270/102721168-839aef80-433c-11eb-9a0f-b32accd56384.png" alt="electron_icon" width="60px">
 </div>
 
 ## インストール方法
@@ -207,18 +207,18 @@
 #### for Mac
 <p align="center">
   <img width="250" alt="スクリーンショット 2020-12-21 17 22 37" src="https://user-images.githubusercontent.com/67569270/102755028-28efab00-43b1-11eb-9d38-8e7537e3e9db.png">
-  <img width="250" src="https://user-images.githubusercontent.com/67569270/102752353-c399bb00-43ac-11eb-9468-a04d09656a38.png"><br>
+  <img width="250" alt="pwa_mac" src="https://user-images.githubusercontent.com/67569270/102752353-c399bb00-43ac-11eb-9468-a04d09656a38.png"><br>
 </p>
 
 #### for iPhone
 <p align="center">
-  <img width="200" src="https://user-images.githubusercontent.com/67569270/102755160-5e949400-43b1-11eb-817d-395cce66d808.jpeg">
-  <img width="200" src="https://user-images.githubusercontent.com/67569270/102751788-c9db6780-43ab-11eb-9b67-12a5ab1b44ab.jpeg">
-  <img width="200" src="https://user-images.githubusercontent.com/67569270/102751736-a6182180-43ab-11eb-857b-468577e25279.jpeg">
+  <img width="200" alt="pwa_iphone" src="https://user-images.githubusercontent.com/67569270/102755160-5e949400-43b1-11eb-817d-395cce66d808.jpeg">
+  <img width="200" alt="pwa_iphone" src="https://user-images.githubusercontent.com/67569270/102751788-c9db6780-43ab-11eb-9b67-12a5ab1b44ab.jpeg">
+  <img width="200" alt="pwa_iphone" src="https://user-images.githubusercontent.com/67569270/102751736-a6182180-43ab-11eb-857b-468577e25279.jpeg">
 </p>
 
 ### Electron参考画像
-<p align="center"><img width="250" src="https://user-images.githubusercontent.com/67569270/102720950-d2e02080-433a-11eb-9152-4e99f1911aac.png"></p>
+<p align="center"><img width="250" alt="electron" src="https://user-images.githubusercontent.com/67569270/102720950-d2e02080-433a-11eb-9152-4e99f1911aac.png"></p>
 
 
 ### フロントエンドで苦戦したこと
@@ -234,10 +234,10 @@ RailsではSassなどのコンパイルは自動でしていたらしく、コ�
 <br>
 
 ## AppURL
-- http://3.88.45.99/
+- https://divingapp.ga/
 
 
-#### テストアカウント
+### テストアカウント
 - Email: test@test.com
 - Password: test1234
 
