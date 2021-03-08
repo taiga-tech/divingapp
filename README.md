@@ -212,7 +212,7 @@ Docker ECS統合(`docker compose up`)も動かなかったので、完全自動�
 # Docker Build時の環境変数設置
   % cp .docker-compose.env .env
 
-# Lalavel内の環境変数設置
+# Laravel内の環境変数設置
   % cp ./src/.env.example ./src/.env
 
 # Docker setup
