@@ -70,6 +70,8 @@
 - Vueを使用したSPAの実装
 - Vuexを使用した状態管理
 - 外部APIを使用した都道府県、市町村の取得
+  - 都道府県 COVID-19 Japan Web API https://github.com/ryo-ma/covid19-japan-web-api
+  - 市町村 国土交通省 https://www.land.mlit.go.jp/webland/api.html
 - Geocoding APIを使用した緯度経度の取得
 - Maps JavaScript APIを使用したGmap表示
 - 取得した緯度経度を使用してGmapへのピン立て
@@ -155,8 +157,11 @@ https://docs.docker.com/engine/context/ecs-integration/
   Docker公式Issuesにもあったので変更があるかも。[これと似たような現象？]('https://github.com/docker/compose-cli/issues/1054')
 - docker-compose.ymlの`環境変数` を読み取らない
   `env_file`でまとめて定義することで解決
-- デプロイ後にコンテナへアクセス(`php artisan migrate`など)が出来ない
-  sshは推薦されていない
+- ~~デプロイ後にコンテナへアクセス(`php artisan migrate`など)が出来ない~~
+  ~~sshは推薦されていない~~
+  ※ 2021/3/31追記
+  AWSのアップデートで、`ECS Exec`が公開されて、コンテナへアクセスが可能になったようなので、今後試してみたいです。
+  https://aws.amazon.com/jp/about-aws/whats-new/2021/03/amazon-ecs-now-allows-you-to-execute-commands-in-a-container-running-on-amazon-ec2-or-aws-fargate/
 - IPアドレスが変動する
 
 今回初めてECSを触り、さらにDockerの最新デプロイ方法を試してみたので、公式リファレンスしか頼るところがなかったので、非常に苦しいこともありましたが、その分issuesなどを見ながら解決する方法を知れたので非常に勉強になりました。
