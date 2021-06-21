@@ -33,7 +33,7 @@
 
 <br>
 
-### サーバサイド
+## サーバサイド
 
 全てAPIで実装しました
 
@@ -66,7 +66,7 @@
 
 <br>
 
-### フロントエンド
+## フロントエンド
 
 - ダークモード対応
 ![darkmode](https://user-images.githubusercontent.com/67569270/102039475-3e8f2e80-3e0d-11eb-80b3-c222f52157f3.gif)
@@ -109,7 +109,7 @@
 
 RailsではSassなどのコンパイルは自動でしていたらしく、コンパイルが必要なことすら知らなかったので、変更点が反映されなかったときに非常に困惑しました。
 
-### インフラ
+## インフラ
 
 - dockerを使用した環境構築
   docker-composeでデプロイをするので、docker-compose.ymlをローカル・本番で使い分けています。
@@ -181,14 +181,14 @@ https://docs.docker.com/engine/context/ecs-integration/
 
 <br>
 
-## CricleCIの動き
+### CricleCIの動き
 
-### Master Brunch 以外
+#### Master Brunch 以外
 
 - テスト
 - テスト結果のSlack通知
 
-### Master Brunch
+#### Master Brunch
 
 - テスト
 - テスト結果のSlack通知
