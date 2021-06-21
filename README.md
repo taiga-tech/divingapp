@@ -104,7 +104,6 @@
 
 <p align="center"><img width="250" alt="electron" src="https://user-images.githubusercontent.com/67569270/102720950-d2e02080-433a-11eb-9152-4e99f1911aac.png"></p>
 
-
 ### フロントエンドで苦戦したこと
 
 RailsではSassなどのコンパイルは自動でしていたらしく、コンパイルが必要なことすら知らなかったので、変更点が反映されなかったときに非常に困惑しました。
@@ -119,7 +118,7 @@ RailsではSassなどのコンパイルは自動でしていたらしく、コ�
 
 <br>
 
-## デプロイ方法
+### デプロイ方法
 
 **AWSCloud Containers Conference2020で発表されたdocker-compose.ymlを使用してAWS Fargateへデプロイができる`"DockerCLIでのECS統合"`を使用してデプロイしました**
 https://docs.docker.com/engine/context/ecs-integration/
