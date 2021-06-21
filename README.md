@@ -135,7 +135,7 @@ https://docs.docker.com/engine/context/ecs-integration/
 - `docker compose up`を実行
 - `docker compose ps`で全てコンテナが立ち上がっていたらデプロイ完了
 
-``` bash
+```shell
 # Image Build
   % docker compose -f docker-compose.local.yml build
 
@@ -226,7 +226,7 @@ Docker ECS統合(`docker compose up`)も動かなかったので、完全自動�
 
 ## インストール方法
 
-``` bash
+```shell
 # Git Clone
   % git clone https://github.com/taiga-tech/divingapp.git
   % cd divingapp
