@@ -258,8 +258,8 @@ Docker ECS統合(`docker compose up`)も動かなかったので、完全自動�
 
 ### テーブル
 
-<details>
-<summary>開く</summary>
+<!-- <details>
+<summary>開く</summary> -->
 
 #### Users
 
@@ -354,7 +354,7 @@ Docker ECS統合(`docker compose up`)も動かなかったので、完全自動�
 - belongsTo->user
 - belongsTo->profile
 
-</details>
+<!-- </details> -->
 
 ## 参考資料
 
