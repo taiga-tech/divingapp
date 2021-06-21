@@ -1,38 +1,40 @@
 <h1 align="center">DivingApp</h1>
 
   <div align="center">
-   <img src="https://user-images.githubusercontent.com/67569270/102722777-c2ce3e00-4346-11eb-8d7f-291a6f651e6b.png" alt="laravel_icon" width="100px">
+    <img src="https://user-images.githubusercontent.com/67569270/102722777-c2ce3e00-4346-11eb-8d7f-291a6f651e6b.png" alt="laravel_icon" width="100px">
   </div>
 
   <div align="center">
-  <img src="https://user-images.githubusercontent.com/67569270/102722956-0c6b5880-4348-11eb-9e94-6cc06fae88f3.png" alt="docker_icon" width="90px">
-  <img src="https://user-images.githubusercontent.com/67569270/102723036-a4694200-4348-11eb-8202-004f80b38d9c.png" alt="compose_icon" width="140px">
-  <img src="https://user-images.githubusercontent.com/67569270/102747430-9e547f00-43a3-11eb-8bd5-c6305fa19bdd.png" alt="aws_icon" width="100px">
+    <img src="https://user-images.githubusercontent.com/67569270/102722956-0c6b5880-4348-11eb-9e94-6cc06fae88f3.png" alt="docker_icon" width="90px">
+    <img src="https://user-images.githubusercontent.com/67569270/102723036-a4694200-4348-11eb-8202-004f80b38d9c.png" alt="compose_icon" width="140px">
+    <img src="https://user-images.githubusercontent.com/67569270/102747430-9e547f00-43a3-11eb-8bd5-c6305fa19bdd.png" alt="aws_icon" width="100px">
   </div>
 
   <div align="center">
     <img src="https://user-images.githubusercontent.com/67569270/102721953-4d13a380-4341-11eb-9d04-d5f1668a2db7.png" alt="node_icon" width="120px">
-  <img src="https://user-images.githubusercontent.com/67569270/102721957-4f75fd80-4341-11eb-9d6e-302c8fb8e733.png" alt="npm_icon" width="120px">
-   <img src="https://user-images.githubusercontent.com/67569270/102723037-a7643280-4348-11eb-80c3-62bb678ceb50.png" alt="vue_icon" width="70px">
+    <img src="https://user-images.githubusercontent.com/67569270/102721957-4f75fd80-4341-11eb-9d6e-302c8fb8e733.png" alt="npm_icon" width="120px">
+    <img src="https://user-images.githubusercontent.com/67569270/102723037-a7643280-4348-11eb-80c3-62bb678ceb50.png" alt="vue_icon" width="70px">
     <img src="https://user-images.githubusercontent.com/67569270/102721168-839aef80-433c-11eb-9a0f-b32accd56384.png" alt="electron_icon" width="60px">
   </div>
 
 ## 概要
+
 行ったことのない南国へ旅行に行った際、GoogleMapなどで調べても海が多すぎてどこに行くか迷います、
 一年ほど宮古島に住んでた頃に、あまり観光客が知らないようなローカルな海でも魅力的な海が非常にたくさんありました。
 そこで写真で海の魅力を伝えつつ、位置情報まで共有できるようなSNSがあるといいなと思い、作成してみました。
 
 ### AppURL
-- https://divingapp.ga/
 
+- ~~https://divingapp.ga/~~
 
-#### テストアカウント
+### テストアカウント
 - Email: test@test.com
 - Password: test1234
 
 <br>
 
 ### サーバサイド
+
 全てAPIで実装しました
 
 - ログイン機能
@@ -57,6 +59,7 @@
 - 各機能のユニットテスト
 
 ### サーバーサイドで苦戦したこと
+
 - Railsでは意識しなかったような実装や、コマンドの動きの違いがたくさんあり、勉強できることが非常にたくさんありました。
 - Laravel8だと他のバージョンと少し記法が違うところがあり、バージョン違いの記事を参照しているとエラーが起きた際の原因特定が非常に困難でした。
   公式リファレンスが非常に読みやすかったので公式にかじりついてました。
@@ -64,6 +67,7 @@
 <br>
 
 ### フロントエンド
+
 - ダークモード対応
 ![darkmode](https://user-images.githubusercontent.com/67569270/102039475-3e8f2e80-3e0d-11eb-80b3-c222f52157f3.gif)
 
@@ -80,13 +84,16 @@
 - [Electronでデスクトップアプリ化](https://github.com/taiga-tech/divingapp_for_electron-local/blob/master/README.md)
 
 ### PWA参考画像
+
 #### for Mac
+
 <p align="center">
   <img width="250" alt="スクリーンショット 2020-12-21 17 22 37" src="https://user-images.githubusercontent.com/67569270/102755028-28efab00-43b1-11eb-9d38-8e7537e3e9db.png">
   <img width="250" alt="pwa_mac" src="https://user-images.githubusercontent.com/67569270/102752353-c399bb00-43ac-11eb-9468-a04d09656a38.png"><br>
 </p>
 
 #### for iPhone
+
 <p align="center">
   <img width="200" alt="pwa_iphone" src="https://user-images.githubusercontent.com/67569270/102755160-5e949400-43b1-11eb-817d-395cce66d808.jpeg">
   <img width="200" alt="pwa_iphone" src="https://user-images.githubusercontent.com/67569270/102751788-c9db6780-43ab-11eb-9b67-12a5ab1b44ab.jpeg">
@@ -94,13 +101,16 @@
 </p>
 
 ### Electron参考画像
+
 <p align="center"><img width="250" alt="electron" src="https://user-images.githubusercontent.com/67569270/102720950-d2e02080-433a-11eb-9152-4e99f1911aac.png"></p>
 
 
 ### フロントエンドで苦戦したこと
+
 RailsではSassなどのコンパイルは自動でしていたらしく、コンパイルが必要なことすら知らなかったので、変更点が反映されなかったときに非常に困惑しました。
 
 ### インフラ
+
 - dockerを使用した環境構築
   docker-composeでデプロイをするので、docker-compose.ymlをローカル・本番で使い分けています。
 - ECRへのDockerイメージ保存
@@ -110,11 +120,13 @@ RailsではSassなどのコンパイルは自動でしていたらしく、コ�
 <br>
 
 ## デプロイ方法
-<b>AWSCloud Containers Conference2020で発表されたdocker-compose.ymlを使用してAWS Fargateへデプロイができる`"DockerCLIでのECS統合"`を使用してデプロイしました</b>
+
+**AWSCloud Containers Conference2020で発表されたdocker-compose.ymlを使用してAWS Fargateへデプロイができる`"DockerCLIでのECS統合"`を使用してデプロイしました**
 https://docs.docker.com/engine/context/ecs-integration/
 
 
 ### デプロイ手順
+
 - Dockerイメージをビルド
 - `aws-cli`を使用してECRへログイン
 - `aws-cli`を使用してECRへ最新イメージをPush
@@ -150,6 +162,7 @@ https://docs.docker.com/engine/context/ecs-integration/
 <br>
 
 ### デプロイで苦戦したこと
+
 - ホストからのDockerボリュームが対応していないのでS3や、EFSなどのストレージに保存するか、イメージに保存するしかない
   - Laravel本体はDockerfileでイメージに保存
   - DBのデータはEFSに保存
@@ -169,11 +182,14 @@ https://docs.docker.com/engine/context/ecs-integration/
 <br>
 
 ## CricleCIの動き
+
 ### Master Brunch 以外
+
 - テスト
 - テスト結果のSlack通知
 
 ### Master Brunch
+
 - テスト
 - テスト結果のSlack通知
 - ~~ECR Push~~
@@ -187,23 +203,25 @@ Docker ECS統合(`docker compose up`)も動かなかったので、完全自動�
 <br>
 
 #### Slack通知の参考画像
+
 ![Slack通知の参考画像](https://user-images.githubusercontent.com/67569270/96187946-d2ad5880-0f78-11eb-8eae-fb99a7af7cc7.png)
 
 <br>
 
 ## 開発環境
-|language|Version|
-|---|---|
-|Docker DeskTop|3.0.1|
-|Docker Engine|20.10.0|
-|docker-compose|1.27.4|
-|aws-cli|2.1.1|
-|PHP|7.4.13|
-|Laravel|8.11.2|
-|composer|2.0.8|
-|Node|15.4.0|
-|npm|7.0.15|
-|Vue|2.6.12|
+
+| language       | Version |
+| -------------- | ------- |
+| Docker DeskTop | 3.0.1   |
+| Docker Engine  | 20.10.0 |
+| docker-compose | 1.27.4  |
+| aws-cli        | 2.1.1   |
+| PHP            | 7.4.13  |
+| Laravel        | 8.11.2  |
+| composer       | 2.0.8   |
+| Node           | 15.4.0  |
+| npm            | 7.0.15  |
+| Vue            | 2.6.12  |
 
 <br>
 
@@ -240,94 +258,107 @@ Docker ECS統合(`docker compose up`)も動かなかったので、完全自動�
 ![ER図](https://user-images.githubusercontent.com/67569270/102034086-7e034e00-3e00-11eb-93d9-472d15fdc3ff.png)
 
 ### テーブル
+
 <details>
 <summary>開く</summary>
 
-### Users
-|Column|Type|Options|
-|------|----|-------|
-|provider_id|string|unique, nullable|
-|provider_name|string|unique, nullable|
-|userid|string|nullable|
-|email|string|unique|
-|password|string|nullable|
+#### Users
 
-#### Association
+| Column        | Type   | Options          |
+| ------------- | ------ | ---------------- |
+| provider_id   | string | unique, nullable |
+| provider_name | string | unique, nullable |
+| userid        | string | nullable         |
+| email         | string | unique           |
+| password      | string | nullable         |
+
+##### Association
+
 - hasOne->profile
 - hasMany->posts
 - hasMany->comments
 - hasMany->goods
 
-### profile
-|Column|Type|Options|
-|------|----|-------|
-|name|string||
-|image|string||
-|comment|string|nullable|
-|user_id|foreignId|unique|
+#### profile
 
-#### Association
+| Column  | Type      | Options  |
+| ------- | --------- | -------- |
+| name    | string    |          |
+| image   | string    |          |
+| comment | string    | nullable |
+| user_id | foreignId | unique   |
+
+##### Association
+
 - bolongsTo->user
 - hasMany->posts
 - hasMany->comments
 - hasMany->goods
 
-### posts
-|Column|Type|Options|
-|------|----|-------|
-|text|string||
-|place|string|nullable|
-|lat|double|nullable|
-|lng|double|nullable|
-|user_id|foreignId||
-|profile_id|foreignId||
+#### posts
 
-#### Association
+| Column     | Type      | Options  |
+| ---------- | --------- | -------- |
+| text       | string    |          |
+| place      | string    | nullable |
+| lat        | double    | nullable |
+| lng        | double    | nullable |
+| user_id    | foreignId |          |
+| profile_id | foreignId |          |
+
+##### Association
+
 - bolongsTo->user
 - bolongsTo->profile
 - hasMany->post_images
 - hasMany->comments
 - hasMany->goods
 
-### post_images
-|Column|Type|Options|
-|------|----|-------|
-|path|string||
-|post_id|foreignId||
+#### post_images
 
-#### Association
+| Column  | Type      | Options |
+| ------- | --------- | ------- |
+| path    | string    |         |
+| post_id | foreignId |         |
+
+##### Association
+
 - bolongsTo->post
 
-### post_comments
-|Column|Type|Options|
-|------|----|-------|
-|content|||
-|post_id|foreignId||
-|user_id|foreignId||
-|profile_id|foreignId||
+#### post_comments
 
-#### Association
+| Column     | Type      | Options |
+| ---------- | --------- | ------- |
+| content    |           |         |
+| post_id    | foreignId |         |
+| user_id    | foreignId |         |
+| profile_id | foreignId |         |
+
+##### Association
+
 - belongsTo->post
 - belongsTo->user
 - belongsTo->profile
 
-### post_goods
-|Column|Type|Options|
-|------|----|-------|
-|boolean|||
-|post_id|foreignId||
-|user_id|foreignId||
-|profile_id|foreignId||
+#### post_goods
 
-#### Association
+| Column     | Type      | Options |
+| ---------- | --------- | ------- |
+| boolean    |           |         |
+| post_id    | foreignId |         |
+| user_id    | foreignId |         |
+| profile_id | foreignId |         |
+
+##### Association
+
 - belongsTo->post
 - belongsTo->user
 - belongsTo->profile
 
 </details>
 
-
 ## 参考資料
+
 - https://docs.docker.com/storage/volumes/
 - https://docs.docker.com/engine/context/ecs-integration/
 - https://docs.aws.amazon.com/ja_jp/AmazonECS/latest/userguide/efs-volumes.html
